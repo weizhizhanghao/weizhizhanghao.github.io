@@ -959,6 +959,496 @@ xx.start();    //启动线程，run函数运行
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/日历和闹钟/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/日历和闹钟/" itemprop="url">日历</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>设置闹钟提醒<blockquote>
+<p>在Android 4.4 以后，为节省电池耗电等，不再使用一个重复闹钟，而是使用多个单次闹钟，当前一个闹钟到点提醒以后，再次设置下一个闹钟。</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="获取日历的当前时间"><a href="#获取日历的当前时间" class="headerlink" title="获取日历的当前时间"></a>获取日历的当前时间</h4><pre><code>public Date getStartTime(String startTime){
+     Date startDate = DateUtil.tFormat8(startTime);
+     Calendar calendar=Calendar.getInstance();
+     calendar.setTime(startDate);
+     Date nowDate = DateUtil.nowDate(BaseApplication.getContext());
+     Calendar nowCalendar = Calendar.getInstance();
+     nowCalendar.setTime(nowDate);
+     calendar.set(Calendar.YEAR, nowCalendar.get(Calendar.YEAR));
+     calendar.set(Calendar.MONTH, nowCalendar.get(Calendar.MONTH));
+     calendar.set(Calendar.DAY_OF_MONTH, nowCalendar.get(Calendar.DAY_OF_MONTH));
+     return calendar.getTime();
+}
+</code></pre><p>####判断某个日期的所属的星座<br>    public class ConstellationUtil{<br>        private final static int[] dayArr = new int[]{20, 19, 21, 20, 21, 22, 23, 23, 23, 24, 23, 22};<br>        private final static String[] constellationArr = new String[]{ “摩羯座”, “水瓶座”, “双鱼座”, “白羊座”, “金牛座”, “双子座”, “巨蟹座”, “狮子座”, “处女座”, “天秤座”, “天蝎座”, “射手座”, “摩羯座”};</p>
+<pre><code>    public static String getConstellation(int month, int day){
+        return day &lt; dayArr[month - 1] ? constellationArr[month - 1] : constellationArr[month];
+    }
+
+    public static getConstellation(Date date){
+        if(date == null)
+            return &quot;&quot;;
+        Calendar canlendar = Calendar.getInstance();
+        canlendar.setTime(date);
+        int month = canlendar.get(Calendar.MONTH) + 1;
+        int day = canlendar.get(Calendar.DAY_OF_MONTH);
+
+        return getConstellation(month, day);
+    }
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/NewIntent_method/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/NewIntent_method/" itemprop="url">Intent 新方式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Intent-新方式"><a href="#Intent-新方式" class="headerlink" title="Intent 新方式"></a>Intent 新方式</h3><blockquote>
+<p>可以避免在传值的时候如果前后命名不统一出现的问题：</p>
+</blockquote>
+<pre><code>Class A extends Activity(){
+
+        public static Intent newIntent(Context context,String url,String title) {
+            Map&lt;String,String&gt; queryParameters=new LinkedHashMap&lt;&gt;();
+            queryParameters.put(UrlConstant.USER_ID,&quot;&quot;);
+            queryParameters.put(UrlConstant.DEVICE_ID, &quot;&quot;);
+            url= UrlUtils.splitJoint(url,queryParameters);
+            Bundle bundle=new Bundle();
+            bundle.putString(A.WEB_VIEW_BUNDLE_TITLE,title);
+            bundle.putString(A.WEB_VIEW_BUNDLE_LOAD_URL, url);
+            Intent intent=new Intent(context, A.class);
+            intent.putExtra(A.WEBVIEW_BUNDLE_NAME,bundle);
+            return intent;
+        }
+    }
+
+
+    Class B extends Activity{
+    String incomeRuleUrl = ServiceUrlConstants.URL.getIncomeRuleUrl();
+        startActivity(A.newIntent(this, incomeRuleUrl, &quot;收益规则&quot;));
+    }
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/ImageLoader/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/ImageLoader/" itemprop="url">ImageLoader</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="ImageLoader相关的内容："><a href="#ImageLoader相关的内容：" class="headerlink" title="ImageLoader相关的内容："></a>ImageLoader相关的内容：</h3><ul>
+<li><p>基本格式</p>
+<pre><code>public class MyAppliction extends Application {
+
+    @Override
+    public void onCreate() {
+
+        super.onCreate();
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+        ....
+        .build();
+
+        ImageLoader.getInstance().init(config);
+
+    }
+}
+</code></pre></li>
+<li><p>没有把图片缓存在sd卡中的实现方式</p>
+<pre><code>public class MyAppliction extends Application {
+
+    @Override
+    public void onCreate() {
+
+    super.onCreate();
+
+    //对config 的定义与实现
+    ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
+                                .threadProirity(Thread.NORM_PROIRITY - 2)
+                                .denyCacheImageMultipleSizeInMemory()
+                                .discCacheFileNameGenerator(new Md5FileNameGenerator())
+                                .tasksProcessingOrder(QueueProcessingType.LIFO)
+                                .enableLogging()
+                                .build();
+    ImageLoader.getInstance().init(config);
+
+    }
+}
+</code></pre></li>
+</ul>
+<ul>
+<li><p>将图片缓存在SD卡中的实现方式</p>
+<pre><code>public class MyAppliction extends Application {
+
+    @Override
+    public void onCreate() {
+
+    super.onCreate();
+
+    //对config 的定义与实现
+    DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+            .cacheInMemory()
+            .cacheOnDisc()
+            .build();
+    ImageLoaderConfiguration config2 = new ImageLoaderConfiguration.Builder(context)
+            .defaultDisplayImageOptions(defaultOptions)
+            .threadProirity(Thread.NORM_PROIRITY - 2)
+            .denyCacheImageMultipleSizeInMemory()
+            .discCacheFileNameGenerator(new Md5FileNameGenerator())
+            .tasksProcessingOrder(QueueProcessingType.LIFO)
+            .enableLogging()//Not necessary in common // 1.8.6包，把这句话删除
+            .build();
+    ImageLoader.getInstance().init(config2);
+    }
+}   
+</code></pre></li>
+</ul>
+<ul>
+<li><p>图片加载时候，添加监听和加载进度条的代码</p>
+<pre><code>imageLoader.displayImage(imageUrl, imageView, options, new ImageLoadingListener(){
+
+    @Override
+    public void onLoadingStarted(){
+
+    }
+
+    @Override
+    public void onLoadingFailed(){
+
+    }
+
+    @Override
+    public void onLoadingComplted(){
+
+    }
+
+    @Override
+    public void onLoadingCancelled(){
+
+    }//如果不需要加载进度条的话，后面的就可以直接不用写
+    , new ImageLoadingProgressListener(){
+        @Override
+        public void onProgressUpdate(String imageUrl, View view, int current, int total){
+            //在这里更新 ProgressBar 的进度信息
+        }
+    }
+})
+</code></pre></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/NodeProgrammer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1099,141 +1589,6 @@ hello();
 <p>· 重做 Ctrl + Y</p>
 <hr>
 
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/NewIntent_method/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/NewIntent_method/" itemprop="url">Intent 新方式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Intent-新方式"><a href="#Intent-新方式" class="headerlink" title="Intent 新方式"></a>Intent 新方式</h3><blockquote>
-<p>可以避免在传值的时候如果前后命名不统一出现的问题：</p>
-</blockquote>
-<pre><code>Class A extends Activity(){
-
-        public static Intent newIntent(Context context,String url,String title) {
-            Map&lt;String,String&gt; queryParameters=new LinkedHashMap&lt;&gt;();
-            queryParameters.put(UrlConstant.USER_ID,&quot;&quot;);
-            queryParameters.put(UrlConstant.DEVICE_ID, &quot;&quot;);
-            url= UrlUtils.splitJoint(url,queryParameters);
-            Bundle bundle=new Bundle();
-            bundle.putString(A.WEB_VIEW_BUNDLE_TITLE,title);
-            bundle.putString(A.WEB_VIEW_BUNDLE_LOAD_URL, url);
-            Intent intent=new Intent(context, A.class);
-            intent.putExtra(A.WEBVIEW_BUNDLE_NAME,bundle);
-            return intent;
-        }
-    }
-
-
-    Class B extends Activity{
-    String incomeRuleUrl = ServiceUrlConstants.URL.getIncomeRuleUrl();
-        startActivity(A.newIntent(this, incomeRuleUrl, &quot;收益规则&quot;));
-    }
-</code></pre>
           
         
       
@@ -1601,303 +1956,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter&lt;RecycleViewAdapt
         }
         return arrayList;
     }
-}
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Retrofit/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/Retrofit/" itemprop="url">Retrofit</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Retrofit-网络请求协议："><a href="#Retrofit-网络请求协议：" class="headerlink" title="Retrofit 网络请求协议："></a>Retrofit 网络请求协议：</h3><blockquote>
-<p>在 Retrofit 整个网络请求参数主要分成 ： scheme， authority， path， query， header， body 六块 。<br>其中authority可以进一步划分为：host：port<br>示例：host：www.java2s.com   ：   port: 8080</p>
-</blockquote>
-<ul>
-<li><p>在整个结构中，将scheme 和  authority 这两者的合体称为 baseurl ,接口方法如下：</p>
-<pre><code>Retrofit retrofit = new Retrofit.Builder()
-    .baseUrl(&quot;https://api.github.com/&quot;)
-    .build();
-</code></pre></li>
-<li>header 分为两种</li>
-</ul>
-<blockquote>
-<p>第一种，静态header：又分为   a: 单个键值对注解   和     b: 多个键值对注解</p>
-<p>第二种：动态header : 又分为    a:  局部动态header（分为单个键值对和多个键值对）   和   b: 全局动态header（适用于项目中的header规则一致的情况）</p>
-</blockquote>
-<ul>
-<li><p>这里采用 OKHttp 的 interceptor 作例：</p>
-<pre><code>private static void initHttpClient(){
-    OKHttpClient.Builder httpClientBuilder = new OKHttpClient.Builder();
-    if(httpClientBuilder.interceptors() != null){
-        httpClientBuilder.interceptors().clear();
-    }
-
-    httpClientBuilder.addInterceptor(new Interceptor(){
-        @Override
-        public Response intercept(Chain chain) throws IOException{
-
-            //这里可以获取到请求的request 所有的数据
-
-            Request request = chain.request();
-            String path = request.url().encodedPath();
-            String query = request.url().query();
-
-            Request interRequest = chain.request().newBuilder()
-                .headers(Headers.of(Map yourHeader))
-                .build();
-
-            return chain.proceed(interRequest);
-        }
-    })
-    .connectTimeout(10, TimeUnit.SECONDS)
-    .readTimeout(10, TimeUnit.SECONDS);
-
-    mOkHttpClient = httpClientBuilder.build();
-}
-</code></pre></li>
-</ul>
-<ul>
-<li><p>构建Retrofit 实例：</p>
-<pre><code>public static Retrofit retrofit(){
-    if(mRetrofit == null){
-        initHttpClient();
-        mRetrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(mOKHttpClient)
-                .addConvertFactory(GsonConvertFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .builder();
-    }
-    return mRetrofit;
-}
-</code></pre></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Toast的封装/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/Toast的封装/" itemprop="url">Toast的封装</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="Toast的封装"><a href="#Toast的封装" class="headerlink" title="Toast的封装"></a>Toast的封装</h4><pre><code>public class Util {
-
-private static Toast toast;
-public static void showToast(Context context, String content){
-          if(toast == null){
-                    toast = Toast.makeText(context,content,Toast.LENGTH_SHORT);
-               } else {
-                toast.setText(content );
-               }
-           toast.show();
-     }
 }
 </code></pre>
           

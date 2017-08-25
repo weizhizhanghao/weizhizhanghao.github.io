@@ -253,7 +253,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Snack的使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Retrofit/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HM">
@@ -272,7 +272,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/06/19/Snack的使用/" itemprop="url">Snacbar的使用方法</a></h1>
+                <a class="post-title-link" href="/2017/06/19/Retrofit/" itemprop="url">Retrofit</a></h1>
         
 
         <div class="post-meta">
@@ -321,16 +321,70 @@
       
         
           
-            <h4 id="Snacbar的使用方法"><a href="#Snacbar的使用方法" class="headerlink" title="Snacbar的使用方法"></a>Snacbar的使用方法</h4><pre><code>Snacbar.make(view, &quot;data deleted&quot;,
-               Snackbar.LENGTH_LONG)
-               .setAction(&quot;Undo&quot;,
-               new View.OnclickListener(){
-               @override
-               public void onclick(View v){
-                   // do something
-               }
-          }).show();
-</code></pre>
+            <h3 id="Retrofit-网络请求协议："><a href="#Retrofit-网络请求协议：" class="headerlink" title="Retrofit 网络请求协议："></a>Retrofit 网络请求协议：</h3><blockquote>
+<p>在 Retrofit 整个网络请求参数主要分成 ： scheme， authority， path， query， header， body 六块 。<br>其中authority可以进一步划分为：host：port<br>示例：host：www.java2s.com   ：   port: 8080</p>
+</blockquote>
+<ul>
+<li><p>在整个结构中，将scheme 和  authority 这两者的合体称为 baseurl ,接口方法如下：</p>
+<pre><code>Retrofit retrofit = new Retrofit.Builder()
+    .baseUrl(&quot;https://api.github.com/&quot;)
+    .build();
+</code></pre></li>
+<li>header 分为两种</li>
+</ul>
+<blockquote>
+<p>第一种，静态header：又分为   a: 单个键值对注解   和     b: 多个键值对注解</p>
+<p>第二种：动态header : 又分为    a:  局部动态header（分为单个键值对和多个键值对）   和   b: 全局动态header（适用于项目中的header规则一致的情况）</p>
+</blockquote>
+<ul>
+<li><p>这里采用 OKHttp 的 interceptor 作例：</p>
+<pre><code>private static void initHttpClient(){
+    OKHttpClient.Builder httpClientBuilder = new OKHttpClient.Builder();
+    if(httpClientBuilder.interceptors() != null){
+        httpClientBuilder.interceptors().clear();
+    }
+
+    httpClientBuilder.addInterceptor(new Interceptor(){
+        @Override
+        public Response intercept(Chain chain) throws IOException{
+
+            //这里可以获取到请求的request 所有的数据
+
+            Request request = chain.request();
+            String path = request.url().encodedPath();
+            String query = request.url().query();
+
+            Request interRequest = chain.request().newBuilder()
+                .headers(Headers.of(Map yourHeader))
+                .build();
+
+            return chain.proceed(interRequest);
+        }
+    })
+    .connectTimeout(10, TimeUnit.SECONDS)
+    .readTimeout(10, TimeUnit.SECONDS);
+
+    mOkHttpClient = httpClientBuilder.build();
+}
+</code></pre></li>
+</ul>
+<ul>
+<li><p>构建Retrofit 实例：</p>
+<pre><code>public static Retrofit retrofit(){
+    if(mRetrofit == null){
+        initHttpClient();
+        mRetrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(mOKHttpClient)
+                .addConvertFactory(GsonConvertFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .builder();
+    }
+    return mRetrofit;
+}
+</code></pre></li>
+</ul>
+
           
         
       
@@ -780,6 +834,126 @@ AppController.getInstance().getRequestQueue().cancelAll(&quot;feed_request&quot;
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Snack的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/Snack的使用/" itemprop="url">Snacbar的使用方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Snacbar的使用方法"><a href="#Snacbar的使用方法" class="headerlink" title="Snacbar的使用方法"></a>Snacbar的使用方法</h4><pre><code>Snacbar.make(view, &quot;data deleted&quot;,
+               Snackbar.LENGTH_LONG)
+               .setAction(&quot;Undo&quot;,
+               new View.OnclickListener(){
+               @override
+               public void onclick(View v){
+                   // do something
+               }
+          }).show();
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/监听函数优化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -883,887 +1057,6 @@ public void onClick(View v) {
         Intent gradeIntent = new Intent(activity, GradeActivity.class);
         activity.startActivity(gradeIntent);
     }
-}
-</code></pre></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/批量打包方式优化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/批量打包方式优化/" itemprop="url">批量打包</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="批量打包"><a href="#批量打包" class="headerlink" title="批量打包"></a>批量打包</h3><ul>
-<li>首先修改manifest文件内容：</li>
-</ul>
-<blockquote>
-<p>原文件：</p>
-</blockquote>
-<pre><code>package com.zcdog.util.info.android;
-
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.text.TextUtils;
-
-import java.io.IOException;
-import java.util.Enumeration;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-
-public class ManifestUtil {
-    private static final String SP_CONFIG_NAME = &quot;channel-sp&quot;;
-    private static final String SP_KEY = &quot;channel_id&quot;;
-    public static final String START_FLAG = &quot;META-INF/channel_&quot;;
-
-    /**
-     * 获取META-INFO下面的渠道
-     *
-     * @param context
-     * @return
-     */
-    public static String getChannel(Context context) {
-        SharedPreferences sp = context.getSharedPreferences(SP_CONFIG_NAME, Context.MODE_PRIVATE);
-        String channel = sp.getString(SP_KEY, null);
-        if (!TextUtils.isEmpty(channel)) {
-            return channel;
-        }
-        ApplicationInfo appinfo = context.getApplicationInfo();
-        String sourceDir = appinfo.sourceDir;
-        ZipFile zipfile = null;
-        try {
-            zipfile = new ZipFile(sourceDir);
-            Enumeration&lt;?&gt; entries = zipfile.entries();
-            while (entries.hasMoreElements()) {
-                ZipEntry entry = ((ZipEntry) entries.nextElement());
-                String entryName = entry.getName();
-                if (entryName.contains(START_FLAG)) {
-                    channel = entryName.replaceAll(START_FLAG, &quot;&quot;);
-                    sp.edit().putString(SP_KEY, channel).apply();
-                    return channel;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (zipfile != null) {
-                try {
-                    zipfile.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return &quot;&quot;;
-
-    }
-}
-</code></pre><blockquote>
-<p>修改后的文件：</p>
-</blockquote>
-<pre><code>package com.zcdog.util.info.android;
-
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.text.TextUtils;
-
-import java.io.IOException;
-import java.util.Enumeration;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-
-public class ManifestUtil {
-
-    public static final String START_FLAG = &quot;META-INF/channel_&quot;;
-    public static final String SEPARATOR = &quot;%&quot;;
-    private static final String TAG =&quot;ManifestUtilTag&quot;;
-    public static String channel;
-    public static String inviteCode=&quot;&quot;;
-
-    /**
-     * 获取META-INFO下面的渠道,如果为空，尝试获取metaData下的配置的渠道
-     * @param context
-     * @return
-     */
-    public static String getChannel(Context context) {
-        if (!TextUtils.isEmpty(channel)) {
-            return channel;
-        }
-        initMetaInfData(context);
-        Logger.d(TAG,&quot;channel==&quot;+channel);
-        return channel;
-    }
-
-    /**
-     * 获取邀请码
-     *
-     * @param context
-     * @return
-     */
-    public static String getInviteCode(Context context) {
-        if (!TextUtils.isEmpty(inviteCode)) {
-            return inviteCode;
-        }
-        initMetaInfData(context);
-        Logger.d(TAG,&quot;inviteCode==&quot;+inviteCode);
-        return inviteCode;
-    }
-
-    /**
-     * 获取Manifest里面配置的metaData数据信息
-     */
-    public static String getMetaDataValue(Context context, String metaDataName) {
-        String channel = &quot;&quot;;
-        try {
-            channel = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA).metaData.getString(metaDataName);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            channel = &quot;UnKnown_zcdog&quot;;
-        }
-        return channel;
-    }
-
-    /**
-     * 第一次获取META-INF/channel_的数据信息
-     * @param context
-     */
-    private static void initMetaInfData(Context context){
-        ApplicationInfo appinfo = context.getApplicationInfo();
-        String sourceDir = appinfo.sourceDir;
-        ZipFile zipfile = null;
-        try {
-            zipfile = new ZipFile(sourceDir);
-            Enumeration&lt;?&gt; entries = zipfile.entries();
-            while (entries.hasMoreElements()) {
-                ZipEntry entry = ((ZipEntry) entries.nextElement());
-                String entryName = entry.getName();
-                if (entryName.contains(START_FLAG)) {
-                    String channelAndInviteCode = entryName.replaceAll(START_FLAG, &quot;&quot;);
-                    //判断是否有邀请码
-                    String[] valuesArray = channelAndInviteCode.split(SEPARATOR);
-                    if (valuesArray != null &amp;&amp; valuesArray.length &gt; 1) {
-                        channel = valuesArray[0];
-                        inviteCode = valuesArray[1];
-                    } else {
-                        channel = channelAndInviteCode;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (zipfile != null) {
-                try {
-                    zipfile.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        if (TextUtils.isEmpty(channel)) {
-            channel = getMetaDataValue(context, &quot;DISTRIBUTION_CHANNEL&quot;);
-        }
-    }
-}
-</code></pre><ul>
-<li>然后修改Python脚本：</li>
-</ul>
-<blockquote>
-<p>原脚本：</p>
-</blockquote>
-<pre><code>import sys,os,shutil,zipfile,time
-apkVersion=&quot;3.5&quot;
-apkPrefixName=&quot;Zcdog&quot;
-srcFileName=apkPrefixName+apkVersion+&quot;_normal.apk&quot;
-apksDir=&quot;apks&quot;
-destDir=os.path.abspath(&apos;.&apos;)
-target_file=&quot;channel.apk&quot;
-
-file=open(&quot;channels.txt&quot;)
-
-def writeChannelToApk(filename,channel):
-        z=zipfile.ZipFile(filename,&apos;a&apos;,zipfile.ZIP_DEFLATED)
-        empty_channel_file=&quot;META-INF/channel_{channe}&quot;.format(channe=channel)
-        if not os.path.exists(target_file):
-            open(target_file,&apos;a&apos;).close()
-        z.write(target_file,empty_channel_file)
-        z.close()
-        print &quot;writeChannelToApkchannel&quot;+channel+&quot;,&quot;+filename+&quot;\n&quot;
-
-def cpFile(srcPath,fileName):
-    destPath = destDir + os.path.sep + fileName
-    if os.path.exists(srcPath) and not os.path.exists(destPath):
-        shutil.copy(srcPath,destPath)
-
-
-
-if not os.path.exists(srcFileName):
-    print &quot;source file &quot;+srcFileName+&quot; not exists&quot;
-    sys.exit(1)
-
-
-start = time.clock()
-
-if not os.path.exists(apksDir):
-    os.makedirs(apksDir)
-
-for line in file:
-    channel=line.strip(&apos;\n&apos;).strip()
-    targetFileName=apksDir+&quot;/&quot;+apkPrefixName+apkVersion+&quot;_&quot;+channel+&quot;.apk&quot;
-    print &quot;copyfile:&quot;+targetFileName
-    cpFile(srcFileName,targetFileName)
-    writeChannelToApk(targetFileName,channel)
-end = time.clock()
-
-print(&quot;The function run time is : %.03f seconds&quot; %(end-start))
-
-
-#heliao-app-91-5.1.1
-</code></pre><blockquote>
-<p>修改后的脚本：</p>
-</blockquote>
-<pre><code>import sys,os,shutil,zipfile,time
-apkVersion=&quot;3.5&quot;
-apkPrefixName=&quot;Zcdog&quot;
-srcFileName=apkPrefixName+apkVersion+&quot;_normal.apk&quot;
-apksDir=&quot;apks&quot;
-destDir=os.path.abspath(&apos;.&apos;)
-target_file=&quot;channel.apk&quot;
-separator=&quot;%&quot;;
-file=open(&quot;channels.txt&quot;)
-
-def writeChannelToApk(filename,channel):
-        z=zipfile.ZipFile(filename,&apos;a&apos;,zipfile.ZIP_DEFLATED)
-        empty_channel_file=&quot;META-INF/channel_{channe}&quot;.format(channe=channel)
-        if not os.path.exists(target_file):
-            open(target_file,&apos;a&apos;).close()
-        z.write(target_file,empty_channel_file)
-        z.close()
-        print &quot;writeChannelToApkchannel&quot;+channel+&quot;,&quot;+filename+&quot;\n&quot;
-
-def cpFile(srcPath,fileName):
-    destPath = destDir + os.path.sep + fileName
-    if os.path.exists(srcPath) and not os.path.exists(destPath):
-        shutil.copy(srcPath,destPath)
-
-
-
-if not os.path.exists(srcFileName):
-    sys.exit(1)
-
-
-start = time.clock()
-
-if os.path.exists(apksDir):
-    shutil.rmtree(apksDir)
-    os.makedirs(apksDir)
-else:
-    os.makedirs(apksDir)
-
-
-for line in file:
-    channelAndInviteCode=line.strip(&apos;\n&apos;).strip()
-    channel=channelAndInviteCode.split(separator)[0]
-    print &quot;channel_name==&quot;+channel
-    targetFileName=apksDir+&quot;/&quot;+apkPrefixName+apkVersion+&quot;_&quot;+channel+&quot;.apk&quot;
-    print &quot;copyfile:&quot;+targetFileName
-    cpFile(srcFileName,targetFileName)
-    writeChannelToApk(targetFileName,channelAndInviteCode)
-end = time.clock()
-
-print(&quot;The function run time is : %.03f seconds&quot; %(end-start))
-
-
-#heliao-app-91-5.1.1
-</code></pre><blockquote>
-<p>修改之前读取邀请码的函数：</p>
-</blockquote>
-<pre><code>//读取配置文件的当前渠道对应的邀请码
-    AssetManager assetManager= BaseApplication.getContext().getAssets();
-    InputStream ins=null;
-    try {
-        ins=assetManager.open(&quot;channel.properties&quot;);
-        Properties properties=new Properties();
-        properties.load(ins);
-        String chanelName= Misc.getChannelValue();
-        String inviteCode=properties.getProperty(chanelName);
-        Logger.d(TAG, &quot;inviteCode&quot; + inviteCode + &quot;:chanelName==&quot; + chanelName);
-        if(inviteCode!=null&amp;&amp;!inviteCode.isEmpty()){
-            et_invite_code.setText(inviteCode);
-        }
-    } catch (IOException e) {
-        e.printStackTrace();
-    }finally {
-       if (ins!=null){
-           try {
-               ins.close();
-           } catch (IOException e) {
-               e.printStackTrace();
-           }
-       }
-    }
-</code></pre><blockquote>
-<p>修改之后获取邀请码的函数：</p>
-</blockquote>
-<pre><code>//读取配置文件的当前渠道对应的邀请码
-   String inviteCode = ManifestUtil.getInviteCode(BaseApplication.getContext());
-   if (!TextUtils.isEmpty(inviteCode)) {
-       et_invite_code.setText(inviteCode);
-   }
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/ImageLoader/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/ImageLoader/" itemprop="url">ImageLoader</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="ImageLoader相关的内容："><a href="#ImageLoader相关的内容：" class="headerlink" title="ImageLoader相关的内容："></a>ImageLoader相关的内容：</h3><ul>
-<li><p>基本格式</p>
-<pre><code>public class MyAppliction extends Application {
-
-    @Override
-    public void onCreate() {
-
-        super.onCreate();
-
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
-        ....
-        .build();
-
-        ImageLoader.getInstance().init(config);
-
-    }
-}
-</code></pre></li>
-<li><p>没有把图片缓存在sd卡中的实现方式</p>
-<pre><code>public class MyAppliction extends Application {
-
-    @Override
-    public void onCreate() {
-
-    super.onCreate();
-
-    //对config 的定义与实现
-    ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
-                                .threadProirity(Thread.NORM_PROIRITY - 2)
-                                .denyCacheImageMultipleSizeInMemory()
-                                .discCacheFileNameGenerator(new Md5FileNameGenerator())
-                                .tasksProcessingOrder(QueueProcessingType.LIFO)
-                                .enableLogging()
-                                .build();
-    ImageLoader.getInstance().init(config);
-
-    }
-}
-</code></pre></li>
-</ul>
-<ul>
-<li><p>将图片缓存在SD卡中的实现方式</p>
-<pre><code>public class MyAppliction extends Application {
-
-    @Override
-    public void onCreate() {
-
-    super.onCreate();
-
-    //对config 的定义与实现
-    DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-            .cacheInMemory()
-            .cacheOnDisc()
-            .build();
-    ImageLoaderConfiguration config2 = new ImageLoaderConfiguration.Builder(context)
-            .defaultDisplayImageOptions(defaultOptions)
-            .threadProirity(Thread.NORM_PROIRITY - 2)
-            .denyCacheImageMultipleSizeInMemory()
-            .discCacheFileNameGenerator(new Md5FileNameGenerator())
-            .tasksProcessingOrder(QueueProcessingType.LIFO)
-            .enableLogging()//Not necessary in common // 1.8.6包，把这句话删除
-            .build();
-    ImageLoader.getInstance().init(config2);
-    }
-}   
-</code></pre></li>
-</ul>
-<ul>
-<li><p>图片加载时候，添加监听和加载进度条的代码</p>
-<pre><code>imageLoader.displayImage(imageUrl, imageView, options, new ImageLoadingListener(){
-
-    @Override
-    public void onLoadingStarted(){
-
-    }
-
-    @Override
-    public void onLoadingFailed(){
-
-    }
-
-    @Override
-    public void onLoadingComplted(){
-
-    }
-
-    @Override
-    public void onLoadingCancelled(){
-
-    }//如果不需要加载进度条的话，后面的就可以直接不用写
-    , new ImageLoadingProgressListener(){
-        @Override
-        public void onProgressUpdate(String imageUrl, View view, int current, int total){
-            //在这里更新 ProgressBar 的进度信息
-        }
-    }
-})
-</code></pre></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Fragmentment-data-save/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/Fragmentment-data-save/" itemprop="url">Fragmentment data save</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/仿雅虎天气的滚动模糊防止滑动留白/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/仿雅虎天气的滚动模糊防止滑动留白/" itemprop="url">仿雅虎天气的滚动模糊防止滑动留白</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><p>仿雅虎天气的滚动模糊防止滑动留白的代码</p>
-<pre><code>void setImageHeight(ImageView imageView, Context context){
-
-    WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-
-    Display display = windowManager.getDefaultDisplay();
-    Point point = new Point();
-    display.getSize(point);
-
-    int height = point.y;
-    ViewGroup.LayoutParams params = imageView.getLayoutParams();
-    params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-    params.height = height + 100;
-
-    imageView.requestLayout();
 }
 </code></pre></li>
 </ul>
@@ -1938,7 +1231,7 @@ print(&quot;The function run time is : %.03f seconds&quot; %(end-start))
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/反射机制的实现/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/代码小结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HM">
@@ -1957,7 +1250,7 @@ print(&quot;The function run time is : %.03f seconds&quot; %(end-start))
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/06/19/反射机制的实现/" itemprop="url">反射机制</a></h1>
+                <a class="post-title-link" href="/2017/06/19/代码小结/" itemprop="url">代码小结</a></h1>
         
 
         <div class="post-meta">
@@ -2006,186 +1299,283 @@ print(&quot;The function run time is : %.03f seconds&quot; %(end-start))
       
         
           
-            <h3 id="反射机制的实现"><a href="#反射机制的实现" class="headerlink" title="反射机制的实现"></a>反射机制的实现</h3><h4 id="反射机制：代码示例："><a href="#反射机制：代码示例：" class="headerlink" title="反射机制：代码示例："></a>反射机制：代码示例：</h4><ul>
-<li><p>被引用类</p>
-<pre><code>package com.zcdog.dogtv.manager.interval;
-
-import com.zcdog.dogtv.entity.RedDotEntity;
-import com.zcdog.dogtv.model.RedDotModel2;
-import com.zcdog.dogtv.view.user.RedDotViewAdapter;
-import com.zcdog.util.info.android.Logger;
-import com.zcdog.zchat.ui.view.ZChatRedDotView;
-
-/**
- * 警告：该类被 ZChat 模块通过反射调用，改动需谨慎
- * &lt;p/&gt;
- * Created by Ivey on 2016/5/21.
- */
-public class RefreshFriendHallRedDotHelper {
-
-    private static final String TAG = &quot;RefreshFriendHallRedDotHelper&quot;;
-
-    public static void refreshVisitorsRedDotStatus(Boolean show) {
-        if (RedDotModel2.redDotCache != null &amp;&amp; RedDotModel2.redDotCache.getMap() != null) {
-            RedDotEntity redDotEntity = RedDotModel2.redDotCache.getMap().get(RedDotModel2.ZCHAT_VISITOR_TYPE);
-            if (redDotEntity != null) {
-                Logger.d(TAG, &quot;更新 最近访客 的红点状态&quot;);
-                if (show) {
-                    redDotEntity.setNumber(0);
-                }
-                redDotEntity.setShow(show);
-                RedDotModel2.saveCache();
-            }
-        }
-    }
-
-    public static void refreshMsgRedDotStatus(Integer number) {
-        if (RedDotModel2.redDotCache != null &amp;&amp; RedDotModel2.redDotCache.getMap() != null) {
-            RedDotEntity redDotEntity = RedDotModel2.redDotCache.getMap().get(RedDotModel2.ZCHAT_MESSAGE_ROOT_TYPE);
-            if (redDotEntity != null) {
-                Logger.d(TAG, &quot;更新 未读消息 的红点状态&quot;);
-                if (number &lt;= 0) {
-                    redDotEntity.setShow(false);
-                } else {
-                    redDotEntity.setNumber(number);
-                    redDotEntity.setShow(true);
-                }
-            }
-        }
-    }
-
-    public static void setRedDotIcon(ZChatRedDotView redDotView) {
-        if (RedDotModel2.redDotCache != null &amp;&amp; RedDotModel2.redDotCache.getMap() != null) {
-            RedDotEntity redDotEntity = RedDotModel2.redDotCache.getMap().get(redDotView.getType());
-            if (redDotEntity != null) {
-                redDotEntity.setRedDotIcon(new RedDotViewAdapter(redDotView));
-            }
-        }
-    }
-
+            <ul>
+<li><p>过滤器可以设置优先级：</p>
+<pre><code>IntentFilter filter = new IntentFilter();
+filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+</code></pre></li>
+<li><p>获取随机函数</p>
+<pre><code>private static int getRandom(int sumWeight) {
+    return (int) Math.round(Math.random() * sumWeight);
 }
 </code></pre></li>
-<li><p>引用类：</p>
-<pre><code>package com.zcdog.zchat.manager;
+<li><p>Bundle 的传值使用方法：</p>
+<pre><code>Bundle bundle = new Bundle();
+bundle.putString(&quot;a&quot;, &quot;sub&quot;);
+bundle.putString(&quot;b&quot;, &quot;let&quot;);
 
-import com.zcdog.zchat.ui.view.ZChatRedDotView;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-/**
- * SmartLocker 模块中 RefreshFriendHallRedDotHelper 类的映射
- * &lt;p/&gt;
- * Created by Ivey on 2016/5/21.
- */
-public class ZChatRefreshFriendHallRedDotHelper {
-    private static final String TAG = &quot;ZChatRefreshFriendHallRedDotHelper&quot;;
-
-    private static final String CLASS_NAME = &quot;com.zcdog.dogtv.manager.interval.RefreshFriendHallRedDotHelper&quot;;
-
-    public static void refreshVisitorsRedDotStatus(boolean show) {
-        try {
-            Class RefreshFriendHallRedDotHelper = Class.forName(CLASS_NAME);
-            Method refreshVisitorsRedDotStatus = RefreshFriendHallRedDotHelper.getMethod(&quot;refreshVisitorsRedDotStatus&quot;, Boolean.class);
-            refreshVisitorsRedDotStatus.invoke(null, show);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+Intent intent = new Intent(this, activityA.class);
+intent.putExtra(&quot;all&quot;, bundle);
+startActivity(intent);
+</code></pre></li>
+<li><p>代码设置屏幕竖屏：</p>
+<pre><code>setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+</code></pre></li>
+<li><p>设置延时的handler：</p>
+<pre><code>handler.postDelayed(new Runnable() {
+    @Override
+    public void run() {
+        DaemonServiceManager.startDaemonService(LauncherActivity.this);
+        startMainActivity(true);
+        handler.sendEmptyMessageDelayed(FINISH_WHAT, FINISH_INTERVAL_TIME);
     }
-
-    public static void refreshMsgRedDotStatus(int number) {
-        try {
-            Class RefreshFriendHallRedDotHelper = Class.forName(CLASS_NAME);
-            Method refreshVisitorsRedDotStatus = RefreshFriendHallRedDotHelper.getMethod(&quot;refreshMsgRedDotStatus&quot;, Integer.class);
-            refreshVisitorsRedDotStatus.invoke(null, number);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void setRedDotIcon(ZChatRedDotView redDotView) {
-        try {
-            Class RefreshFriendHallRedDotHelper = Class.forName(CLASS_NAME);
-            Method refreshVisitorsRedDotStatus = RefreshFriendHallRedDotHelper.getMethod(&quot;setRedDotIcon&quot;, ZChatRedDotView.class);
-            refreshVisitorsRedDotStatus.invoke(null, redDotView);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
-
-}
+}, intervalTime);
+</code></pre></li>
+<li><p>在Android里面</p>
+<pre><code>view = new ImageView(context);
+view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+view.setBackgroundResource(R.drawerable.**);
 </code></pre></li>
 </ul>
-<ul>
-<li><p>自己手动总结如下：</p>
-<pre><code> public class ATest(){
-     private static final TAG = &quot;ATest&quot;;
+<blockquote>
+<p>中，资源文件只能是图片等资源文件，布局文件是不能这样写的，如果要嵌入布局，如下：</p>
+</blockquote>
+<pre><code>view =  View.inflate(Context context, R.layout.**, null);
+</code></pre>
+          
+        
+      
+    </div>
 
-     public static void functionOne(Boolean ValueA){
-          //do something
-     }
+    <div>
+      
+    </div>
 
- public static void functionTwo(Integer ValueB){
-          //do something
-     }
-}
+    <div>
+      
+    </div>
 
-public class BTest(){
-     private static String TAG = &quot;BTest&quot;;
-     private static final String CLASS_NAME = &quot;包名.ATest&quot;
+    <div>
+      
+    </div>
 
- public static void functionOne(boolean a){
-      try {
-        Class ATest= Class.forName(CLASS_NAME);
-        Method functionOne= ATest.getMethod(&quot;functionOne&quot;, Boolean.class);
-        functionOne .invoke(null, a);
-    } catch (ClassNotFoundException e) {
-        e.printStackTrace();
-    } catch (NoSuchMethodException e) {
-        e.printStackTrace();
-    } catch (InvocationTargetException e) {
-        e.printStackTrace();
-    } catch (IllegalAccessException e) {
-        e.printStackTrace();
-    }
- }
-</code></pre></li>
-</ul>
-<pre><code> public static void functionTwo(int b){
-          try {
-            Class ATest= Class.forName(CLASS_NAME);
-            Method functionTwo= ATest.getMethod(&quot;functionTwo&quot;, Integer.class);
-            functionTwo .invoke(null, b);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Toast的封装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/Toast的封装/" itemprop="url">Toast的封装</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Toast的封装"><a href="#Toast的封装" class="headerlink" title="Toast的封装"></a>Toast的封装</h4><pre><code>public class Util {
+
+private static Toast toast;
+public static void showToast(Context context, String content){
+          if(toast == null){
+                    toast = Toast.makeText(context,content,Toast.LENGTH_SHORT);
+               } else {
+                toast.setText(content );
+               }
+           toast.show();
      }
 }
 </code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Fragmentment-data-save/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/Fragmentment-data-save/" itemprop="url">Fragmentment data save</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
           
         
       
@@ -2317,6 +1707,136 @@ public class BTest(){
     }
 }
 </code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/仿雅虎天气的滚动模糊防止滑动留白/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/仿雅虎天气的滚动模糊防止滑动留白/" itemprop="url">仿雅虎天气的滚动模糊防止滑动留白</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>仿雅虎天气的滚动模糊防止滑动留白的代码</p>
+<pre><code>void setImageHeight(ImageView imageView, Context context){
+
+    WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+
+    Display display = windowManager.getDefaultDisplay();
+    Point point = new Point();
+    display.getSize(point);
+
+    int height = point.y;
+    ViewGroup.LayoutParams params = imageView.getLayoutParams();
+    params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+    params.height = height + 100;
+
+    imageView.requestLayout();
+}
+</code></pre></li>
+</ul>
+
           
         
       
