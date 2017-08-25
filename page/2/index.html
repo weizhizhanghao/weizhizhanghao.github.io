@@ -253,7 +253,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Retrofit/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/NewIntent_method/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HM">
@@ -272,7 +272,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/06/19/Retrofit/" itemprop="url">Retrofit</a></h1>
+                <a class="post-title-link" href="/2017/06/19/NewIntent_method/" itemprop="url">Intent 新方式</a></h1>
         
 
         <div class="post-meta">
@@ -321,70 +321,274 @@
       
         
           
-            <h3 id="Retrofit-网络请求协议："><a href="#Retrofit-网络请求协议：" class="headerlink" title="Retrofit 网络请求协议："></a>Retrofit 网络请求协议：</h3><blockquote>
-<p>在 Retrofit 整个网络请求参数主要分成 ： scheme， authority， path， query， header， body 六块 。<br>其中authority可以进一步划分为：host：port<br>示例：host：www.java2s.com   ：   port: 8080</p>
+            <h3 id="Intent-新方式"><a href="#Intent-新方式" class="headerlink" title="Intent 新方式"></a>Intent 新方式</h3><blockquote>
+<p>可以避免在传值的时候如果前后命名不统一出现的问题：</p>
 </blockquote>
-<ul>
-<li><p>在整个结构中，将scheme 和  authority 这两者的合体称为 baseurl ,接口方法如下：</p>
-<pre><code>Retrofit retrofit = new Retrofit.Builder()
-    .baseUrl(&quot;https://api.github.com/&quot;)
-    .build();
-</code></pre></li>
-<li>header 分为两种</li>
-</ul>
-<blockquote>
-<p>第一种，静态header：又分为   a: 单个键值对注解   和     b: 多个键值对注解</p>
-<p>第二种：动态header : 又分为    a:  局部动态header（分为单个键值对和多个键值对）   和   b: 全局动态header（适用于项目中的header规则一致的情况）</p>
-</blockquote>
-<ul>
-<li><p>这里采用 OKHttp 的 interceptor 作例：</p>
-<pre><code>private static void initHttpClient(){
-    OKHttpClient.Builder httpClientBuilder = new OKHttpClient.Builder();
-    if(httpClientBuilder.interceptors() != null){
-        httpClientBuilder.interceptors().clear();
-    }
+<pre><code>Class A extends Activity(){
 
-    httpClientBuilder.addInterceptor(new Interceptor(){
-        @Override
-        public Response intercept(Chain chain) throws IOException{
-
-            //这里可以获取到请求的request 所有的数据
-
-            Request request = chain.request();
-            String path = request.url().encodedPath();
-            String query = request.url().query();
-
-            Request interRequest = chain.request().newBuilder()
-                .headers(Headers.of(Map yourHeader))
-                .build();
-
-            return chain.proceed(interRequest);
+        public static Intent newIntent(Context context,String url,String title) {
+            Map&lt;String,String&gt; queryParameters=new LinkedHashMap&lt;&gt;();
+            queryParameters.put(UrlConstant.USER_ID,&quot;&quot;);
+            queryParameters.put(UrlConstant.DEVICE_ID, &quot;&quot;);
+            url= UrlUtils.splitJoint(url,queryParameters);
+            Bundle bundle=new Bundle();
+            bundle.putString(A.WEB_VIEW_BUNDLE_TITLE,title);
+            bundle.putString(A.WEB_VIEW_BUNDLE_LOAD_URL, url);
+            Intent intent=new Intent(context, A.class);
+            intent.putExtra(A.WEBVIEW_BUNDLE_NAME,bundle);
+            return intent;
         }
-    })
-    .connectTimeout(10, TimeUnit.SECONDS)
-    .readTimeout(10, TimeUnit.SECONDS);
-
-    mOkHttpClient = httpClientBuilder.build();
-}
-</code></pre></li>
-</ul>
-<ul>
-<li><p>构建Retrofit 实例：</p>
-<pre><code>public static Retrofit retrofit(){
-    if(mRetrofit == null){
-        initHttpClient();
-        mRetrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(mOKHttpClient)
-                .addConvertFactory(GsonConvertFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .builder();
     }
-    return mRetrofit;
-}
-</code></pre></li>
-</ul>
 
+
+    Class B extends Activity{
+    String incomeRuleUrl = ServiceUrlConstants.URL.getIncomeRuleUrl();
+        startActivity(A.newIntent(this, incomeRuleUrl, &quot;收益规则&quot;));
+    }
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Snack的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/Snack的使用/" itemprop="url">Snacbar的使用方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Snacbar的使用方法"><a href="#Snacbar的使用方法" class="headerlink" title="Snacbar的使用方法"></a>Snacbar的使用方法</h4><pre><code>Snacbar.make(view, &quot;data deleted&quot;,
+               Snackbar.LENGTH_LONG)
+               .setAction(&quot;Undo&quot;,
+               new View.OnclickListener(){
+               @override
+               public void onclick(View v){
+                   // do something
+               }
+          }).show();
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Toast的封装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/Toast的封装/" itemprop="url">Toast的封装</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Toast的封装"><a href="#Toast的封装" class="headerlink" title="Toast的封装"></a>Toast的封装</h4><pre><code>public class Util {
+
+private static Toast toast;
+public static void showToast(Context context, String content){
+          if(toast == null){
+                    toast = Toast.makeText(context,content,Toast.LENGTH_SHORT);
+               } else {
+                toast.setText(content );
+               }
+           toast.show();
+     }
+}
+</code></pre>
           
         
       
@@ -834,275 +1038,6 @@ AppController.getInstance().getRequestQueue().cancelAll(&quot;feed_request&quot;
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Snack的使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/Snack的使用/" itemprop="url">Snacbar的使用方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="Snacbar的使用方法"><a href="#Snacbar的使用方法" class="headerlink" title="Snacbar的使用方法"></a>Snacbar的使用方法</h4><pre><code>Snacbar.make(view, &quot;data deleted&quot;,
-               Snackbar.LENGTH_LONG)
-               .setAction(&quot;Undo&quot;,
-               new View.OnclickListener(){
-               @override
-               public void onclick(View v){
-                   // do something
-               }
-          }).show();
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/监听函数优化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/监听函数优化/" itemprop="url">监听新方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><p>Android 中多个按钮同时监听的除实现onClickListener方法的另一个方法：<br>用一个工具类，里面主要实现该方法，如下：</p>
-<pre><code>public static void setClicks(final View.OnClickListener listener, final View... views) {
-    for (View v : views) {
-        v.setOnClickListener(listener);
-    }
-}
-</code></pre></li>
-<li><p>在具体的监听方法里面，我们这样实现：（后面的参数就是各个被监听的对象）</p>
-<pre><code>ViewUtil.setClicks(this, mVAvatar, mVVipTag, mVGrade, mVDiamond, mVDiamondTag,
-    mVBill, mVOrder, mVMyVisitors, mVMyGallery, mVMyGift, mVGiftExchange);
-</code></pre></li>
-<li><p>在监听事件中，我们如下实现</p>
-<pre><code>@Override
-public void onClick(View v) {
-    Activity activity = getActivity();
-    if (v == mVAvatar) {
-        Intent personalInfoIntent = new Intent(activity, PersonalInfoActivity.class);
-        activity.startActivity(personalInfoIntent);
-    } else if (v == mVVipTag) {
-        String url = ServiceUrlConstants.URL.getVipIntroductionUrl();
-        Map&lt;String, String&gt; queryParameters = new LinkedHashMap&lt;&gt;();
-        queryParameters.put(UrlConstant.USER_ID, UserSecretInfoUtil.getUserId());
-        queryParameters.put(UrlConstant.DEVICE_ID, DeviceInfo.getDeviceId(BaseApplication.getContext()));
-        url = UrlUtils.splitJoint(url, queryParameters);
-        Bundle bundle = new Bundle();
-        bundle.putString(RefreshWebViewActivity.WEB_VIEW_BUNDLE_TITLE,           BaseApplication.getContext().getString(R.string.vip_introduction));
-        bundle.putString(RefreshWebViewActivity.WEB_VIEW_BUNDLE_LOAD_URL, url);
-        Intent intent = new Intent(activity, RefreshWebViewActivity.class);
-        intent.putExtra(RefreshWebViewActivity.WEBVIEW_BUNDLE_NAME, bundle);
-        activity.startActivity(intent);
-    } else if (v == mVGrade) {
-        Intent gradeIntent = new Intent(activity, GradeActivity.class);
-        activity.startActivity(gradeIntent);
-    }
-}
-</code></pre></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Fragment数据保存/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1189,6 +1124,436 @@ public void onClick(View v) {
 </code></pre></li>
 </ul>
 
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/批量打包方式优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/批量打包方式优化/" itemprop="url">批量打包</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="批量打包"><a href="#批量打包" class="headerlink" title="批量打包"></a>批量打包</h3><ul>
+<li>首先修改manifest文件内容：</li>
+</ul>
+<blockquote>
+<p>原文件：</p>
+</blockquote>
+<pre><code>package com.zcdog.util.info.android;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.text.TextUtils;
+
+import java.io.IOException;
+import java.util.Enumeration;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+
+public class ManifestUtil {
+    private static final String SP_CONFIG_NAME = &quot;channel-sp&quot;;
+    private static final String SP_KEY = &quot;channel_id&quot;;
+    public static final String START_FLAG = &quot;META-INF/channel_&quot;;
+
+    /**
+     * 获取META-INFO下面的渠道
+     *
+     * @param context
+     * @return
+     */
+    public static String getChannel(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(SP_CONFIG_NAME, Context.MODE_PRIVATE);
+        String channel = sp.getString(SP_KEY, null);
+        if (!TextUtils.isEmpty(channel)) {
+            return channel;
+        }
+        ApplicationInfo appinfo = context.getApplicationInfo();
+        String sourceDir = appinfo.sourceDir;
+        ZipFile zipfile = null;
+        try {
+            zipfile = new ZipFile(sourceDir);
+            Enumeration&lt;?&gt; entries = zipfile.entries();
+            while (entries.hasMoreElements()) {
+                ZipEntry entry = ((ZipEntry) entries.nextElement());
+                String entryName = entry.getName();
+                if (entryName.contains(START_FLAG)) {
+                    channel = entryName.replaceAll(START_FLAG, &quot;&quot;);
+                    sp.edit().putString(SP_KEY, channel).apply();
+                    return channel;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (zipfile != null) {
+                try {
+                    zipfile.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return &quot;&quot;;
+
+    }
+}
+</code></pre><blockquote>
+<p>修改后的文件：</p>
+</blockquote>
+<pre><code>package com.zcdog.util.info.android;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.text.TextUtils;
+
+import java.io.IOException;
+import java.util.Enumeration;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+
+public class ManifestUtil {
+
+    public static final String START_FLAG = &quot;META-INF/channel_&quot;;
+    public static final String SEPARATOR = &quot;%&quot;;
+    private static final String TAG =&quot;ManifestUtilTag&quot;;
+    public static String channel;
+    public static String inviteCode=&quot;&quot;;
+
+    /**
+     * 获取META-INFO下面的渠道,如果为空，尝试获取metaData下的配置的渠道
+     * @param context
+     * @return
+     */
+    public static String getChannel(Context context) {
+        if (!TextUtils.isEmpty(channel)) {
+            return channel;
+        }
+        initMetaInfData(context);
+        Logger.d(TAG,&quot;channel==&quot;+channel);
+        return channel;
+    }
+
+    /**
+     * 获取邀请码
+     *
+     * @param context
+     * @return
+     */
+    public static String getInviteCode(Context context) {
+        if (!TextUtils.isEmpty(inviteCode)) {
+            return inviteCode;
+        }
+        initMetaInfData(context);
+        Logger.d(TAG,&quot;inviteCode==&quot;+inviteCode);
+        return inviteCode;
+    }
+
+    /**
+     * 获取Manifest里面配置的metaData数据信息
+     */
+    public static String getMetaDataValue(Context context, String metaDataName) {
+        String channel = &quot;&quot;;
+        try {
+            channel = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA).metaData.getString(metaDataName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            channel = &quot;UnKnown_zcdog&quot;;
+        }
+        return channel;
+    }
+
+    /**
+     * 第一次获取META-INF/channel_的数据信息
+     * @param context
+     */
+    private static void initMetaInfData(Context context){
+        ApplicationInfo appinfo = context.getApplicationInfo();
+        String sourceDir = appinfo.sourceDir;
+        ZipFile zipfile = null;
+        try {
+            zipfile = new ZipFile(sourceDir);
+            Enumeration&lt;?&gt; entries = zipfile.entries();
+            while (entries.hasMoreElements()) {
+                ZipEntry entry = ((ZipEntry) entries.nextElement());
+                String entryName = entry.getName();
+                if (entryName.contains(START_FLAG)) {
+                    String channelAndInviteCode = entryName.replaceAll(START_FLAG, &quot;&quot;);
+                    //判断是否有邀请码
+                    String[] valuesArray = channelAndInviteCode.split(SEPARATOR);
+                    if (valuesArray != null &amp;&amp; valuesArray.length &gt; 1) {
+                        channel = valuesArray[0];
+                        inviteCode = valuesArray[1];
+                    } else {
+                        channel = channelAndInviteCode;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (zipfile != null) {
+                try {
+                    zipfile.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if (TextUtils.isEmpty(channel)) {
+            channel = getMetaDataValue(context, &quot;DISTRIBUTION_CHANNEL&quot;);
+        }
+    }
+}
+</code></pre><ul>
+<li>然后修改Python脚本：</li>
+</ul>
+<blockquote>
+<p>原脚本：</p>
+</blockquote>
+<pre><code>import sys,os,shutil,zipfile,time
+apkVersion=&quot;3.5&quot;
+apkPrefixName=&quot;Zcdog&quot;
+srcFileName=apkPrefixName+apkVersion+&quot;_normal.apk&quot;
+apksDir=&quot;apks&quot;
+destDir=os.path.abspath(&apos;.&apos;)
+target_file=&quot;channel.apk&quot;
+
+file=open(&quot;channels.txt&quot;)
+
+def writeChannelToApk(filename,channel):
+        z=zipfile.ZipFile(filename,&apos;a&apos;,zipfile.ZIP_DEFLATED)
+        empty_channel_file=&quot;META-INF/channel_{channe}&quot;.format(channe=channel)
+        if not os.path.exists(target_file):
+            open(target_file,&apos;a&apos;).close()
+        z.write(target_file,empty_channel_file)
+        z.close()
+        print &quot;writeChannelToApkchannel&quot;+channel+&quot;,&quot;+filename+&quot;\n&quot;
+
+def cpFile(srcPath,fileName):
+    destPath = destDir + os.path.sep + fileName
+    if os.path.exists(srcPath) and not os.path.exists(destPath):
+        shutil.copy(srcPath,destPath)
+
+
+
+if not os.path.exists(srcFileName):
+    print &quot;source file &quot;+srcFileName+&quot; not exists&quot;
+    sys.exit(1)
+
+
+start = time.clock()
+
+if not os.path.exists(apksDir):
+    os.makedirs(apksDir)
+
+for line in file:
+    channel=line.strip(&apos;\n&apos;).strip()
+    targetFileName=apksDir+&quot;/&quot;+apkPrefixName+apkVersion+&quot;_&quot;+channel+&quot;.apk&quot;
+    print &quot;copyfile:&quot;+targetFileName
+    cpFile(srcFileName,targetFileName)
+    writeChannelToApk(targetFileName,channel)
+end = time.clock()
+
+print(&quot;The function run time is : %.03f seconds&quot; %(end-start))
+
+
+#heliao-app-91-5.1.1
+</code></pre><blockquote>
+<p>修改后的脚本：</p>
+</blockquote>
+<pre><code>import sys,os,shutil,zipfile,time
+apkVersion=&quot;3.5&quot;
+apkPrefixName=&quot;Zcdog&quot;
+srcFileName=apkPrefixName+apkVersion+&quot;_normal.apk&quot;
+apksDir=&quot;apks&quot;
+destDir=os.path.abspath(&apos;.&apos;)
+target_file=&quot;channel.apk&quot;
+separator=&quot;%&quot;;
+file=open(&quot;channels.txt&quot;)
+
+def writeChannelToApk(filename,channel):
+        z=zipfile.ZipFile(filename,&apos;a&apos;,zipfile.ZIP_DEFLATED)
+        empty_channel_file=&quot;META-INF/channel_{channe}&quot;.format(channe=channel)
+        if not os.path.exists(target_file):
+            open(target_file,&apos;a&apos;).close()
+        z.write(target_file,empty_channel_file)
+        z.close()
+        print &quot;writeChannelToApkchannel&quot;+channel+&quot;,&quot;+filename+&quot;\n&quot;
+
+def cpFile(srcPath,fileName):
+    destPath = destDir + os.path.sep + fileName
+    if os.path.exists(srcPath) and not os.path.exists(destPath):
+        shutil.copy(srcPath,destPath)
+
+
+
+if not os.path.exists(srcFileName):
+    sys.exit(1)
+
+
+start = time.clock()
+
+if os.path.exists(apksDir):
+    shutil.rmtree(apksDir)
+    os.makedirs(apksDir)
+else:
+    os.makedirs(apksDir)
+
+
+for line in file:
+    channelAndInviteCode=line.strip(&apos;\n&apos;).strip()
+    channel=channelAndInviteCode.split(separator)[0]
+    print &quot;channel_name==&quot;+channel
+    targetFileName=apksDir+&quot;/&quot;+apkPrefixName+apkVersion+&quot;_&quot;+channel+&quot;.apk&quot;
+    print &quot;copyfile:&quot;+targetFileName
+    cpFile(srcFileName,targetFileName)
+    writeChannelToApk(targetFileName,channelAndInviteCode)
+end = time.clock()
+
+print(&quot;The function run time is : %.03f seconds&quot; %(end-start))
+
+
+#heliao-app-91-5.1.1
+</code></pre><blockquote>
+<p>修改之前读取邀请码的函数：</p>
+</blockquote>
+<pre><code>//读取配置文件的当前渠道对应的邀请码
+    AssetManager assetManager= BaseApplication.getContext().getAssets();
+    InputStream ins=null;
+    try {
+        ins=assetManager.open(&quot;channel.properties&quot;);
+        Properties properties=new Properties();
+        properties.load(ins);
+        String chanelName= Misc.getChannelValue();
+        String inviteCode=properties.getProperty(chanelName);
+        Logger.d(TAG, &quot;inviteCode&quot; + inviteCode + &quot;:chanelName==&quot; + chanelName);
+        if(inviteCode!=null&amp;&amp;!inviteCode.isEmpty()){
+            et_invite_code.setText(inviteCode);
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }finally {
+       if (ins!=null){
+           try {
+               ins.close();
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+       }
+    }
+</code></pre><blockquote>
+<p>修改之后获取邀请码的函数：</p>
+</blockquote>
+<pre><code>//读取配置文件的当前渠道对应的邀请码
+   String inviteCode = ManifestUtil.getInviteCode(BaseApplication.getContext());
+   if (!TextUtils.isEmpty(inviteCode)) {
+       et_invite_code.setText(inviteCode);
+   }
+</code></pre>
           
         
       
@@ -1384,129 +1749,6 @@ view.setBackgroundResource(R.drawerable.**);
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Toast的封装/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/Toast的封装/" itemprop="url">Toast的封装</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="Toast的封装"><a href="#Toast的封装" class="headerlink" title="Toast的封装"></a>Toast的封装</h4><pre><code>public class Util {
-
-private static Toast toast;
-public static void showToast(Context context, String content){
-          if(toast == null){
-                    toast = Toast.makeText(context,content,Toast.LENGTH_SHORT);
-               } else {
-                toast.setText(content );
-               }
-           toast.show();
-     }
-}
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Fragmentment-data-save/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1576,6 +1818,136 @@ public static void showToast(Context context, String content){
         
           
             
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/仿雅虎天气的滚动模糊防止滑动留白/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/仿雅虎天气的滚动模糊防止滑动留白/" itemprop="url">仿雅虎天气的滚动模糊防止滑动留白</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>仿雅虎天气的滚动模糊防止滑动留白的代码</p>
+<pre><code>void setImageHeight(ImageView imageView, Context context){
+
+    WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+
+    Display display = windowManager.getDefaultDisplay();
+    Point point = new Point();
+    display.getSize(point);
+
+    int height = point.y;
+    ViewGroup.LayoutParams params = imageView.getLayoutParams();
+    params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+    params.height = height + 100;
+
+    imageView.requestLayout();
+}
+</code></pre></li>
+</ul>
+
           
         
       
@@ -1707,136 +2079,6 @@ public static void showToast(Context context, String content){
     }
 }
 </code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/仿雅虎天气的滚动模糊防止滑动留白/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/仿雅虎天气的滚动模糊防止滑动留白/" itemprop="url">仿雅虎天气的滚动模糊防止滑动留白</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><p>仿雅虎天气的滚动模糊防止滑动留白的代码</p>
-<pre><code>void setImageHeight(ImageView imageView, Context context){
-
-    WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-
-    Display display = windowManager.getDefaultDisplay();
-    Point point = new Point();
-    display.getSize(point);
-
-    int height = point.y;
-    ViewGroup.LayoutParams params = imageView.getLayoutParams();
-    params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-    params.height = height + 100;
-
-    imageView.requestLayout();
-}
-</code></pre></li>
-</ul>
-
           
         
       
