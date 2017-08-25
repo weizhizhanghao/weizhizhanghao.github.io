@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="">
+<html class="theme-next muse use-motion" lang="zh-CN">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -150,7 +150,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -543,7 +543,7 @@ public class BTest(){
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/合并排序/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/开发杂记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HM">
@@ -562,7 +562,7 @@ public class BTest(){
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/06/19/合并排序/" itemprop="url">合并排序</a></h1>
+                <a class="post-title-link" href="/2017/06/19/开发杂记/" itemprop="url">开发笔记</a></h1>
         
 
         <div class="post-meta">
@@ -611,30 +611,73 @@ public class BTest(){
       
         
           
-            <h3 id="合并排序代码实现"><a href="#合并排序代码实现" class="headerlink" title="合并排序代码实现"></a>合并排序代码实现</h3><pre><code>results.add(messages + &quot;各种东西加进去&quot;);
-List&lt;Message&gt; mergeMsgs = new ArrayList&lt;&gt;();
-final Queue&lt;Message&gt; priorityQueue = new PriorityQueue&lt;Message&gt;(results.size(), new MessageComparator());
-final Map&lt;String, Iterator&lt;Message&gt;&gt; index = new HashMap&lt;&gt;();
-for (List&lt;Message&gt; list : results) {
-    Iterator&lt;Message&gt; iterator = list.iterator();
-    Message firstMsg = iterator.next();
-    index.put(firstMsg.getTargetId(), iterator);
-    priorityQueue.add(firstMsg);
-}
+            <hr>
+<ul>
+<li><p>正则表达式</p>
+<blockquote>
+<p>正则验证小于1000000且最多两位小数的正则：<br>^([1-9]\d?(.\d{1,2})?|0.\d{1,2}|1000000)$ 或者\d{6}.\d{2} 。</p>
+</blockquote>
+</li>
+<li><p>Fiddler 抓包</p>
+<blockquote>
+<p>用Fiddler抓包工具监控网络，并给自己的手机设置代理  查看自己电脑的IP 在 cmd中输入ipconfig 即可</p>
+</blockquote>
+</li>
+<li><p>边界处理</p>
+<blockquote>
+<p>在对某个类进行操作，或者基于某个类给另一个类进行操作的时候，首先要判断要操作的那个类是否为空。</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>getactivity 这个方法在一个类中只有一个，所以有时候可以直接调用，不需要添加this标签。</p>
+<p>对于某些函数中需要传递的参数，如果本类中没有该种类型，可以getInstance 也阔以尝试直接传递null替代。</p>
+</blockquote>
+<ul>
+<li><p>加载优化</p>
+<blockquote>
+<p>如果一个类中需要加载不同的多个界面，那么最好采用<include>标签将其中一个界面嵌套进去，便于管理</include></p>
+</blockquote>
+</li>
+<li><p>关于内存泄漏：<br>开发中需要注意的点以免内存泄漏：</p>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li><p>不要让生命周期长于Activity的对象持有到Activity的引用</p>
+</li>
+<li><p>尽量使用Application的Context而不是Activity的Context</p>
+</li>
+<li><p>尽量不要在Activity中使用非静态内部类，因为非静态内部类会隐式持有外部类实例的引用（具体可以查看细话Java：”失效”的private修饰符了解）。如果使用静态内部类，将外部实例引用作为弱引用持有。</p>
+</li>
+<li><p>垃圾回收不能解决内存泄露，了解Android中垃圾回收机制</p>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>获取context的方法，以及使用上context和applicationContext的区别：</li>
+</ul>
+<blockquote>
+<ul>
+<li><p>View.getContext,返回当前View对象的Context对象，通常是当前正在展示的Activity对象。</p>
+</li>
+<li><p>Activity.getApplicationContext,获取当前Activity所在的(应用)进程的Context对象，通常我们使用Context对象时，要优先考虑这个全局的进程Context。</p>
+</li>
+<li><p>ContextWrapper.getBaseContext():用来获取一个ContextWrapper进行装饰之前的Context，可以使用这个方法，这个方法在实际开发中使用并不多，也不建议使用。</p>
+</li>
+<li><p>Activity.this 返回当前的Activity实例，如果是UI控件需要使用Activity作为Context对象，但是默认的Toast实际上使用ApplicationContext也可以。</p>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>AccessibilityService 的相关介绍和使用</li>
+</ul>
+<blockquote>
+<ul>
+<li>介绍：AccessibilityService 可以用来自动化测试，自动抢红包，自动安装等第</li>
+</ul>
+</blockquote>
 
-while (mergeMsgs.size() &lt; count &amp;&amp; !priorityQueue.isEmpty()) {
-    Message tmp = priorityQueue.poll();
-    mUserIdsToMsgIds.put(tmp.getTargetId(), tmp.getMessageId());
-    if (tmp.getMessageDirection() != Message.MessageDirection.SEND ||
-            AcccountIdentifier.isOriginUserId(tmp.getTargetId())) {
-        mergeMsgs.add(tmp);
-    }
-    Iterator&lt;Message&gt; iterator = index.get(tmp.getTargetId());
-    if (iterator.hasNext()) {
-        priorityQueue.add(iterator.next());
-    }
-}
-</code></pre>
           
         
       
@@ -940,7 +983,7 @@ BaseApplication.getContext().registerReceiver(broadcastReceiver,intentFilter);
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/开发杂记/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Volley/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HM">
@@ -959,7 +1002,7 @@ BaseApplication.getContext().registerReceiver(broadcastReceiver,intentFilter);
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/06/19/开发杂记/" itemprop="url">开发笔记</a></h1>
+                <a class="post-title-link" href="/2017/06/19/Volley/" itemprop="url">Volley</a></h1>
         
 
         <div class="post-meta">
@@ -1008,216 +1051,301 @@ BaseApplication.getContext().registerReceiver(broadcastReceiver,intentFilter);
       
         
           
-            <hr>
-<ul>
-<li><p>正则表达式</p>
-<blockquote>
-<p>正则验证小于1000000且最多两位小数的正则：<br>^([1-9]\d?(.\d{1,2})?|0.\d{1,2}|1000000)$ 或者\d{6}.\d{2} 。</p>
+            <h3 id="Volley-相关的使用方法："><a href="#Volley-相关的使用方法：" class="headerlink" title="Volley 相关的使用方法："></a>Volley 相关的使用方法：</h3><blockquote>
+<p>首先创建一个AppController 类</p>
+<p>再创建一个图片缓存的LruBitmapCache类:</p>
 </blockquote>
-</li>
-<li><p>Fiddler 抓包</p>
-<blockquote>
-<p>用Fiddler抓包工具监控网络，并给自己的手机设置代理  查看自己电脑的IP 在 cmd中输入ipconfig 即可</p>
-</blockquote>
-</li>
-<li><p>边界处理</p>
-<blockquote>
-<p>在对某个类进行操作，或者基于某个类给另一个类进行操作的时候，首先要判断要操作的那个类是否为空。</p>
-</blockquote>
-</li>
-</ul>
-<blockquote>
-<p>getactivity 这个方法在一个类中只有一个，所以有时候可以直接调用，不需要添加this标签。</p>
-<p>对于某些函数中需要传递的参数，如果本类中没有该种类型，可以getInstance 也阔以尝试直接传递null替代。</p>
-</blockquote>
-<ul>
-<li><p>加载优化</p>
-<blockquote>
-<p>如果一个类中需要加载不同的多个界面，那么最好采用<include>标签将其中一个界面嵌套进去，便于管理</include></p>
-</blockquote>
-</li>
-<li><p>关于内存泄漏：<br>开发中需要注意的点以免内存泄漏：</p>
-</li>
-</ul>
-<blockquote>
-<ul>
-<li><p>不要让生命周期长于Activity的对象持有到Activity的引用</p>
-</li>
-<li><p>尽量使用Application的Context而不是Activity的Context</p>
-</li>
-<li><p>尽量不要在Activity中使用非静态内部类，因为非静态内部类会隐式持有外部类实例的引用（具体可以查看细话Java：”失效”的private修饰符了解）。如果使用静态内部类，将外部实例引用作为弱引用持有。</p>
-</li>
-<li><p>垃圾回收不能解决内存泄露，了解Android中垃圾回收机制</p>
-</li>
-</ul>
-</blockquote>
-<ul>
-<li>获取context的方法，以及使用上context和applicationContext的区别：</li>
-</ul>
-<blockquote>
-<ul>
-<li><p>View.getContext,返回当前View对象的Context对象，通常是当前正在展示的Activity对象。</p>
-</li>
-<li><p>Activity.getApplicationContext,获取当前Activity所在的(应用)进程的Context对象，通常我们使用Context对象时，要优先考虑这个全局的进程Context。</p>
-</li>
-<li><p>ContextWrapper.getBaseContext():用来获取一个ContextWrapper进行装饰之前的Context，可以使用这个方法，这个方法在实际开发中使用并不多，也不建议使用。</p>
-</li>
-<li><p>Activity.this 返回当前的Activity实例，如果是UI控件需要使用Activity作为Context对象，但是默认的Toast实际上使用ApplicationContext也可以。</p>
-</li>
-</ul>
-</blockquote>
-<ul>
-<li>AccessibilityService 的相关介绍和使用</li>
-</ul>
-<blockquote>
-<ul>
-<li>介绍：AccessibilityService 可以用来自动化测试，自动抢红包，自动安装等第</li>
-</ul>
-</blockquote>
+<ol>
+<li><p>创建一个AppController 类</p>
+<p>   public class AppController extends Application{</p>
+<pre><code>public static final String TAG = AppController.class.getSimpleName();
 
-          
-        
-      
-    </div>
+private RequestQueue mRequestQueue;
+private ImageLoader mImageLoader;
 
-    <div>
-      
-    </div>
+private static AppController mInstance;
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/日历和闹钟/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/日历和闹钟/" itemprop="url">日历</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>设置闹钟提醒<blockquote>
-<p>在Android 4.4 以后，为节省电池耗电等，不再使用一个重复闹钟，而是使用多个单次闹钟，当前一个闹钟到点提醒以后，再次设置下一个闹钟。</p>
-</blockquote>
-</li>
-</ul>
-<h4 id="获取日历的当前时间"><a href="#获取日历的当前时间" class="headerlink" title="获取日历的当前时间"></a>获取日历的当前时间</h4><pre><code>public Date getStartTime(String startTime){
-     Date startDate = DateUtil.tFormat8(startTime);
-     Calendar calendar=Calendar.getInstance();
-     calendar.setTime(startDate);
-     Date nowDate = DateUtil.nowDate(BaseApplication.getContext());
-     Calendar nowCalendar = Calendar.getInstance();
-     nowCalendar.setTime(nowDate);
-     calendar.set(Calendar.YEAR, nowCalendar.get(Calendar.YEAR));
-     calendar.set(Calendar.MONTH, nowCalendar.get(Calendar.MONTH));
-     calendar.set(Calendar.DAY_OF_MONTH, nowCalendar.get(Calendar.DAY_OF_MONTH));
-     return calendar.getTime();
+@Override
+public void onCreat(){
+    super.onCreat();
+    mInstance = this;
 }
-</code></pre><p>####判断某个日期的所属的星座<br>    public class ConstellationUtil{<br>        private final static int[] dayArr = new int[]{20, 19, 21, 20, 21, 22, 23, 23, 23, 24, 23, 22};<br>        private final static String[] constellationArr = new String[]{ “摩羯座”, “水瓶座”, “双鱼座”, “白羊座”, “金牛座”, “双子座”, “巨蟹座”, “狮子座”, “处女座”, “天秤座”, “天蝎座”, “射手座”, “摩羯座”};</p>
-<pre><code>    public static String getConstellation(int month, int day){
-        return day &lt; dayArr[month - 1] ? constellationArr[month - 1] : constellationArr[month];
+
+public static synchroinzed AppController getInstance(){
+    return mInstance;
+}
+
+public RequestQueue getRequestQueue(){
+    if(mInstance == null){
+        mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+    }
+    return mRequestQueue;
+}
+
+public ImageLoader getImageLoader(){
+    getRequestQueue();
+
+    if(mImageLoader == null){
+        mImageLoader = new ImageLoader(this.mRequestQueue, new LruBitmapCache());
+    }
+    return this.mImageLoader;
+}
+
+public &lt;T&gt; void addToRequestQueue(Request&lt;T&gt; req, String tag){
+    req.setTag(TextUtil.isEmpty(tag) ? TAG : tag);
+    getRequestQueue().add(req);
+}
+
+public void cancelPendingRequests(Object tag){
+    if(mRequestQueue != null){
+        mRequestQueue.cancelAll(tag);
+    }
+}
+</code></pre><p>   }</p>
+</li>
+<li><p>创建一个图片缓存的LruBitmapCache类</p>
+<pre><code>public class LruBitmapCache extends LruCache&lt;String, Bitmap&gt; implement ImageCache{
+    public static int getDefaultLruCacheSize(){
+        final int maxMemory = (int) (Runtime.getRuntime().maxMemory / 1034);
+        final int cacheSize = maxMemory / 8;
+
+        return cacheSize;
     }
 
-    public static getConstellation(Date date){
-        if(date == null)
-            return &quot;&quot;;
-        Calendar canlendar = Calendar.getInstance();
-        canlendar.setTime(date);
-        int month = canlendar.get(Calendar.MONTH) + 1;
-        int day = canlendar.get(Calendar.DAY_OF_MONTH);
-
-        return getConstellation(month, day);
+    public LruBitmapCache(){
+        this(getDefaultLruCacheSize());
     }
+
+    public LruBitmapCache(int sizeInkiloBytes){
+        super(sizeInkiloBytes);
+    }
+
+    @Override
+    protected int sizeOf(String key, Bitmap value){
+        return value.getRowBytes() * value.getHeight() / 1024;
+    }
+
+    @Override
+    public Bitmap getBitmap(String url){
+        return get(url);
+    }
+
+    @Override
+    public void putBitmap(String url, Bitmap bitmap){
+        put(url, bitmap);
+    }
+}
+</code></pre></li>
+<li><p>各类函数对以上两个方法的调用来获取所需的网络数据</p>
+<pre><code>public void JsonFun(){
+
+    String tag_json_obj = &quot;json_obj_req&quot;;
+    String url = &quot;http://api.androidhive.info/volley/person_object.json&quot;;
+
+    JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.GET, url, null,
+                    new Response.Listener&lt;JSONObject&gt;(){
+
+                        @Override
+                        public void onResponse(JSONObject reponse){
+                            Log.d(TAG, reponse.toString());
+                        }
+                    }, new Response.ErrorListener(){
+
+                        @Override
+                        public void onErrorResponse(VolleyError error){
+                            VolleyLog.d(TAG, &quot;Error:&quot; + error.getMessage());
+                        }
+                    });
+
+    AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+
+}
+</code></pre></li>
+</ol>
+<pre><code>public void StringFun(){
+    String tag_string_req = &quot;string_req&quot;;
+    String url = &quot;&quot;;
+
+    ProgressDialog pDialog = new ProgressDialog(this);
+    pDialog.setMessage(&quot;Loading...&quot;);
+    pDialog.show();
+
+    StringRequest strReq = new StringRequest(Method.GET,
+                url, new Response.Listener&lt;String&gt;(){
+                    Log.d(TAG, reponse.toString());
+                    pDialog.hide();
+                }, new Response.ErrorListener(){
+
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        VolleyLog.d(TAG, &quot;Error:&quot; + error.getMessage);
+                        pDialog.hide();
+                    }
+                });
+    AppController.getInstance.addToRequestQueue(strReq, tag_string_req);
+}
+</code></pre><blockquote>
+<p>Post请求：</p>
+</blockquote>
+<pre><code>public void PostFun(){
+    String tag_json_obj = &quot;json_obj_req&quot;;
+
+    String url = &quot;&quot;;
+    ProgressDialog pDialog = new ProgressDialog(this);
+    pDialog.setMessage(&quot;Loading...&quot;);
+    pDialog.show();
+
+    JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.POST,
+                url, null,
+                new Response.Listener&lt;JSONObject&gt;(){
+
+                @Override
+                public void onResponse(JSONObject reponse){
+                    Log.d(TAG, reponse.toString());
+                    pDialog.hide();
+                }
+            }, new Response.ErrorListener(){
+                @Override
+                public void onErrorResponse(VolleyError error){
+                    VolleyLog.d(TAG, &quot;Error:&quot; + error.getMessage());
+                    pDialog.hide();
+                }
+            }){
+        @Override
+        protected Map&lt;String, String&gt; getParams(){
+            Map&lt;String, String&gt; params = new HashMap&lt;String, String&gt;();
+            params.put(&quot;name&quot;, &quot;Androidhive&quot;);
+            params.put(&quot;email&quot;, &quot;abc@androidhive.info&quot;);
+            params.put(&quot;password&quot;, &quot;password123&quot;);
+
+            return params;
+        }
+
+    };
+
+    AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+}
+</code></pre><blockquote>
+<p>请求图片的函数：</p>
+</blockquote>
+<pre><code>public void setImageFun(){
+    ImageLoader imgLoader = AppController.getInstance().getImageLoader();
+
+    //复杂写法
+    imgLoader.get(Const.URL_IMAGE, new ImageListener(){
+        @Override
+        public void onErrorResponse(VolleyError error){
+            Log.e(TAG, &quot;Image Load Error:&quot; + error.getMessage());
+        }
+
+        @Override
+        public void onResponse(ImageContainer reponse, boolean arg1){
+            if(reponse.getBitmap() != null){
+                //load image into imageview
+                imageview.setImageBitemap(reponse.getBitmap());
+            }
+        }
+    })；
+
+    //简便写法
+    imgLoader.get(Const.URL_IMAGE, ImageLoader.getImageListener(imageview, imageView, R.drawable.ico_loading, R.drawable.ico_error));
+}
+</code></pre><blockquote>
+<p>关于Cache:</p>
+</blockquote>
+<pre><code>public void volleyCacheFun（）{
+    Cache cache = AppController.getInstance().getRequestQueue().getCache();
+    Entry entry = cache.get(url);
+
+    if(entry != null){
+        try{
+            String data = new String(entry.data, &quot;UTF-8&quot;);
+        }catch(UnsupportedEncodingException e){
+            e.printStackTrace();
+        }
+    } else {
+        // Cached response doesn&apos;t exists. Make network call here
+    }
+}
+
+//刷新页面
+App.getInstance().getRequestQueue().getCache().invalidate(u, true);
+
+//关闭cache
+//String request
+StringRequest stringReq = new StringRequest(...);
+
+//disable cache
+stringReq.setShouldCache(false);
+
+//删除某个URL的Cache
+AppController.getInstance().getRequestQueue().getCache().remove(url);
+
+//删除所有的cache
+AppController.getInstance().getRequestQueue().getCache().clear();
+
+//取消请求
+String tag_json_arry = &quot;json_req&quot;;
+AppController.getInstance().getRequestQueue().cancelAll(&quot;feed_request&quot;);
+</code></pre><blockquote>
+<p>设置请求的优先级：</p>
+</blockquote>
+<pre><code>public void requestPriorityFun(){
+    private Priority priority = PostFun.HIGH;
+
+    StringRequest strReq = new StringRequest(Method.GET,
+                Const.URL_STRING_REQ, new Response.Listener&lt;String&gt;(){
+
+                    @Override
+                    public void onResponse(String reponse){
+                        Log.d(TAG, reponse.toString());
+                        msgResponse.setText(reponse,toString());
+                        hideProgressDialog();
+                    }
+                }, new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        VolleyLog.d(TAG, &quot;Error:&quot; + error.getMessage());
+                        hideProgressDialog();
+                    }
+                }){
+            @Override
+            public Priority getPriority(){
+                return priority;
+            }
+        };
+}
+</code></pre><blockquote>
+<p>添加请求头部信息：</p>
+</blockquote>
+<pre><code>public void addHeadFun(){
+    String tag_json_obj = &quot;json_obj_req&quot;;
+    String url = &quot;&quot;;
+    ProgressDialog pDialog = new ProgressDialog(this);
+    pDialog.setMessage(&quot;Loading&quot;);
+    pDialog.show();
+    JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.POST, url, null, new Response.Listener&lt;JSONObject&gt;(){
+        @Override
+        public void onResponse(JSONObject reponse){
+            Log.d(TAG, reponse.toString());
+            pDialog.hide();
+        }
+    }, new Response.ErrorListener(){
+        @Override
+        public void onErrorResponse(VolleyError error){
+            VolleyLog.d(TAG, &quot;Error:&quot; + error.getMessage());
+            pDialog.hide();
+        }
+    }){
+        @Override
+        public Map&lt;String, String&gt; getHeaders() throws AuthFailureError{
+            HashMap&lt;String, String&gt; headers = new HashMap&lt;String, String&gt;();
+            headers.put(&quot;Content-Type&quot;, &quot;application/json&quot;);
+            headers.put(&quot;apiKey&quot;, &quot;********&quot;);
+            return headers;
+        }
+    };
+    AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
 }
 </code></pre>
           
@@ -1533,7 +1661,7 @@ BaseApplication.getContext().registerReceiver(broadcastReceiver,intentFilter);
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">Artikel</span>
               </a>
             </div>
