@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="##首先新建两个activity  MainActivity   MainActivity 只需要在onCreate方法中实现向第二个activity的跳转即可。关键代码如下：  Intent intent = new Intent(this, TargetActivity.class); startActivity(intent);    TargetActivity TargetActivi">
+<meta name="description" content="首先新建两个activity MainActivity   MainActivity 只需要在onCreate方法中实现向第二个activity的跳转即可。关键代码如下：  Intent intent = new Intent(this, TargetActivity.class); startActivity(intent);    TargetActivity TargetActivity">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="仿微信右滑返回功能">
 <meta property="og:url" content="http://yoursite.com/2017/08/25/仿微信右滑返回功能/index.html">
 <meta property="og:site_name" content="未知账号">
-<meta property="og:description" content="##首先新建两个activity  MainActivity   MainActivity 只需要在onCreate方法中实现向第二个activity的跳转即可。关键代码如下：  Intent intent = new Intent(this, TargetActivity.class); startActivity(intent);    TargetActivity TargetActivi">
-<meta property="og:updated_time" content="2017-08-25T09:38:42.455Z">
+<meta property="og:description" content="首先新建两个activity MainActivity   MainActivity 只需要在onCreate方法中实现向第二个activity的跳转即可。关键代码如下：  Intent intent = new Intent(this, TargetActivity.class); startActivity(intent);    TargetActivity TargetActivity">
+<meta property="og:updated_time" content="2017-08-26T02:24:26.947Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="仿微信右滑返回功能">
-<meta name="twitter:description" content="##首先新建两个activity  MainActivity   MainActivity 只需要在onCreate方法中实现向第二个activity的跳转即可。关键代码如下：  Intent intent = new Intent(this, TargetActivity.class); startActivity(intent);    TargetActivity TargetActivi">
+<meta name="twitter:description" content="首先新建两个activity MainActivity   MainActivity 只需要在onCreate方法中实现向第二个activity的跳转即可。关键代码如下：  Intent intent = new Intent(this, TargetActivity.class); startActivity(intent);    TargetActivity TargetActivity">
 
 
 
@@ -321,8 +321,7 @@
 
       
         <hr>
-<p>##首先新建两个activity</p>
-<ul>
+<h2 id="首先新建两个activity"><a href="#首先新建两个activity" class="headerlink" title="首先新建两个activity"></a>首先新建两个activity</h2><ul>
 <li><p>MainActivity </p>
 <blockquote>
 <p>MainActivity 只需要在onCreate方法中实现向第二个activity的跳转即可。关键代码如下：</p>
@@ -339,7 +338,7 @@ startActivity(intent);
 </ul>
 <blockquote>
 <ul>
-<li>通过思考，我们知道，我们要挪动的activity其实就是挪动activity的好着呢哥哥界面，也就是支撑整个子View的DecorView，所以，我们首先要获取到界面的DecorView，然后，在滑动过程中，整个手势监听是最重要的，熟知事件传递的小伙伴知道，要监听手势活动，在Activity里面就要实现OnTouchEvent方法，那么滑动到什么位置的时候界面关闭，什么位置保持不变呢，这就需要我们用变量控制我们手势挪动的距离了，所以，我们用变量和我们屏幕宽度进行对比，暂时定为挪动距离 &lt; 屏幕的1/2宽度，targetActivity不被finish，否则，finish。下面即是代码实现。</li>
+<li>通过思考，我们知道，我们要挪动的activity其实就是挪动activity的依托界面，也就是支撑整个子View的DecorView，所以，我们首先要获取到界面的DecorView，然后，在滑动过程中，整个手势监听是最重要的，熟知事件传递的小伙伴知道，要监听手势活动，在Activity里面就要实现OnTouchEvent方法，那么滑动到什么位置的时候界面关闭，什么位置保持不变呢，这就需要我们用变量控制我们手势挪动的距离了，所以，我们用变量和我们屏幕宽度进行对比，暂时定为挪动距离 &lt; 屏幕的1/2宽度，targetActivity不被finish，否则，finish。下面即是代码实现。</li>
 </ul>
 </blockquote>
 <ol>
@@ -417,8 +416,7 @@ public boolean onTouchEvent(MotionEvent event) {
 <li><p>实现以上方法之后，诶，你会发现，界面好像是在挪动，可是呢，挪走之后的部分依然是原布局的颜色，看不到底层布局，这时候，我们就应该设置我们TargetActivity的属性啦。</p>
 </li>
 </ol>
-<p>##设置我们的TargetActivity属性</p>
-<blockquote>
+<h2 id="设置我们的TargetActivity属性"><a href="#设置我们的TargetActivity属性" class="headerlink" title="设置我们的TargetActivity属性"></a>设置我们的TargetActivity属性</h2><blockquote>
 <p>1 打开我们res/values/styles 文件，在里面新建一个自定义的属性，如下所示，我们命名为SuspendTheme</p>
 </blockquote>
 <pre><code>&lt;style name=&quot;SuspendTheme&quot; parent=&quot;@android:style/Theme.Black.NoTitleBar.Fullscreen&quot;&gt;
@@ -431,7 +429,7 @@ public boolean onTouchEvent(MotionEvent event) {
 </blockquote>
 <pre><code>&lt;activity android:name=&quot;.present.SuspendActivity&quot;
         android:theme=&quot;@style/SuspendTheme&quot;/&gt;
-</code></pre><p>再次运行整个app,你会发现，右滑返回的基本功能实现啦，那么接下来，我们要实现的，就是在右滑过程的底层activity界面的透明度渐变展示啦。下一篇我将继续总结，如何更完美的实现仿微信的右滑返回。</p>
+</code></pre><p>再次运行整个app,你会发现，右滑返回的基本功能实现啦，那么接下来，我们要实现的，就是在右滑过程的底层activity界面的透明度渐变展示啦。下一次我将继续总结，如何更完美的实现仿微信的右滑返回。</p>
 
       
     </div>
@@ -474,8 +472,8 @@ public boolean onTouchEvent(MotionEvent event) {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/19/360面试题/" rel="next" title="360面试题">
-                <i class="fa fa-chevron-left"></i> 360面试题
+              <a href="/2017/07/19/BAT面试/" rel="next" title="经验之谈">
+                <i class="fa fa-chevron-left"></i> 经验之谈
               </a>
             
           </div>
@@ -483,6 +481,10 @@ public boolean onTouchEvent(MotionEvent event) {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/26/自定义TextView的实现/" rel="prev" title="自定义TextView的实现">
+                自定义TextView的实现 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -529,8 +531,17 @@ public boolean onTouchEvent(MotionEvent event) {
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -545,7 +556,7 @@ public boolean onTouchEvent(MotionEvent event) {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -583,6 +594,22 @@ public boolean onTouchEvent(MotionEvent event) {
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#首先新建两个activity"><span class="nav-number">1.</span> <span class="nav-text">首先新建两个activity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置我们的TargetActivity属性"><span class="nav-number">2.</span> <span class="nav-text">设置我们的TargetActivity属性</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

@@ -253,6 +253,298 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/26/自定义TextView的实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/26/自定义TextView的实现/" itemprop="url">自定义TextView的实现</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-26T09:25:30+08:00">
+                2017-08-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="说说需求"><a href="#说说需求" class="headerlink" title="说说需求"></a>说说需求</h3><ul>
+<li>自定义View是在Android开发中经常遇到的一种最基本功能的实现，那么，我们要如何实现一个自定义的TextView呢？这个TextView 包含两个功能，第一个是可以自定义字体颜色，大小等基本属性，第二个是根据不同的输入内容，折行居中显示。那么下面，我么就来一一实现以上两个基本功能。</li>
+</ul>
+<h3 id="说说实现过程"><a href="#说说实现过程" class="headerlink" title="说说实现过程"></a>说说实现过程</h3><ol>
+<li>第一步呢，新建一个命名为AutoLinefeedTextView的类继承自View，实现他的基本构造方法。</li>
+<li><p>第二步呢，在我们项目工程的/res/values/文件夹下查看是否有一个attrs 文件，若没有，则新建，否则直接打开编辑。在里面添加我们需要的自定义属性，我们在新建TextView的时候，由于我们要达到可以简单方便的在我们的布局文件中修改我们的文字内容，字体大小和字体颜色，所以，我们在自定义的时候也就需要自定义这些属性，首先对我们自定义的这个属性命名，这里我们为了方便使用，就和自定义View的名称保持一致，也命名为AutoLinefeedTextView，然后再对属性进行子属性的format定义，在自定义的format属性里，可以有很多种类，比如string，color，dimension，boolean等等，而我们自定义TextView的时候用到的很少，代码如下：</p>
+<pre><code>&lt;declare-styleable name=&quot;AutoLinefeedTextView&quot;&gt;
+    &lt;attr name=&quot;mText&quot; format=&quot;string&quot;/&gt;
+    &lt;attr name=&quot;mTextColor&quot; format=&quot;color&quot;/&gt;
+    &lt;attr name=&quot;mTextSize&quot; format=&quot;dimension&quot;/&gt;
+&lt;/declare-styleable&gt;
+</code></pre></li>
+<li><p>完成上两步的准备工作之后，我们就要干正事啦，我们都知道，自定义View的很多时候呢，我们都要重写View里面的onDraw（）方法，当然，这次也不例外。但是呢，在onDraw方法内部，我们会用到很多内容，比如画笔，比如文字，那么，onDraw函数是个经常被调用的函数，为了防止发生一直新建对象没有及时销毁导致OOM，我们在onDraw之前呢，就要首先定义好我们所需要用到的一些基本属性，那么，我们在哪里定义呢，当然是构造函数里面啦。。。接下来，我们就来初始化我们所需要用到的一些工具，我们可以创建一个叫init（）的函数，方便我们在构造函数里面调用，当然，也可以构造函数之间相互调用，把初始化函数放在最终调用的构造函数里。由于在Android自定义属性的构造函数有多个，那么我们到底需要实现几个呢，一般情况下只需要实现三个，就是包含1，2，3个参数的三个，因为含有4个参数的构造函数是在Android5.1之后加进去的，我们很多时候可以不需要，那么这一次呢，我们也不实现，采用第二种方式对我们的所需对象进行初始化。</p>
+<p> 3.1 首先呢，我们对我们所可能需要用到的东西进行声明，我们在脑海里面思考一下，自定义view我们需要用到些什么呢，和attrs里面一样，肯定有文字内容，文字大小，文字颜色，然后呢，我们要写字，，肯定需要笔啊，那么我们就还有一直画笔，然后呢，我们要写字，我们要控制文字写在哪里，呈现在什么位置，那我们肯定有个容器来承托这些内容啊，对，我们还需要一个Rect,那我们还需要什么呢，思考良久，要求是还要自动换行，怎么自动换行呢，哦，我们需要把文字内容根据屏幕大小分成一个list<string>，然后依次显示在每一行，那么接下来，我们就开始show代码啦。</string></p>
+<pre><code>private Rect mBound;
+private Paint mPaint;
+private int mTextSize;
+private int mTextColor;
+private String mTextStr;
+private List&lt;String&gt; mStrList;
+</code></pre><p> 3.2 其次呢，我们就需要在我们的构造函数里对这些东西进行初始化啦，记得一点，我们的文字，文字大小和文字颜色我们是在自定义属性里面添加了自定义属性的，那么，我们要如何使用呢？接下来，就是我们的show time</p>
+<pre><code>public AutoLinefeedTextView(Context context) {
+    this(context, null);
+}
+
+public AutoLinefeedTextView(Context context, @Nullable AttributeSet attrs) {
+    this(context, attrs, 0);
+}
+
+public AutoLinefeedTextView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    super(context, attrs, defStyleAttr);
+
+    //  初始化我们刚才思考良久才想出来的List
+    mStrList = new ArrayList&lt;&gt;();
+    //别走神，这儿是关键，如何获取我们的自定义属性
+    TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.AutoLinefeedTextView, defStyleAttr, 0);
+    //初始化我们的文字
+    mTextStr = typedArray.getString(R.styleable.AutoLinefeedTextView_mText);
+    //初始化我们的文字颜色，前一个参数为自定义的，如果我们在XML文件里面没有添加怎么办，没事，我们还有第二个参数，默认显示的颜色
+    mTextColor = typedArray.getColor(R.styleable.AutoLinefeedTextView_mTextColor, Color.BLACK);
+    //初始化我们的文字大小，和文字原理类似
+    mTextSize = typedArray.getDimensionPixelSize(R.styleable.AutoLinefeedTextView_mTextSize, 100);
+    //用完之后呢，方便下次使用，我们得回收一下下啦
+    typedArray.recycle();
+    // 对画笔进行初始化
+    mPaint = new Paint();
+    mPaint.setTextSize(mTextSize);
+    mPaint.setColor(mTextColor);
+    //依托承载对象的工具
+    mBound = new Rect();
+    mPaint.getTextBounds(mTextStr, 0, mTextStr.length(), mBound);
+}
+</code></pre><p> 3.3 再其次，正如前面所说，我们需要重写View的OnDraw函数，又由于我们需要居中显示，我们还得重写onMeasure函数，如果对onMeasure里面的MeasureSpec.EXACTLY不太懂的话呢，记得百度哦，很多博客哒，哈哈，这里假设我们都懂。再次show time。</p>
+<pre><code>@Override
+protected void onDraw(Canvas canvas) {
+    super.onDraw(canvas);
+
+    canvas.drawText(mText, getWidth() / 2 - mBound.width() / 2, getHeight() / 2 + mBound.height() / 2, mPaint);
+}
+
+@Override
+protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+    int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+    int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+    int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+
+    int width;
+    int height;
+    if (widthMode == MeasureSpec.EXACTLY){
+        width = widthSize;
+    } else {
+        float textWidth = mBound.width();
+        width = (int) (getPaddingLeft() + textWidth + getPaddingRight());
+    }
+
+    if (heightMode == MeasureSpec.EXACTLY){
+        height = heightSize;
+    } else {
+        float textHeight = mBound.height();
+        height = (int) (getPaddingTop() + textHeight + getPaddingBottom());
+    }
+
+    setMeasuredDimension(width, height);
+}
+</code></pre><p> 3.4 完成以后，我们发现，诶，并没有用到我们的list啊，对，为什么呢？因为我们这个方式的显示时不正常的啦，我们会看到东西只有一行展示且显示不全，那么接下来，我们将要分析一下，如何折行显示并显示完全。。。想想看，我们应该按照怎样的逻辑把我们的一堆文字拆分成一个列表呢，思考一下我们会发现，我们的文字内容是一定的，我们的承托工具宽度是一定的，那么刚好，分成几行，那不就是显示完所有文字所需要的宽度/承托工具的宽度的行数么？可是，除不尽怎么办？没事，向上取整就好啦，这里呢，我们采取另一个办法，我们看我们的除法发生后，获取的值是否包含小数点，如果不包含，那么代表刚好整除，结果就是行数，如果包含，那么我们选择小数点前面的数字+1的方式作为行数。。。毕竟我们需要把所有东西都显示出来啊。。。知道了多少行，那么每一行显示些什么内容呢？难道文字那么乖乖听话自己就换行啦？当然不可能。那么我们如何拆分文字呢，那就要用到我们超级强大的subString函数啦，我们在知道函数以后，采用一个循环，把我们的文字拆分成一个列表装进我们刚才已经定义好的list里面，但是还有一点需要谨记，我们拆分一次之后，原字符串也得subString哦，为什么呢，因为前面的文字已经被显示出来啦，不然一直重复显示，就达不到完全显示的效果啦。。思路总结完毕，那么接下开又是我们的show time。睁大双眼，别眨眼哦</p>
+<pre><code>boolean isOpenLines = true;//这是用来判断是否需要折行显示的变量
+float lineNum;
+float splineNum;
+
+@Override
+protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+    int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+    int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+    int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+
+    float textWidth = mBound.width();
+    if (mStrList.size() == 0){
+        int padding = getPaddingLeft() + getPaddingRight();
+        int specWidth = widthSize - padding;
+        if (textWidth &lt; specWidth){
+            lineNum = 1;
+            mStrList.add(mTextStr);
+        } else {
+            isOpenLines = false;
+            splineNum = textWidth / specWidth;
+            String splineNumStr = splineNum + &quot;&quot;;
+            if (splineNumStr.contains(&quot;.&quot;)){
+                lineNum = Integer.parseInt(splineNumStr.substring(0, splineNumStr.indexOf(&quot;.&quot;))) + 1;
+            } else {
+                lineNum = splineNum;
+            }
+            int lineLength = (int)(mTextStr.length() / splineNum);
+            for (int i = 0; i &lt; lineNum; i ++){
+                String lineStr;
+                if (mTextStr.length() &lt; lineLength){
+                    lineStr = mTextStr.substring(0, mTextStr.length());
+                } else {
+                    lineStr = mTextStr.substring(0, lineLength);
+                }
+
+                mStrList.add(lineStr);
+
+                if (!TextUtils.isEmpty(lineStr)){
+                    if (mTextStr.length() &lt; lineLength){
+                        mTextStr = mTextStr.substring(0, mTextStr.length());
+                    } else {
+                        mTextStr = mTextStr.substring(0, lineLength);
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+
+    int width;
+    int height;
+
+    if (widthMode == MeasureSpec.EXACTLY){
+        width = widthSize;
+    } else {
+        if (isOpenLines){
+            width = (int) (getPaddingLeft() + textWidth + getPaddingRight());
+        } else {
+            width = widthSize;
+        }
+    }
+
+    if (heightMode == MeasureSpec.EXACTLY){
+        height = heightSize;
+    } else {
+        float textHeight = mBound.height();
+        if (isOpenLines){
+            height = (int) (getPaddingTop() + textHeight + getPaddingBottom());
+        } else {
+            height = (int) (getPaddingTop() + textHeight * lineNum + getPaddingBottom());
+        }
+    }
+
+    setMeasuredDimension(width, height);
+}
+</code></pre><p> 3.5 当然，我们的onMeasure完成改造之后，我们的onDraw也不能落下啊。</p>
+<pre><code>@Override
+protected void onDraw(Canvas canvas) {
+    super.onDraw(canvas);
+
+    for (int i = 0; i &lt; mStrList.size(); i ++){
+        mPaint.getTextBounds(mStrList.get(i), 0, mStrList.get(i).length(), mBound);
+        canvas.drawText(mStrList.get(i), (getWidth() / 2 - mBound.width() / 2), (getPaddingTop() + (mBound.height() * i)), mPaint);
+    }
+}
+</code></pre><p> 3.6 以上几个步骤，就完成了我们的自定义布局的显示啦，那么剩下的最后一步，大家肯定都会的哟，就是在我们需要用到我们自定义样式的布局的位置，把它加进去哟。。。完成以后，就大功告成啦。。。。开不开心，激不激动，简不简单。。。O(∩_∩)O哈哈哈~</p>
+</li>
+</ol>
+<h3 id="说说感想"><a href="#说说感想" class="headerlink" title="说说感想"></a>说说感想</h3><ul>
+<li>以前一直觉得自定义布局好难啊，根本不知道从何下手，亲自实践过后发现，也就那么回事嘛，多动手，多实践，实践出真知这句话，在哪里都适用。。。回过头来想一想，自定义TextView不就是三个那么几个小步骤么？首先新建一个类，然后在attrs下建立一个自己需要的自定义内容，再然后在我们的构造函数里对我们所需要用到的东西初始化，然后如果内容需要绘制，就重写我们的onDraw函数，如果我们的布局大小需要计算整合，就再重写我们的onMeasure函数，如果还有，我们的布局位置需要改变，那么我们就再重写我们的onLayout函数。。。完成以上几步，那么我们的自定义textview也就基本实现啦。。。。万事开头难，开始了一切就简单啦。。。</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/25/仿微信右滑返回功能/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -322,8 +614,7 @@
         
           
             <hr>
-<p>##首先新建两个activity</p>
-<ul>
+<h2 id="首先新建两个activity"><a href="#首先新建两个activity" class="headerlink" title="首先新建两个activity"></a>首先新建两个activity</h2><ul>
 <li><p>MainActivity </p>
 <blockquote>
 <p>MainActivity 只需要在onCreate方法中实现向第二个activity的跳转即可。关键代码如下：</p>
@@ -340,7 +631,7 @@ startActivity(intent);
 </ul>
 <blockquote>
 <ul>
-<li>通过思考，我们知道，我们要挪动的activity其实就是挪动activity的好着呢哥哥界面，也就是支撑整个子View的DecorView，所以，我们首先要获取到界面的DecorView，然后，在滑动过程中，整个手势监听是最重要的，熟知事件传递的小伙伴知道，要监听手势活动，在Activity里面就要实现OnTouchEvent方法，那么滑动到什么位置的时候界面关闭，什么位置保持不变呢，这就需要我们用变量控制我们手势挪动的距离了，所以，我们用变量和我们屏幕宽度进行对比，暂时定为挪动距离 &lt; 屏幕的1/2宽度，targetActivity不被finish，否则，finish。下面即是代码实现。</li>
+<li>通过思考，我们知道，我们要挪动的activity其实就是挪动activity的依托界面，也就是支撑整个子View的DecorView，所以，我们首先要获取到界面的DecorView，然后，在滑动过程中，整个手势监听是最重要的，熟知事件传递的小伙伴知道，要监听手势活动，在Activity里面就要实现OnTouchEvent方法，那么滑动到什么位置的时候界面关闭，什么位置保持不变呢，这就需要我们用变量控制我们手势挪动的距离了，所以，我们用变量和我们屏幕宽度进行对比，暂时定为挪动距离 &lt; 屏幕的1/2宽度，targetActivity不被finish，否则，finish。下面即是代码实现。</li>
 </ul>
 </blockquote>
 <ol>
@@ -418,8 +709,7 @@ public boolean onTouchEvent(MotionEvent event) {
 <li><p>实现以上方法之后，诶，你会发现，界面好像是在挪动，可是呢，挪走之后的部分依然是原布局的颜色，看不到底层布局，这时候，我们就应该设置我们TargetActivity的属性啦。</p>
 </li>
 </ol>
-<p>##设置我们的TargetActivity属性</p>
-<blockquote>
+<h2 id="设置我们的TargetActivity属性"><a href="#设置我们的TargetActivity属性" class="headerlink" title="设置我们的TargetActivity属性"></a>设置我们的TargetActivity属性</h2><blockquote>
 <p>1 打开我们res/values/styles 文件，在里面新建一个自定义的属性，如下所示，我们命名为SuspendTheme</p>
 </blockquote>
 <pre><code>&lt;style name=&quot;SuspendTheme&quot; parent=&quot;@android:style/Theme.Black.NoTitleBar.Fullscreen&quot;&gt;
@@ -432,7 +722,7 @@ public boolean onTouchEvent(MotionEvent event) {
 </blockquote>
 <pre><code>&lt;activity android:name=&quot;.present.SuspendActivity&quot;
         android:theme=&quot;@style/SuspendTheme&quot;/&gt;
-</code></pre><p>再次运行整个app,你会发现，右滑返回的基本功能实现啦，那么接下来，我们要实现的，就是在右滑过程的底层activity界面的透明度渐变展示啦。下一篇我将继续总结，如何更完美的实现仿微信的右滑返回。</p>
+</code></pre><p>再次运行整个app,你会发现，右滑返回的基本功能实现啦，那么接下来，我们要实现的，就是在右滑过程的底层activity界面的透明度渐变展示啦。下一次我将继续总结，如何更完美的实现仿微信的右滑返回。</p>
 
           
         
@@ -476,7 +766,7 @@ public boolean onTouchEvent(MotionEvent event) {
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/19/360面试题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/19/BAT面试/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HM">
@@ -495,7 +785,7 @@ public boolean onTouchEvent(MotionEvent event) {
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/19/360面试题/" itemprop="url">360面试题</a></h1>
+                <a class="post-title-link" href="/2017/07/19/BAT面试/" itemprop="url">经验之谈</a></h1>
         
 
         <div class="post-meta">
@@ -545,152 +835,7 @@ public boolean onTouchEvent(MotionEvent event) {
         
           
             <hr>
-<p>##360面试题</p>
-<blockquote>
-<ul>
-<li>post 和 get 的区别？</li>
-<li>多线程如何进行数据交互？</li>
-<li>多进程如何进行数据交互？</li>
-<li>如何实现多线程？</li>
-<li>线程和进程的区别？</li>
-<li>http 和 https的区别？https是如何在http上建成的？</li>
-<li>udp 和 tcp 的区别？</li>
-<li>http属于网络传输协议的哪一层？</li>
-<li>ThreadHandler 是什么？</li>
-<li>单例模式怎么实现？builder 模式的优势？</li>
-<li>MVC， MVP， MVVM的区别？</li>
-<li>ImageLoader的实现原理，和Glide比较各自的优缺点？</li>
-<li>View的绘制</li>
-<li>如何实现一个自定义的View？</li>
-<li>实现快排</li>
-<li>native 和 js 如何进行数据交互？</li>
-<li>热修复技术用的是什么？</li>
-<li>GitHub博客的搭建过程？</li>
-<li>弹幕问题是如何修复的？</li>
-<li>内存泄漏可能发生的情况以及发生后如何定位？</li>
-<li>模拟一个View的点击事件获取网络数据并展示的过程</li>
-<li>用过哪些开源框架？百度SDK如何接入自己的项目的？</li>
-<li>在项目中充当的角色？干了些什么事？</li>
-<li>service 和 activity是否在同一个进程中？如何新建一个进程？</li>
-<li>四大组件有哪些？</li>
-<li>聊天如何实现的？用的第三方框架还是自己实现的？</li>
-<li>GreenDao 和 Sqlite </li>
-</ul>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/18/BAT面试/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/18/BAT面试/" itemprop="url">未命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-18T22:04:29+08:00">
-                2017-07-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <hr>
-<h2 id="android-面试答案："><a href="#android-面试答案：" class="headerlink" title="android 面试答案："></a>android 面试答案：</h2><p>###一面</p>
-<p><strong>1.ANR 具体产生的类型有哪些，具体说下其产生的最大超时时间。</strong></p>
+<h2 id="android-面试答案："><a href="#android-面试答案：" class="headerlink" title="android 面试答案："></a>android 面试答案：</h2><h3 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h3><p><strong>1.ANR 具体产生的类型有哪些，具体说下其产生的最大超时时间。</strong></p>
 <blockquote>
 <ul>
 <li><p>KeyDispatchTimeout(5 seconds) –主要类型：<br>按键或触摸事件在特定时间内无响应</p>
@@ -842,7 +987,7 @@ xx.start();    //启动线程，run函数运行
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/29/New Document/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/19/360面试题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HM">
@@ -861,7 +1006,7 @@ xx.start();    //启动线程，run函数运行
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/06/29/New Document/" itemprop="url">未命名</a></h1>
+                <a class="post-title-link" href="/2017/07/19/360面试题/" itemprop="url">360面试题</a></h1>
         
 
         <div class="post-meta">
@@ -873,7 +1018,150 @@ xx.start();    //启动线程，run函数运行
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-29T22:25:26+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-19T16:07:12+08:00">
+                2017-07-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <hr>
+<h2 id="360面试题"><a href="#360面试题" class="headerlink" title="360面试题"></a>360面试题</h2><blockquote>
+<ul>
+<li>post 和 get 的区别？</li>
+<li>多线程如何进行数据交互？</li>
+<li>多进程如何进行数据交互？</li>
+<li>如何实现多线程？</li>
+<li>线程和进程的区别？</li>
+<li>http 和 https的区别？https是如何在http上建成的？</li>
+<li>udp 和 tcp 的区别？</li>
+<li>http属于网络传输协议的哪一层？</li>
+<li>ThreadHandler 是什么？</li>
+<li>单例模式怎么实现？builder 模式的优势？</li>
+<li>MVC， MVP， MVVM的区别？</li>
+<li>ImageLoader的实现原理，和Glide比较各自的优缺点？</li>
+<li>View的绘制</li>
+<li>如何实现一个自定义的View？</li>
+<li>实现快排</li>
+<li>native 和 js 如何进行数据交互？</li>
+<li>热修复技术用的是什么？</li>
+<li>GitHub博客的搭建过程？</li>
+<li>弹幕问题是如何修复的？</li>
+<li>内存泄漏可能发生的情况以及发生后如何定位？</li>
+<li>模拟一个View的点击事件获取网络数据并展示的过程</li>
+<li>用过哪些开源框架？百度SDK如何接入自己的项目的？</li>
+<li>在项目中充当的角色？干了些什么事？</li>
+<li>service 和 activity是否在同一个进程中？如何新建一个进程？</li>
+<li>四大组件有哪些？</li>
+<li>聊天如何实现的？用的第三方框架还是自己实现的？</li>
+<li>GreenDao 和 Sqlite </li>
+</ul>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/29/杂记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/29/杂记/" itemprop="url">杂记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-29T16:07:12+08:00">
                 2017-06-29
               </time>
             
@@ -959,7 +1247,7 @@ xx.start();    //启动线程，run函数运行
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/监听函数优化/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/仿雅虎天气的滚动模糊防止滑动留白/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HM">
@@ -978,7 +1266,7 @@ xx.start();    //启动线程，run函数运行
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/06/19/监听函数优化/" itemprop="url">监听新方法</a></h1>
+                <a class="post-title-link" href="/2017/06/19/仿雅虎天气的滚动模糊防止滑动留白/" itemprop="url">仿雅虎天气的滚动模糊防止滑动留白</a></h1>
         
 
         <div class="post-meta">
@@ -1028,40 +1316,21 @@ xx.start();    //启动线程，run函数运行
         
           
             <ul>
-<li><p>Android 中多个按钮同时监听的除实现onClickListener方法的另一个方法：<br>用一个工具类，里面主要实现该方法，如下：</p>
-<pre><code>public static void setClicks(final View.OnClickListener listener, final View... views) {
-    for (View v : views) {
-        v.setOnClickListener(listener);
-    }
-}
-</code></pre></li>
-<li><p>在具体的监听方法里面，我们这样实现：（后面的参数就是各个被监听的对象）</p>
-<pre><code>ViewUtil.setClicks(this, mVAvatar, mVVipTag, mVGrade, mVDiamond, mVDiamondTag,
-    mVBill, mVOrder, mVMyVisitors, mVMyGallery, mVMyGift, mVGiftExchange);
-</code></pre></li>
-<li><p>在监听事件中，我们如下实现</p>
-<pre><code>@Override
-public void onClick(View v) {
-    Activity activity = getActivity();
-    if (v == mVAvatar) {
-        Intent personalInfoIntent = new Intent(activity, PersonalInfoActivity.class);
-        activity.startActivity(personalInfoIntent);
-    } else if (v == mVVipTag) {
-        String url = ServiceUrlConstants.URL.getVipIntroductionUrl();
-        Map&lt;String, String&gt; queryParameters = new LinkedHashMap&lt;&gt;();
-        queryParameters.put(UrlConstant.USER_ID, UserSecretInfoUtil.getUserId());
-        queryParameters.put(UrlConstant.DEVICE_ID, DeviceInfo.getDeviceId(BaseApplication.getContext()));
-        url = UrlUtils.splitJoint(url, queryParameters);
-        Bundle bundle = new Bundle();
-        bundle.putString(RefreshWebViewActivity.WEB_VIEW_BUNDLE_TITLE,           BaseApplication.getContext().getString(R.string.vip_introduction));
-        bundle.putString(RefreshWebViewActivity.WEB_VIEW_BUNDLE_LOAD_URL, url);
-        Intent intent = new Intent(activity, RefreshWebViewActivity.class);
-        intent.putExtra(RefreshWebViewActivity.WEBVIEW_BUNDLE_NAME, bundle);
-        activity.startActivity(intent);
-    } else if (v == mVGrade) {
-        Intent gradeIntent = new Intent(activity, GradeActivity.class);
-        activity.startActivity(gradeIntent);
-    }
+<li><p>仿雅虎天气的滚动模糊防止滑动留白的代码</p>
+<pre><code>void setImageHeight(ImageView imageView, Context context){
+
+    WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+
+    Display display = windowManager.getDefaultDisplay();
+    Point point = new Point();
+    display.getSize(point);
+
+    int height = point.y;
+    ViewGroup.LayoutParams params = imageView.getLayoutParams();
+    params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+    params.height = height + 100;
+
+    imageView.requestLayout();
 }
 </code></pre></li>
 </ul>
@@ -1201,513 +1470,6 @@ public void onClick(View v) {
         startActivity(A.newIntent(this, incomeRuleUrl, &quot;收益规则&quot;));
     }
 </code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/NodeProgrammer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/NodeProgrammer/" itemprop="url">NodeProgramma</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><h2 id="测试副标题"><a href="#测试副标题" class="headerlink" title="测试副标题"></a>测试副标题</h2><h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><h4 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h4><ul>
-<li>1</li>
-<li>2</li>
-<li>3<h4 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h4></li>
-</ul>
-<ol>
-<li>one</li>
-<li>two</li>
-<li>three</li>
-</ol>
-<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><blockquote>
-<p>这是一段 别人叙述的话</p>
-</blockquote>
-<h3 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h3><p><img src="http://mouapp.com/Mou_128.png" alt="Mou icon"></p>
-<h3 id="插入加链接"><a href="#插入加链接" class="headerlink" title="插入加链接"></a>插入加链接</h3><p><a href="http://baidu.com" target="_blank" rel="external">Baidu</a></p>
-<h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><h3 id="粗体"><a href="#粗体" class="headerlink" title="粗体"></a>粗体</h3><p><strong>粗体文字测试</strong></p>
-<h3 id="斜体"><a href="#斜体" class="headerlink" title="斜体"></a>斜体</h3><p><em>斜体文字测试</em></p>
-<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><blockquote>
-<p>这里有问题</p>
-<hr>
-</blockquote>
-<pre><code>| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
-</code></pre><hr>
-<table>
-<thead>
-<tr>
-<th>dog</th>
-<th>bird</th>
-<th>cat</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>foo</td>
-<td>foo</td>
-<td>foo6/17/2017 3:06:08 PM </td>
-</tr>
-</tbody>
-</table>
-<ol>
-<li></li>
-<li></li>
-</ol>
-<hr>
-<p>bar | bar  | bar<br>baz | baz  | baz</p>
-<h2 id="代码框"><a href="#代码框" class="headerlink" title="代码框"></a>代码框</h2><pre><code>function hello(){
-
-    aaa();
-    console.log(&quot;hello world!&quot;);
-}
-
-hello();
-</code></pre><h2 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h2><hr>
-<p>Markdown编辑器快捷键：</p>
-<p>· 加粗 Ctrl + B</p>
-<p>· 斜体 Ctrl + I</p>
-<p>· 引用 Ctrl + Q</p>
-<p>· 插入链接 Ctrl + L</p>
-<p>· 插入代码 Ctrl + K</p>
-<p>· 插入图片 Ctrl + G</p>
-<p>· 提升标题 Ctrl + H</p>
-<p>· 有序列表 Ctrl + O</p>
-<p>· 无序列表 Ctrl + U</p>
-<p>· 横线 Ctrl + R</p>
-<p>· 撤销 Ctrl + Z</p>
-<p>· 重做 Ctrl + Y</p>
-<hr>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/OkHttp/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/OkHttp/" itemprop="url">OKHttp</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><p>OKHttp 的同步get</p>
-<pre><code>private final OkHttpClient client = new OkHttpClient();
-public void execute() throw Exception{
-    Request request = new Request.Builder()
-            .url(&quot;http://publicobject.com/helloworld.txt&quot;)
-            .build();
-
-    Response response = client.newCall(request).execute();
-    if(response.isSuccessful()){
-        //do something
-    }
-}
-</code></pre></li>
-<li><p>OKHttp 的异步get</p>
-<pre><code>private final OkHttpClient client = new OkHttpClient();
-public void enqueue(){
-    Request request = new Request.Builder()
-            .url()
-            .builder();
-
-    client.newCall(request).enqueue(new Callback(){
-
-        @Override
-        public void onFailure(){
-            //do  something
-        }
-
-        @Override
-        public void onResponse(Response response) throw IOException{
-
-            if(response.isSuccessful()){
-                //do something
-            }
-        }
-
-    });
-}
-</code></pre></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Retrofit/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/Retrofit/" itemprop="url">Retrofit</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Retrofit-网络请求协议："><a href="#Retrofit-网络请求协议：" class="headerlink" title="Retrofit 网络请求协议："></a>Retrofit 网络请求协议：</h3><blockquote>
-<p>在 Retrofit 整个网络请求参数主要分成 ： scheme， authority， path， query， header， body 六块 。<br>其中authority可以进一步划分为：host：port<br>示例：host：www.java2s.com   ：   port: 8080</p>
-</blockquote>
-<ul>
-<li><p>在整个结构中，将scheme 和  authority 这两者的合体称为 baseurl ,接口方法如下：</p>
-<pre><code>Retrofit retrofit = new Retrofit.Builder()
-    .baseUrl(&quot;https://api.github.com/&quot;)
-    .build();
-</code></pre></li>
-<li>header 分为两种</li>
-</ul>
-<blockquote>
-<p>第一种，静态header：又分为   a: 单个键值对注解   和     b: 多个键值对注解</p>
-<p>第二种：动态header : 又分为    a:  局部动态header（分为单个键值对和多个键值对）   和   b: 全局动态header（适用于项目中的header规则一致的情况）</p>
-</blockquote>
-<ul>
-<li><p>这里采用 OKHttp 的 interceptor 作例：</p>
-<pre><code>private static void initHttpClient(){
-    OKHttpClient.Builder httpClientBuilder = new OKHttpClient.Builder();
-    if(httpClientBuilder.interceptors() != null){
-        httpClientBuilder.interceptors().clear();
-    }
-
-    httpClientBuilder.addInterceptor(new Interceptor(){
-        @Override
-        public Response intercept(Chain chain) throws IOException{
-
-            //这里可以获取到请求的request 所有的数据
-
-            Request request = chain.request();
-            String path = request.url().encodedPath();
-            String query = request.url().query();
-
-            Request interRequest = chain.request().newBuilder()
-                .headers(Headers.of(Map yourHeader))
-                .build();
-
-            return chain.proceed(interRequest);
-        }
-    })
-    .connectTimeout(10, TimeUnit.SECONDS)
-    .readTimeout(10, TimeUnit.SECONDS);
-
-    mOkHttpClient = httpClientBuilder.build();
-}
-</code></pre></li>
-</ul>
-<ul>
-<li><p>构建Retrofit 实例：</p>
-<pre><code>public static Retrofit retrofit(){
-    if(mRetrofit == null){
-        initHttpClient();
-        mRetrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(mOKHttpClient)
-                .addConvertFactory(GsonConvertFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .builder();
-    }
-    return mRetrofit;
-}
-</code></pre></li>
-</ul>
-
           
         
       
@@ -1959,6 +1721,300 @@ public class RecycleViewAdapter extends RecyclerView.Adapter&lt;RecycleViewAdapt
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Retrofit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/Retrofit/" itemprop="url">Retrofit</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Retrofit-网络请求协议："><a href="#Retrofit-网络请求协议：" class="headerlink" title="Retrofit 网络请求协议："></a>Retrofit 网络请求协议：</h3><blockquote>
+<p>在 Retrofit 整个网络请求参数主要分成 ： scheme， authority， path， query， header， body 六块 。<br>其中authority可以进一步划分为：host：port<br>示例：host：www.java2s.com   ：   port: 8080</p>
+</blockquote>
+<ul>
+<li><p>在整个结构中，将scheme 和  authority 这两者的合体称为 baseurl ,接口方法如下：</p>
+<pre><code>Retrofit retrofit = new Retrofit.Builder()
+    .baseUrl(&quot;https://api.github.com/&quot;)
+    .build();
+</code></pre></li>
+<li>header 分为两种</li>
+</ul>
+<blockquote>
+<p>第一种，静态header：又分为   a: 单个键值对注解   和     b: 多个键值对注解</p>
+<p>第二种：动态header : 又分为    a:  局部动态header（分为单个键值对和多个键值对）   和   b: 全局动态header（适用于项目中的header规则一致的情况）</p>
+</blockquote>
+<ul>
+<li><p>这里采用 OKHttp 的 interceptor 作例：</p>
+<pre><code>private static void initHttpClient(){
+    OKHttpClient.Builder httpClientBuilder = new OKHttpClient.Builder();
+    if(httpClientBuilder.interceptors() != null){
+        httpClientBuilder.interceptors().clear();
+    }
+
+    httpClientBuilder.addInterceptor(new Interceptor(){
+        @Override
+        public Response intercept(Chain chain) throws IOException{
+
+            //这里可以获取到请求的request 所有的数据
+
+            Request request = chain.request();
+            String path = request.url().encodedPath();
+            String query = request.url().query();
+
+            Request interRequest = chain.request().newBuilder()
+                .headers(Headers.of(Map yourHeader))
+                .build();
+
+            return chain.proceed(interRequest);
+        }
+    })
+    .connectTimeout(10, TimeUnit.SECONDS)
+    .readTimeout(10, TimeUnit.SECONDS);
+
+    mOkHttpClient = httpClientBuilder.build();
+}
+</code></pre></li>
+</ul>
+<ul>
+<li><p>构建Retrofit 实例：</p>
+<pre><code>public static Retrofit retrofit(){
+    if(mRetrofit == null){
+        initHttpClient();
+        mRetrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(mOKHttpClient)
+                .addConvertFactory(GsonConvertFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .builder();
+    }
+    return mRetrofit;
+}
+</code></pre></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Snack的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/Snack的使用/" itemprop="url">Snacbar的使用方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Snacbar的使用方法"><a href="#Snacbar的使用方法" class="headerlink" title="Snacbar的使用方法"></a>Snacbar的使用方法</h4><pre><code>Snacbar.make(view, &quot;data deleted&quot;,
+               Snackbar.LENGTH_LONG)
+               .setAction(&quot;Undo&quot;,
+               new View.OnclickListener(){
+               @override
+               public void onclick(View v){
+                   // do something
+               }
+          }).show();
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -2008,7 +2064,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter&lt;RecycleViewAdapt
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
