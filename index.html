@@ -253,7 +253,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/26/自定义CircleImageView的实现/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/27/自定义CircleImageView的实现/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HM">
@@ -272,7 +272,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/08/26/自定义CircleImageView的实现/" itemprop="url">自定义CircleImageView的实现</a></h1>
+                <a class="post-title-link" href="/2017/08/27/自定义CircleImageView的实现/" itemprop="url">自定义CircleImageView的实现</a></h1>
         
 
         <div class="post-meta">
@@ -284,8 +284,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-26T11:34:30+08:00">
-                2017-08-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-27T11:34:30+08:00">
+                2017-08-27
               </time>
             
 
@@ -1580,6 +1580,375 @@ xx.start();    //启动线程，run函数运行
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/OkHttp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/OkHttp/" itemprop="url">OKHttp</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>OKHttp 的同步get</p>
+<pre><code>private final OkHttpClient client = new OkHttpClient();
+public void execute() throw Exception{
+    Request request = new Request.Builder()
+            .url(&quot;http://publicobject.com/helloworld.txt&quot;)
+            .build();
+
+    Response response = client.newCall(request).execute();
+    if(response.isSuccessful()){
+        //do something
+    }
+}
+</code></pre></li>
+<li><p>OKHttp 的异步get</p>
+<pre><code>private final OkHttpClient client = new OkHttpClient();
+public void enqueue(){
+    Request request = new Request.Builder()
+            .url()
+            .builder();
+
+    client.newCall(request).enqueue(new Callback(){
+
+        @Override
+        public void onFailure(){
+            //do  something
+        }
+
+        @Override
+        public void onResponse(Response response) throw IOException{
+
+            if(response.isSuccessful()){
+                //do something
+            }
+        }
+
+    });
+}
+</code></pre></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/RecycleView的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/RecycleView的使用/" itemprop="url">recycleView的使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>recycleView常用的几种样式布局：</li>
+</ul>
+<pre><code>* LinearLayoutManager 线性布局管理器      （ListView效果）
+* GridLayoutManager    网格布局管理器    （GridView效果）
+* StaggeredGridLayoutManager  瀑布流管理器
+</code></pre><ul>
+<li>关于recycleview 的使用方法</li>
+</ul>
+<blockquote>
+<p>首先自定义一个recycleViewAdapter 如下：</p>
+</blockquote>
+<pre><code>package com.example.think.adapter;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.example.think.myapplication.R;
+
+import java.util.ArrayList;
+
+/**
+* Created by HuangMei on 2016/8/3.
+*/
+public class RecycleViewAdapter extends RecyclerView.Adapter&lt;RecycleViewAdapter.ViewHolder&gt;{
+
+    Context context;
+    ArrayList&lt;String&gt; arrayList = new ArrayList&lt;&gt;();
+
+    public RecycleViewAdapter(Context context, ArrayList&lt;String&gt; arrayList) {
+        this.context = context;
+        this.arrayList = arrayList;
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = View.inflate(context, R.layout.recycler_item, null);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.textView.setText(arrayList.get(position));
+
+        //以下几行是为瀑布流设置高度使用的（备注：如果不是瀑布流的时候不需要添加）
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,100+(int) (Math.random() * 50));
+        holder.imageView.setLayoutParams(lp);
+    }
+
+    @Override
+    public int getItemCount() {
+        return arrayList.size();
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder{
+        TextView textView;
+        ImageView imageView;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+
+            textView = (TextView) itemView.findViewById(R.id.textView);
+            imageView = (ImageView) itemView.findViewById(R.id.imageView);
+        }
+    }
+}
+</code></pre><blockquote>
+<p>然后在自己的活动里面调用自己的自定义适配器</p>
+</blockquote>
+<pre><code>public class MainActivity extends Activity {
+
+    ArrayList&lt;String&gt; arrayList = new ArrayList&lt;&gt;();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        RecyclerView recylcer = (RecyclerView) findViewById(R.id.recyclerView);
+
+        //ListView效果的 LinearLayoutManager
+//        LinearLayoutManager mgr = new LinearLayoutManager(this); //备注：listview样式和九宫格样式公用
+//        //VERTICAL纵向，类似ListView，HORIZONTA 横向，类似Gallery 
+//        mgr.setOrientation(LinearLayoutManager.HORIZONTAL);//备注：也可以是VERTICAL
+
+        //GridLayout 3列
+//        GridLayoutManager mgr=new GridLayoutManager(this,3);
+
+        StaggeredGridLayoutManager mgr = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+
+        recylcer.setLayoutManager(mgr);
+        //设置适配器
+        recylcer.setAdapter(new RecycleViewAdapter(this, setData(10)));
+    }
+
+    ArrayList&lt;String&gt; setData(int n){
+        for(int i = 0; i &lt; n; i ++){
+            arrayList.add(i + &quot;&quot; + i + &quot;&quot; + i + &quot;&quot; + i + &quot;&quot; + i);
+        }
+        return arrayList;
+    }
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Retrofit/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1712,261 +2081,6 @@ xx.start();    //启动线程，run函数运行
 </code></pre></li>
 </ul>
 
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Snack的使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/Snack的使用/" itemprop="url">Snacbar的使用方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="Snacbar的使用方法"><a href="#Snacbar的使用方法" class="headerlink" title="Snacbar的使用方法"></a>Snacbar的使用方法</h4><pre><code>Snacbar.make(view, &quot;data deleted&quot;,
-               Snackbar.LENGTH_LONG)
-               .setAction(&quot;Undo&quot;,
-               new View.OnclickListener(){
-               @override
-               public void onclick(View v){
-                   // do something
-               }
-          }).show();
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/NewIntent_method/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/NewIntent_method/" itemprop="url">Intent 新方式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Intent-新方式"><a href="#Intent-新方式" class="headerlink" title="Intent 新方式"></a>Intent 新方式</h3><blockquote>
-<p>可以避免在传值的时候如果前后命名不统一出现的问题：</p>
-</blockquote>
-<pre><code>Class A extends Activity(){
-
-        public static Intent newIntent(Context context,String url,String title) {
-            Map&lt;String,String&gt; queryParameters=new LinkedHashMap&lt;&gt;();
-            queryParameters.put(UrlConstant.USER_ID,&quot;&quot;);
-            queryParameters.put(UrlConstant.DEVICE_ID, &quot;&quot;);
-            url= UrlUtils.splitJoint(url,queryParameters);
-            Bundle bundle=new Bundle();
-            bundle.putString(A.WEB_VIEW_BUNDLE_TITLE,title);
-            bundle.putString(A.WEB_VIEW_BUNDLE_LOAD_URL, url);
-            Intent intent=new Intent(context, A.class);
-            intent.putExtra(A.WEBVIEW_BUNDLE_NAME,bundle);
-            return intent;
-        }
-    }
-
-
-    Class B extends Activity{
-    String incomeRuleUrl = ServiceUrlConstants.URL.getIncomeRuleUrl();
-        startActivity(A.newIntent(this, incomeRuleUrl, &quot;收益规则&quot;));
-    }
-</code></pre>
           
         
       
