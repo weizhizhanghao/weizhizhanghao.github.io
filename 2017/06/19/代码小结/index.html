@@ -93,13 +93,16 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="测试页面â">
-<meta property="og:url" content="http://yoursite.com/测试页面a/index.html">
+<meta name="description" content="过滤器可以设置优先级： IntentFilter filter = new IntentFilter(); filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);  获取随机函数 private static int getRandom(int sumWeight) {     return (int) Math.round(Math.ran">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代码小结">
+<meta property="og:url" content="http://yoursite.com/2017/06/19/代码小结/index.html">
 <meta property="og:site_name" content="未知账号">
-<meta property="og:updated_time" content="2017-06-16T07:44:47.756Z">
+<meta property="og:description" content="过滤器可以设置优先级： IntentFilter filter = new IntentFilter(); filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);  获取随机函数 private static int getRandom(int sumWeight) {     return (int) Math.round(Math.ran">
+<meta property="og:updated_time" content="2017-06-19T08:36:45.984Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="测试页面â">
+<meta name="twitter:title" content="代码小结">
+<meta name="twitter:description" content="过滤器可以设置优先级： IntentFilter filter = new IntentFilter(); filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);  获取随机函数 private static int getRandom(int sumWeight) {     return (int) Math.round(Math.ran">
 
 
 
@@ -127,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/测试页面a/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/06/19/代码小结/"/>
 
 
 
 
 
-  <title>测试页面â | 未知账号</title>
+  <title>代码小结 | 未知账号</title>
   
 
 
@@ -243,18 +246,185 @@
             
 
   <div id="posts" class="posts-expand">
-  <header class="post-header">
+    
 
-	<h1 class="post-title" itemprop="name headline">测试页面â</h1>
+  
 
+  
+  
+  
 
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/代码小结/">
 
-</header>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">代码小结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
     
+
+    <div class="post-body" itemprop="articleBody">
+
       
-    
+      
+
+      
+        <ul>
+<li><p>过滤器可以设置优先级：</p>
+<pre><code>IntentFilter filter = new IntentFilter();
+filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+</code></pre></li>
+<li><p>获取随机函数</p>
+<pre><code>private static int getRandom(int sumWeight) {
+    return (int) Math.round(Math.random() * sumWeight);
+}
+</code></pre></li>
+<li><p>Bundle 的传值使用方法：</p>
+<pre><code>Bundle bundle = new Bundle();
+bundle.putString(&quot;a&quot;, &quot;sub&quot;);
+bundle.putString(&quot;b&quot;, &quot;let&quot;);
+
+Intent intent = new Intent(this, activityA.class);
+intent.putExtra(&quot;all&quot;, bundle);
+startActivity(intent);
+</code></pre></li>
+<li><p>代码设置屏幕竖屏：</p>
+<pre><code>setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+</code></pre></li>
+<li><p>设置延时的handler：</p>
+<pre><code>handler.postDelayed(new Runnable() {
+    @Override
+    public void run() {
+        DaemonServiceManager.startDaemonService(LauncherActivity.this);
+        startMainActivity(true);
+        handler.sendEmptyMessageDelayed(FINISH_WHAT, FINISH_INTERVAL_TIME);
+    }
+}, intervalTime);
+</code></pre></li>
+<li><p>在Android里面</p>
+<pre><code>view = new ImageView(context);
+view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+view.setBackgroundResource(R.drawerable.**);
+</code></pre></li>
+</ul>
+<blockquote>
+<p>中，资源文件只能是图片等资源文件，布局文件是不能这样写的，如果要嵌入布局，如下：</p>
+</blockquote>
+<pre><code>view =  View.inflate(Context context, R.layout.**, null);
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/16/test/" rel="next" title="Test">
+                <i class="fa fa-chevron-left"></i> Test
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/19/日历和闹钟/" rel="prev" title="日历">
+                日历 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -453,10 +623,10 @@
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 

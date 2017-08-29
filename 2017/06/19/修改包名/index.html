@@ -93,13 +93,16 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="测试页面â">
-<meta property="og:url" content="http://yoursite.com/测试页面a/index.html">
+<meta name="description" content="修改包名可以采用包名替换的方式：public class PackageUtil {      public static String orgPackageName1=&amp;quot;com.zcdog.smartlocker.android&amp;quot;;     public static String orgPackageName2=&amp;quot;com.zcdog.zchat&amp;quot;;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="修改包名">
+<meta property="og:url" content="http://yoursite.com/2017/06/19/修改包名/index.html">
 <meta property="og:site_name" content="未知账号">
-<meta property="og:updated_time" content="2017-06-16T07:44:47.756Z">
+<meta property="og:description" content="修改包名可以采用包名替换的方式：public class PackageUtil {      public static String orgPackageName1=&amp;quot;com.zcdog.smartlocker.android&amp;quot;;     public static String orgPackageName2=&amp;quot;com.zcdog.zchat&amp;quot;;">
+<meta property="og:updated_time" content="2017-06-19T08:42:01.753Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="测试页面â">
+<meta name="twitter:title" content="修改包名">
+<meta name="twitter:description" content="修改包名可以采用包名替换的方式：public class PackageUtil {      public static String orgPackageName1=&amp;quot;com.zcdog.smartlocker.android&amp;quot;;     public static String orgPackageName2=&amp;quot;com.zcdog.zchat&amp;quot;;">
 
 
 
@@ -127,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/测试页面a/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/06/19/修改包名/"/>
 
 
 
 
 
-  <title>测试页面â | 未知账号</title>
+  <title>修改包名 | 未知账号</title>
   
 
 
@@ -243,18 +246,163 @@
             
 
   <div id="posts" class="posts-expand">
-  <header class="post-header">
+    
 
-	<h1 class="post-title" itemprop="name headline">测试页面â</h1>
+  
 
+  
+  
+  
 
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/修改包名/">
 
-</header>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">修改包名</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
     
+
+    <div class="post-body" itemprop="articleBody">
+
       
-    
+      
+
+      
+        <h3 id="修改包名可以采用包名替换的方式："><a href="#修改包名可以采用包名替换的方式：" class="headerlink" title="修改包名可以采用包名替换的方式："></a>修改包名可以采用包名替换的方式：</h3><pre><code>public class PackageUtil {
+
+    public static String orgPackageName1=&quot;com.zcdog.smartlocker.android&quot;;
+    public static String orgPackageName2=&quot;com.zcdog.zchat&quot;;
+
+    public static String destPackageName1=&quot;com.wangwang.tv.android&quot;;
+    public static String destPackageName2=&quot;com.wangwang.zchat&quot;;
+
+    public static String packageReplace(String className){
+        if (className!=null&amp;&amp;!className.isEmpty()){
+            if (className.contains(orgPackageName1)){
+                return className.replaceAll(orgPackageName1,destPackageName1);
+            }
+            if (className.contains(orgPackageName2)){
+                return className.replaceAll(orgPackageName2,destPackageName2);
+            }
+        }
+        return className;
+    }
+}
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/19/Retrofit/" rel="next" title="Retrofit">
+                <i class="fa fa-chevron-left"></i> Retrofit
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/19/反射机制的实现/" rel="prev" title="反射机制">
+                反射机制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -286,8 +434,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -340,6 +497,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改包名可以采用包名替换的方式："><span class="nav-number">1.</span> <span class="nav-text">修改包名可以采用包名替换的方式：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -453,10 +626,10 @@
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 
