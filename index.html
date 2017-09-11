@@ -93,12 +93,15 @@
 
 
 
+<meta name="description" content="懂的or不懂的，我都记录在这里">
 <meta property="og:type" content="website">
 <meta property="og:title" content="未知账号">
 <meta property="og:url" content="http://yoursite.com/index.html">
 <meta property="og:site_name" content="未知账号">
+<meta property="og:description" content="懂的or不懂的，我都记录在这里">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="未知账号">
+<meta name="twitter:description" content="懂的or不懂的，我都记录在这里">
 
 
 
@@ -175,7 +178,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">一个积极奋进的女汉子</p>
+        <p class="site-subtitle">明天的一切都是未知的!</p>
       
   </div>
 
@@ -243,6 +246,514 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/08/按照特定的某种方式对一个数组里面的数值排序/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/08/按照特定的某种方式对一个数组里面的数值排序/" itemprop="url">按照特定的某种方式对一个数组里面的数值排序</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-08T17:59:30+08:00">
+                2017-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h4><ul>
+<li>有一个数组，例如是{1，3，2，4，6，7，5，9}，排序后数组为{9，7，4，3，1，2，6，5}，请找出该数组的排序规律并用代码实现排序！</li>
+</ul>
+<h3 id="Answer"><a href="#Answer" class="headerlink" title="Answer"></a>Answer</h3><ul>
+<li><p>首先说说基本思路</p>
+<blockquote>
+<p>首先看两组数据的变换规律，它是以第一个数字为中心变换，找到数组的长度len，将第一个数字设置在下标为len/2的位置，然后，用两个变量，left = len/2 - 1，right = len/2 + 1; 按照原有数组的顺序，依次赋值给num[left]并left–，num[right]并right–，直至原有数组所有的数字都被操作完。。。结果正确了，但是你会发现，空间复杂度是真的高。。。所以我们需要想想，怎么优化。</p>
+</blockquote>
+</li>
+<li><p>再升级一下思路</p>
+<blockquote>
+<p>那怎么优化呢，看来主要是空间复杂度上面进行优化了，对，还记得插入排序的思路没？对，就是按照那个思路，首先找到第一个数字要放置的位置len/2，设置一个变量tmp, 再用for循环遍历，从第二个值即num[1]开始，依次遍历，如果是编号i为奇数的，那么从0到编号i，tmp = num[i], 从0到i-1每个位置依次后移一个位置，最后将num[0] = tmp, 如果编号i为奇数，则不管它，那么就只需要 一个变量，但是我发现好像时间复杂度变长了，得套用两个for循环。</p>
+</blockquote>
+</li>
+<li><p>以下是两种思路的代码实现</p>
+</li>
+</ul>
+<blockquote>
+<p>方式一</p>
+</blockquote>
+<pre><code>static void fun(int[] num){
+    int len = num.length;
+    int[] data = new int[len + 1];
+    int tmpLoc = len / 2;
+    data[tmpLoc] = num[0];
+    int left = tmpLoc - 1,right = tmpLoc + 1;
+    for(int i = 1; i &lt; len; i ++){
+        data[left--] = num[i];
+        if (i &lt; len - 1){
+            i ++;
+        }
+        data[right] = num[i];
+        if (right &lt; len){
+            right ++;
+        }
+    }
+
+    for(int i = 0; i &lt; len; i ++){
+        System.out.print(data[i] + &quot; &quot;);
+    }
+}
+</code></pre><blockquote>
+<p>方式二</p>
+</blockquote>
+<pre><code>static void fun2(int[] num){
+    int len  = num.length;
+    int tmp;
+    for (int i = 1; i &lt; len; i ++){
+        tmp = num[i];
+        if (i % 2 != 0){
+            for (int j = i; j &gt; 0; j --){
+                num[j] = num[j - 1];
+
+            }
+            num[0] = tmp;
+        }
+
+    }
+
+    for(int i = 0; i &lt; len; i ++){
+        System.out.print(num[i] + &quot; &quot;);
+    }
+}
+</code></pre><ul>
+<li>以上就是两个思路以及两种解决方案的代码啦。。突然间发现，方法二不加 i % 2 ！= 0 的条件，就可以反转数组啦。。。哈哈哈！新大陆呀</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/08/用递归实现n的阶乘以及n的求和/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/08/用递归实现n的阶乘以及n的求和/" itemprop="url">用递归实现n的阶乘以及n的求和，还有A的n次方（n可负可正）。</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-08T17:59:30+08:00">
+                2017-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="什么是递归算法？"><a href="#什么是递归算法？" class="headerlink" title="什么是递归算法？"></a>什么是递归算法？</h3><blockquote>
+<p>这是个人理解，如有问题，还请多多指教。。。递归就是按照找到一个退出递归的出口，其余的部分一直按照某种规律执行，自己调用自己的方式执行代码。</p>
+</blockquote>
+<h3 id="递归的优势？"><a href="#递归的优势？" class="headerlink" title="递归的优势？"></a>递归的优势？</h3><blockquote>
+<p>这也是个人理解，如有问题，还请多多指教。。。递归其实就是把一个大问题化成一个小问题，大事化小，小事化了的方式，而且递归与for循环相比的话，他是可以记录中间过程值的，每一次后一步调用都能直接获取前一步的值，如果以后再哪个环节想要使用的话是可以直接使用的，不需要再次进行计算。</p>
+</blockquote>
+<h3 id="用递归实现以上两算法题。"><a href="#用递归实现以上两算法题。" class="headerlink" title="用递归实现以上两算法题。"></a>用递归实现以上两算法题。</h3><ul>
+<li>实现从0-n的加法：<blockquote>
+<p>描述思路：加法很简单啦，前面所有数量的和加上自己即可啦，一般这种情况只有正数；</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>代码实现：    </p>
+</blockquote>
+<pre><code>static int sum(int n){
+    if (n == 0)
+        return 0;
+    if (n == 1)
+        return 1;
+    return sum(n - 1) + n;
+    // 如果分正负
+    //if(n &gt; 0）{
+    //    return sum(n - 1) + n;
+    //} else{
+    //    return sum(n + 1) + n;
+    //}
+
+}
+</code></pre><ul>
+<li>实现整数n的阶乘：<blockquote>
+<p>首先描述一下思路，整数的阶乘，那么意味着整数分为正整数和负整数，那么我们需要分两种情况讨论，当n是正数的时候，f(n) = n <em> f(n -1), 但是当n为负数的时候f(n) =  n </em> f(n + 1)；</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>看看代码实现</p>
+</blockquote>
+<pre><code>static int f(int n){
+    if (n == 0){
+        return 1;
+    } else if (n &gt; 0){
+        return f(n - 1) * n;
+    } else if (n &lt; 0){
+        return f(n + 1) * n;
+    }
+    return -1;
+}
+</code></pre><ul>
+<li>实现数字A的n次方（n 可负可正）<blockquote>
+<p>首先描述一下大众思路，在印象里面，A的多少次方就是多少个A相乘啊，那如果n是负数呢？那就是绝对值个A相乘，最后取倒数。</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>下面看看普通实现方式的代码</p>
+</blockquote>
+<pre><code>static double accelarateN(int a, int num){
+    if (a == 0)
+        return 0;
+    if (num &gt;= 0){
+        return bZ(a, num);
+    } else if (num &lt; 0){
+       // num = Math.abs(num);
+       // return 1 / bZ(a, num);
+        return 1 / sZ(a, num);
+    }
+    return -1;
+}
+
+static double bZ(int a, int n){
+    if (n == 0){
+        return 1;
+    }
+    return a * bZ(a, n -1);
+}
+
+static double sZ(int b, int n){
+    if (n == 0)
+        return 1;
+    return b * sZ(b, n + 1);
+}
+</code></pre><blockquote>
+<p>其实看完上面的代码，会发现，这样就可以实现功能了，但是，我们可以想一想，如何更好的实现这个算法，求一个数的整数次方，那么很明显，这里面有个重复的过程，那就是一个数的N次方等于这个数的（N/2）次方的平方，那么代码就可如下写：</p>
+</blockquote>
+<pre><code>static double accPower(int base, int exponent){
+    double result = 1;
+    int n = exponent;
+    exponent = Math.abs(exponent);
+    if (exponent == 0)
+        return 1;
+    if (exponent == 1)
+        return base;
+    result *= accPower(base, exponent &gt;&gt; 1) * accPower(base, exponent &gt;&gt; 1);
+    if ((exponent &amp; 1) == 1){
+        result = base * result;
+    }
+
+    if (n &lt; 0){
+        result = 1 / result;
+    }
+    return result;
+}
+</code></pre><p>怎么样，结果是一样的，但是运算速度快了很多啦。。。每次都以次方的形式递减。。。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/08/单链表反转/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/08/单链表反转/" itemprop="url">单链表反转</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-08T17:59:30+08:00">
+                2017-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h4><ul>
+<li><h4 id="Answer"><a href="#Answer" class="headerlink" title="Answer"></a>Answer</h4></li>
+<li>首先说说基本思路</li>
+<li>代码实现</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -427,139 +938,6 @@ ViewStub listStub2 = (ViewStub) findViewById(R.id.stub_import) ;
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/29/HV展示不了的bug fix/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/29/HV展示不了的bug fix/" itemprop="url">未命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-29T10:34:32+08:00">
-                2017-08-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>HV 设置使用方法,注释是添加代码的位置</p>
-</blockquote>
-<pre><code>// onCreate()
-ViewServer.get(this).addWindow(this);
-//onResume()
-ViewServer.get(this).setFocusedWindow(this);
-//onDestroy()
-ViewServer.get(this).removeWindow(this);
-</code></pre><blockquote>
-<p>添加依赖</p>
-</blockquote>
-<pre><code>allprojects {
-    repositories {
-        maven { url &apos;https://jitpack.io&apos; }
-    }
-}
-
- dependencies {
-   //在HV上可以看见自己的View布局的一个开源库
-    compile &apos;com.github.romainguy:ViewServer:-SNAPSHOT&apos;
-  }
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/28/Activity的生命周期里的onStart和onStop/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -631,35 +1009,275 @@ ViewServer.get(this).removeWindow(this);
             <h3 id="Activity的生命周期里的onStart与onResume的区别"><a href="#Activity的生命周期里的onStart与onResume的区别" class="headerlink" title="Activity的生命周期里的onStart与onResume的区别"></a>Activity的生命周期里的onStart与onResume的区别</h3><ul>
 <li><p>onStart函数的相关代码：</p>
 <pre><code>/**
- * Dispatch onStart() to all fragments.  Ensure any created loaders are
- * now started.
+ * Called after {@link #onCreate} &amp;mdash; or after {@link #onRestart} when
+ * the activity had been stopped, but is now again being displayed to the
+ * user.  It will be followed by {@link #onResume}.
+ *
+ * &lt;p&gt;&lt;em&gt;Derived classes must call through to the super class&apos;s
+ * implementation of this method.  If they do not, an exception will be
+ * thrown.&lt;/em&gt;&lt;/p&gt;
+ *
+ * @see #onCreate
+ * @see #onStop
+ * @see #onResume
  */
-@Override
 protected void onStart() {
-    super.onStart();
+    if (DEBUG_LIFECYCLE) Slog.v(TAG, &quot;onStart &quot; + this);
+    mCalled = true;
 
-    mStopped = false;
-    mReallyStopped = false;
-    mHandler.removeMessages(MSG_REALLY_STOPPED);
-
-    if (!mCreated) {
-        mCreated = true;
-        mFragments.dispatchActivityCreated();
+    if (!mLoadersStarted) {
+        mLoadersStarted = true;
+        if (mLoaderManager != null) {
+            mLoaderManager.doStart();
+        } else if (!mCheckedForLoaderManager) {
+            mLoaderManager = getLoaderManager(&quot;(root)&quot;, mLoadersStarted, false);
+        }
+        mCheckedForLoaderManager = true;
     }
 
-    mFragments.noteStateNotSaved();
-    mFragments.execPendingActions();
-
-    mFragments.doLoaderStart();
-
-    // NOTE: HC onStart goes here.
-
-    mFragments.dispatchStart();
-    mFragments.reportLoaderStart();
+    getApplication().dispatchActivityStarted(this);
 }
 </code></pre></li>
+<li><p>onResume函数的相关代码</p>
+<pre><code>/**
+ * Called after {@link #onRestoreInstanceState}, {@link #onRestart}, or
+ * {@link #onPause}, for your activity to start interacting with the user.
+ * This is a good place to begin animations, open exclusive-access devices
+ * (such as the camera), etc.
+ *
+ * &lt;p&gt;Keep in mind that onResume is not the best indicator that your activity
+ * is visible to the user; a system window such as the keyguard may be in
+ * front.  Use {@link #onWindowFocusChanged} to know for certain that your
+ * activity is visible to the user (for example, to resume a game).
+ *
+ * &lt;p&gt;&lt;em&gt;Derived classes must call through to the super class&apos;s
+ * implementation of this method.  If they do not, an exception will be
+ * thrown.&lt;/em&gt;&lt;/p&gt;
+ *
+ * @see #onRestoreInstanceState
+ * @see #onRestart
+ * @see #onPostResume
+ * @see #onPause
+ */
+protected void onResume() {
+    if (DEBUG_LIFECYCLE) Slog.v(TAG, &quot;onResume &quot; + this);
+    getApplication().dispatchActivityResumed(this);
+    mActivityTransitionState.onResume();
+    mCalled = true;
+}
+</code></pre><p>从注释就可以看出来，onResume是执行在onStart函数之后的，onStart函数是执行在onCreate函数之后或者执行了onStop函数之后重新打开界面执行，onResume则是在执行了onStart或者onRestart或者onPause函数之后执行，在里面可以进行很多初始化工作，比如开始动画等等。。。他俩最大的不同，则是onStart是可见但用户不可对界面进行交互性操作的时刻，但是onResume则是不仅可见，也可与界面进行交互，并且界面会作出相应反应。</p>
+</li>
 </ul>
-<h3 id="Activity的生命周期里的onStop与onPause的区别"><a href="#Activity的生命周期里的onStop与onPause的区别" class="headerlink" title="Activity的生命周期里的onStop与onPause的区别"></a>Activity的生命周期里的onStop与onPause的区别</h3><h3 id="onStart和onStop主要是执行什么操作"><a href="#onStart和onStop主要是执行什么操作" class="headerlink" title="onStart和onStop主要是执行什么操作"></a>onStart和onStop主要是执行什么操作</h3>
+<h3 id="Activity的生命周期里的onStop与onPause的区别"><a href="#Activity的生命周期里的onStop与onPause的区别" class="headerlink" title="Activity的生命周期里的onStop与onPause的区别"></a>Activity的生命周期里的onStop与onPause的区别</h3><ul>
+<li><p>onStop函数的相关代码：</p>
+<pre><code>/**
+ * Called when you are no longer visible to the user.  You will next
+ * receive either {@link #onRestart}, {@link #onDestroy}, or nothing,
+ * depending on later user activity.
+ *
+ * &lt;p&gt;Note that this method may never be called, in low memory situations
+ * where the system does not have enough memory to keep your activity&apos;s
+ * process running after its {@link #onPause} method is called.
+ *
+ * &lt;p&gt;&lt;em&gt;Derived classes must call through to the super class&apos;s
+ * implementation of this method.  If they do not, an exception will be
+ * thrown.&lt;/em&gt;&lt;/p&gt;
+ *
+ * @see #onRestart
+ * @see #onResume
+ * @see #onSaveInstanceState
+ * @see #onDestroy
+ */
+protected void onStop() {
+    if (DEBUG_LIFECYCLE) Slog.v(TAG, &quot;onStop &quot; + this);
+    if (mActionBar != null) mActionBar.setShowHideAnimationEnabled(false);
+    mActivityTransitionState.onStop();
+    getApplication().dispatchActivityStopped(this);
+    mTranslucentCallback = null;
+    mCalled = true;
+}
+</code></pre></li>
+<li><p>onPause函数的相关代码：</p>
+<pre><code>/**
+ * Called as part of the activity lifecycle when an activity is going into
+ * the background, but has not (yet) been killed.  The counterpart to
+ * {@link #onResume}.
+ *
+ * &lt;p&gt;When activity B is launched in front of activity A, this callback will
+ * be invoked on A.  B will not be created until A&apos;s {@link #onPause} returns,
+ * so be sure to not do anything lengthy here.
+ *
+ * &lt;p&gt;This callback is mostly used for saving any persistent state the
+ * activity is editing, to present a &quot;edit in place&quot; model to the user and
+ * making sure nothing is lost if there are not enough resources to start
+ * the new activity without first killing this one.  This is also a good
+ * place to do things like stop animations and other things that consume a
+ * noticeable amount of CPU in order to make the switch to the next activity
+ * as fast as possible, or to close resources that are exclusive access
+ * such as the camera.
+ *
+ * &lt;p&gt;In situations where the system needs more memory it may kill paused
+ * processes to reclaim resources.  Because of this, you should be sure
+ * that all of your state is saved by the time you return from
+ * this function.  In general {@link #onSaveInstanceState} is used to save
+ * per-instance state in the activity and this method is used to store
+ * global persistent data (in content providers, files, etc.)
+ *
+ * &lt;p&gt;After receiving this call you will usually receive a following call
+ * to {@link #onStop} (after the next activity has been resumed and
+ * displayed), however in some cases there will be a direct call back to
+ * {@link #onResume} without going through the stopped state.
+ *
+ * &lt;p&gt;&lt;em&gt;Derived classes must call through to the super class&apos;s
+ * implementation of this method.  If they do not, an exception will be
+ * thrown.&lt;/em&gt;&lt;/p&gt;
+ *
+ * @see #onResume
+ * @see #onSaveInstanceState
+ * @see #onStop
+ */
+protected void onPause() {
+    if (DEBUG_LIFECYCLE) Slog.v(TAG, &quot;onPause &quot; + this);
+    getApplication().dispatchActivityPaused(this);
+    mCalled = true;
+    }
+</code></pre><p>同样根据注释可以看出，onStop是在界面不再对用户可见的时候执行，而且在内存不足而导致系统无法保留此进程的情况下，onStop() 可能都不会被执行，但是可以执行一些耗时操作，因为是后台进程，不会对APP运行产生较大的影响；onPause也是在界面不可见的时候执行，但他就像onResume一样，与之对应，是执行动画取消，耗时或者耗费CPU的动作取消的好时机，但是不能够执行过于耗时的操作，因为要保证能快速完好的加载下一个界面。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/28/HV展示不了的bug fix/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/28/HV展示不了的bug fix/" itemprop="url">HV相关的ViewSever的基本使用方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-28T15:14:12+08:00">
+                2017-08-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>HV 设置使用方法,注释是添加代码的位置</p>
+</blockquote>
+<pre><code>// onCreate()
+ViewServer.get(this).addWindow(this);
+//onResume()
+ViewServer.get(this).setFocusedWindow(this);
+//onDestroy()
+ViewServer.get(this).removeWindow(this);
+</code></pre><blockquote>
+<p>添加依赖</p>
+</blockquote>
+<pre><code>allprojects {
+    repositories {
+        maven { url &apos;https://jitpack.io&apos; }
+    }
+}
+
+ dependencies {
+   //在HV上可以看见自己的View布局的一个开源库
+    compile &apos;com.github.romainguy:ViewServer:-SNAPSHOT&apos;
+  }
+</code></pre>
           
         
       
@@ -1650,487 +2268,6 @@ public boolean onTouchEvent(MotionEvent event) {
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/19/360面试题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/19/360面试题/" itemprop="url">360面试题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-19T16:07:12+08:00">
-                2017-07-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <hr>
-<h2 id="360面试题"><a href="#360面试题" class="headerlink" title="360面试题"></a>360面试题</h2><blockquote>
-<ul>
-<li>post 和 get 的区别？</li>
-<li>多线程如何进行数据交互？</li>
-<li>多进程如何进行数据交互？</li>
-<li>如何实现多线程？</li>
-<li>线程和进程的区别？</li>
-<li>http 和 https的区别？https是如何在http上建成的？</li>
-<li>udp 和 tcp 的区别？</li>
-<li>http属于网络传输协议的哪一层？</li>
-<li>ThreadHandler 是什么？</li>
-<li>单例模式怎么实现？builder 模式的优势？</li>
-<li>MVC， MVP， MVVM的区别？</li>
-<li>ImageLoader的实现原理，和Glide比较各自的优缺点？</li>
-<li>View的绘制</li>
-<li>如何实现一个自定义的View？</li>
-<li>实现快排</li>
-<li>native 和 js 如何进行数据交互？</li>
-<li>热修复技术用的是什么？</li>
-<li>GitHub博客的搭建过程？</li>
-<li>弹幕问题是如何修复的？</li>
-<li>内存泄漏可能发生的情况以及发生后如何定位？</li>
-<li>模拟一个View的点击事件获取网络数据并展示的过程</li>
-<li>用过哪些开源框架？百度SDK如何接入自己的项目的？</li>
-<li>在项目中充当的角色？干了些什么事？</li>
-<li>service 和 activity是否在同一个进程中？如何新建一个进程？</li>
-<li>四大组件有哪些？</li>
-<li>聊天如何实现的？用的第三方框架还是自己实现的？</li>
-<li>GreenDao 和 Sqlite </li>
-</ul>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/19/BAT面试/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/19/BAT面试/" itemprop="url">经验之谈</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-19T16:07:12+08:00">
-                2017-07-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <hr>
-<h2 id="android-面试答案："><a href="#android-面试答案：" class="headerlink" title="android 面试答案："></a>android 面试答案：</h2><h3 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h3><p><strong>1.ANR 具体产生的类型有哪些，具体说下其产生的最大超时时间。</strong></p>
-<blockquote>
-<ul>
-<li><p>KeyDispatchTimeout(5 seconds) –主要类型：<br>按键或触摸事件在特定时间内无响应</p>
-</li>
-<li><p>BroadcastTimeout(10 seconds)：<br>BroadcastReceiver在特定时间内无法处理完成</p>
-</li>
-<li><p>ServiceTimeout(20 seconds) –小概率类型：<br>Service在特定的时间内无法处理完成</p>
-</li>
-</ul>
-</blockquote>
-<p><strong>2.多线程多点下载的过程</strong></p>
-<p><strong>3.http协议的理解和用法</strong></p>
-<blockquote>
-<ul>
-<li><p>HTTP是一个基于请求与响应模式的、无状态的、应用层的协议，属于应用层的面向对象的协议，常基于TCP的连接方式</p>
-</li>
-<li><p>具备以下特点</p>
-<ul>
-<li>1.支持客户/服务器模式。</li>
-<li>2.简单快速：客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有GET、HEAD、POST。每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。</li>
-<li>3.灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。</li>
-<li>4.无连接：无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。</li>
-<li>5.无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。</li>
-</ul>
-</li>
-<li><p>URL格式以及对应的含义</p>
-<ul>
-<li>格式 <a href="http://host[&quot;:&quot;port][abs_path" target="_blank" rel="external">http://host[&quot;:&quot;port][abs_path</a>]</li>
-<li>http表示要通过HTTP协议来定位网络资源；host表示合法的Internet主机域名或者IP地址；port指定一个端口号，为空则使用缺省端口80；abs_path指定请求资源的URI；如果URL中没有给出abs_path，那么当它作为请求URI时，必须以“/”的形式给出，通常这个工作浏览器自动帮我们完成。</li>
-</ul>
-</li>
-<li><p>http 请求</p>
-<ul>
-<li>http请求由三部分组成，分别是：请求行、消息报头、请求正文</li>
-</ul>
-</li>
-<li><p>http 响应</p>
-<ul>
-<li>HTTP响应也是由三个部分组成，分别是：状态行、消息报头、响应正文</li>
-</ul>
-</li>
-<li>利用telnet观察http协议的通讯过程<ul>
-<li>实验目的及原理<ul>
-<li>利用MS的telnet工具，通过手动输入http请求信息的方式，向服务器发出请求，服务器接收、解释和接受请求后，会返回一个响应，该响应会在telnet窗口上显示出来，从而从感性上加深对http协议的通讯过程的认识。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>http协议的安全<ul>
-<li>HTTP本身并不提供安全，然而通过在传输层和应用层中使用安全套接层（SSL）可以使HTTP运行在安全的环境下，即HTTPS，HTTPS可以提供保密性，客户和服务器鉴别以及数据的完整性。</li>
-<li>SSL的设计时为了给应用层生成的数据提供安全以及压缩服务，一般来说SSL能接收来自任何应用层协议的数据，但最多情况下这个应用层的协议就是HTTP，SSL对应用层传来的数据提供多种服务：<ul>
-<li>分片：SSL把数据划分为长度小于或者等于2的14次字节的数据分片</li>
-<li>压缩：数据分片通过使用一种由客户端和服务器协商好的无损压缩方式进行压缩，这个服务是可选的。</li>
-<li>报文完整性：为了保护数据的完整性，SSL使用密钥散列函数来创建MAC。</li>
-<li>保密：为了提供保密性，原始的数据和MAC一起用对称密钥加密技术来加密。</li>
-<li>组帧：先在被加密的有效载荷上添加一个首部，然后再把这个恶有效载荷传递给可靠的运输层协议。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</blockquote>
-<p><strong>4.安卓如何实现多线程并解决线程并发问题</strong></p>
-<blockquote>
-<p> 继承Thread类，重写run函数方法：</p>
-</blockquote>
-<pre><code>class xx extends Thread{
-    public void run(){
-        Thread.sleep(1000);    //线程休眠1000毫秒，sleep使线程进入Block状态，并释放资源
-    }
-}
-xx.start();    //启动线程，run函数运行
-</code></pre><blockquote>
-<p>实现Runnable接口，重写run函数方法：</p>
-</blockquote>
-<pre><code>Runnable run =new Runnable() {
-    @Override
-    public void run() {
-
-    }
-}
-</code></pre><blockquote>
-<p>实现Callable接口，重写call函数方法：</p>
-</blockquote>
-<pre><code>Callable call =new Callable() {
-    @Override
-    public Object call() throws Exception {
-        return null;
-    }
-}
-</code></pre><blockquote>
-<ul>
-<li>AsyncTask</li>
-<li>Handler + Looper</li>
-<li>ThreadPool</li>
-<li>同步（Synchronized），易变(volatile)，内存模型</li>
-</ul>
-</blockquote>
-<p><strong>5.你知道的数据结构有哪些，说下具体实现机制</strong></p>
-<blockquote>
-<ul>
-<li>Map</li>
-<li>List</li>
-<li>栈/队列</li>
-<li>树</li>
-<li>图</li>
-</ul>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/29/杂记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/29/杂记/" itemprop="url">杂记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-29T16:07:12+08:00">
-                2017-06-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="确定项目中是否有内存泄漏"><a href="#确定项目中是否有内存泄漏" class="headerlink" title="确定项目中是否有内存泄漏"></a>确定项目中是否有内存泄漏</h3><blockquote>
-<p>Android studio 查看：Memory Monitor<br>命令行模式：adb shell dumpays meminfo 包名 -d</p>
-</blockquote>
-<ul>
-<li>ddd</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2172,7 +2309,7 @@ xx.start();    //启动线程，run函数运行
                alt="HM" />
           <p class="site-author-name" itemprop="name">HM</p>
            
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">懂的or不懂的，我都记录在这里</p>
           
         </div>
         <nav class="site-state motion-element">
@@ -2180,7 +2317,7 @@ xx.start();    //启动线程，run函数运行
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2193,7 +2330,7 @@ xx.start();    //启动线程，run函数运行
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
@@ -2204,6 +2341,62 @@ xx.start();    //启动线程，run函数运行
         
 
         <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/weizhizhanghao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/5171573689/profile?rightmod=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="DouBan">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  DouBan
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="ZhiHu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  ZhiHu
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="FriendLink">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  FriendLink
+                </a>
+              </span>
+            
           
         </div>
 

@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="算法," />
 
 
 
@@ -93,16 +93,17 @@
 
 
 
-<meta name="description" content="反射机制的实现反射机制：代码示例： 被引用类 package com.zcdog.dogtv.manager.interval;  import com.zcdog.dogtv.entity.RedDotEntity; import com.zcdog.dogtv.model.RedDotModel2; import com.zcdog.dogtv.view.user.RedDotViewAdap">
+<meta name="description" content="Question Answer 首先说说基本思路 代码实现">
+<meta name="keywords" content="算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="反射机制">
-<meta property="og:url" content="http://yoursite.com/2017/06/19/反射机制的实现/index.html">
+<meta property="og:title" content="单链表反转">
+<meta property="og:url" content="http://yoursite.com/2017/09/08/单链表反转/index.html">
 <meta property="og:site_name" content="未知账号">
-<meta property="og:description" content="反射机制的实现反射机制：代码示例： 被引用类 package com.zcdog.dogtv.manager.interval;  import com.zcdog.dogtv.entity.RedDotEntity; import com.zcdog.dogtv.model.RedDotModel2; import com.zcdog.dogtv.view.user.RedDotViewAdap">
-<meta property="og:updated_time" content="2017-06-19T08:42:40.236Z">
+<meta property="og:description" content="Question Answer 首先说说基本思路 代码实现">
+<meta property="og:updated_time" content="2017-09-09T17:12:09.511Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="反射机制">
-<meta name="twitter:description" content="反射机制的实现反射机制：代码示例： 被引用类 package com.zcdog.dogtv.manager.interval;  import com.zcdog.dogtv.entity.RedDotEntity; import com.zcdog.dogtv.model.RedDotModel2; import com.zcdog.dogtv.view.user.RedDotViewAdap">
+<meta name="twitter:title" content="单链表反转">
+<meta name="twitter:description" content="Question Answer 首先说说基本思路 代码实现">
 
 
 
@@ -130,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/06/19/反射机制的实现/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/09/08/单链表反转/"/>
 
 
 
 
 
-  <title>反射机制 | 未知账号</title>
+  <title>单链表反转 | 未知账号</title>
   
 
 
@@ -255,7 +256,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/反射机制的实现/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/08/单链表反转/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HM">
@@ -272,7 +273,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">反射机制</h1>
+          <h1 class="post-title" itemprop="name headline">单链表反转</h1>
         
 
         <div class="post-meta">
@@ -284,8 +285,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-08T17:59:30+08:00">
+                2017-09-08
               </time>
             
 
@@ -319,186 +320,12 @@
       
 
       
-        <h3 id="反射机制的实现"><a href="#反射机制的实现" class="headerlink" title="反射机制的实现"></a>反射机制的实现</h3><h4 id="反射机制：代码示例："><a href="#反射机制：代码示例：" class="headerlink" title="反射机制：代码示例："></a>反射机制：代码示例：</h4><ul>
-<li><p>被引用类</p>
-<pre><code>package com.zcdog.dogtv.manager.interval;
-
-import com.zcdog.dogtv.entity.RedDotEntity;
-import com.zcdog.dogtv.model.RedDotModel2;
-import com.zcdog.dogtv.view.user.RedDotViewAdapter;
-import com.zcdog.util.info.android.Logger;
-import com.zcdog.zchat.ui.view.ZChatRedDotView;
-
-/**
- * 警告：该类被 ZChat 模块通过反射调用，改动需谨慎
- * &lt;p/&gt;
- * Created by Ivey on 2016/5/21.
- */
-public class RefreshFriendHallRedDotHelper {
-
-    private static final String TAG = &quot;RefreshFriendHallRedDotHelper&quot;;
-
-    public static void refreshVisitorsRedDotStatus(Boolean show) {
-        if (RedDotModel2.redDotCache != null &amp;&amp; RedDotModel2.redDotCache.getMap() != null) {
-            RedDotEntity redDotEntity = RedDotModel2.redDotCache.getMap().get(RedDotModel2.ZCHAT_VISITOR_TYPE);
-            if (redDotEntity != null) {
-                Logger.d(TAG, &quot;更新 最近访客 的红点状态&quot;);
-                if (show) {
-                    redDotEntity.setNumber(0);
-                }
-                redDotEntity.setShow(show);
-                RedDotModel2.saveCache();
-            }
-        }
-    }
-
-    public static void refreshMsgRedDotStatus(Integer number) {
-        if (RedDotModel2.redDotCache != null &amp;&amp; RedDotModel2.redDotCache.getMap() != null) {
-            RedDotEntity redDotEntity = RedDotModel2.redDotCache.getMap().get(RedDotModel2.ZCHAT_MESSAGE_ROOT_TYPE);
-            if (redDotEntity != null) {
-                Logger.d(TAG, &quot;更新 未读消息 的红点状态&quot;);
-                if (number &lt;= 0) {
-                    redDotEntity.setShow(false);
-                } else {
-                    redDotEntity.setNumber(number);
-                    redDotEntity.setShow(true);
-                }
-            }
-        }
-    }
-
-    public static void setRedDotIcon(ZChatRedDotView redDotView) {
-        if (RedDotModel2.redDotCache != null &amp;&amp; RedDotModel2.redDotCache.getMap() != null) {
-            RedDotEntity redDotEntity = RedDotModel2.redDotCache.getMap().get(redDotView.getType());
-            if (redDotEntity != null) {
-                redDotEntity.setRedDotIcon(new RedDotViewAdapter(redDotView));
-            }
-        }
-    }
-
-}
-</code></pre></li>
-<li><p>引用类：</p>
-<pre><code>package com.zcdog.zchat.manager;
-
-import com.zcdog.zchat.ui.view.ZChatRedDotView;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-/**
- * SmartLocker 模块中 RefreshFriendHallRedDotHelper 类的映射
- * &lt;p/&gt;
- * Created by Ivey on 2016/5/21.
- */
-public class ZChatRefreshFriendHallRedDotHelper {
-    private static final String TAG = &quot;ZChatRefreshFriendHallRedDotHelper&quot;;
-
-    private static final String CLASS_NAME = &quot;com.zcdog.dogtv.manager.interval.RefreshFriendHallRedDotHelper&quot;;
-
-    public static void refreshVisitorsRedDotStatus(boolean show) {
-        try {
-            Class RefreshFriendHallRedDotHelper = Class.forName(CLASS_NAME);
-            Method refreshVisitorsRedDotStatus = RefreshFriendHallRedDotHelper.getMethod(&quot;refreshVisitorsRedDotStatus&quot;, Boolean.class);
-            refreshVisitorsRedDotStatus.invoke(null, show);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void refreshMsgRedDotStatus(int number) {
-        try {
-            Class RefreshFriendHallRedDotHelper = Class.forName(CLASS_NAME);
-            Method refreshVisitorsRedDotStatus = RefreshFriendHallRedDotHelper.getMethod(&quot;refreshMsgRedDotStatus&quot;, Integer.class);
-            refreshVisitorsRedDotStatus.invoke(null, number);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void setRedDotIcon(ZChatRedDotView redDotView) {
-        try {
-            Class RefreshFriendHallRedDotHelper = Class.forName(CLASS_NAME);
-            Method refreshVisitorsRedDotStatus = RefreshFriendHallRedDotHelper.getMethod(&quot;setRedDotIcon&quot;, ZChatRedDotView.class);
-            refreshVisitorsRedDotStatus.invoke(null, redDotView);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
-
-}
-</code></pre></li>
+        <h4 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h4><ul>
+<li><h4 id="Answer"><a href="#Answer" class="headerlink" title="Answer"></a>Answer</h4></li>
+<li>首先说说基本思路</li>
+<li>代码实现</li>
 </ul>
-<ul>
-<li><p>自己手动总结如下：</p>
-<pre><code> public class ATest(){
-     private static final TAG = &quot;ATest&quot;;
 
-     public static void functionOne(Boolean ValueA){
-          //do something
-     }
-
- public static void functionTwo(Integer ValueB){
-          //do something
-     }
-}
-
-public class BTest(){
-     private static String TAG = &quot;BTest&quot;;
-     private static final String CLASS_NAME = &quot;包名.ATest&quot;
-
- public static void functionOne(boolean a){
-      try {
-        Class ATest= Class.forName(CLASS_NAME);
-        Method functionOne= ATest.getMethod(&quot;functionOne&quot;, Boolean.class);
-        functionOne .invoke(null, a);
-    } catch (ClassNotFoundException e) {
-        e.printStackTrace();
-    } catch (NoSuchMethodException e) {
-        e.printStackTrace();
-    } catch (InvocationTargetException e) {
-        e.printStackTrace();
-    } catch (IllegalAccessException e) {
-        e.printStackTrace();
-    }
- }
-</code></pre></li>
-</ul>
-<pre><code> public static void functionTwo(int b){
-          try {
-            Class ATest= Class.forName(CLASS_NAME);
-            Method functionTwo= ATest.getMethod(&quot;functionTwo&quot;, Integer.class);
-            functionTwo .invoke(null, b);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-     }
-}
-</code></pre>
       
     </div>
 
@@ -525,6 +352,12 @@ public class BTest(){
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+        </div>
+      
 
       
       
@@ -534,8 +367,8 @@ public class BTest(){
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/19/Toast的封装/" rel="next" title="Toast的封装">
-                <i class="fa fa-chevron-left"></i> Toast的封装
+              <a href="/2017/08/29/布局优化/" rel="next" title="布局优化">
+                <i class="fa fa-chevron-left"></i> 布局优化
               </a>
             
           </div>
@@ -544,8 +377,8 @@ public class BTest(){
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/06/29/杂记/" rel="prev" title="杂记">
-                杂记 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/09/08/用递归实现n的阶乘以及n的求和/" rel="prev" title="用递归实现n的阶乘以及n的求和，还有A的n次方（n可负可正）。">
+                用递归实现n的阶乘以及n的求和，还有A的n次方（n可负可正）。 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -722,7 +555,7 @@ public class BTest(){
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#反射机制的实现"><span class="nav-number">1.</span> <span class="nav-text">反射机制的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#反射机制：代码示例："><span class="nav-number">1.1.</span> <span class="nav-text">反射机制：代码示例：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Answer"><span class="nav-number">2.</span> <span class="nav-text">Answer</span></a></li></ol></div>
             
 
           </div>

@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="算法," />
 
 
 
@@ -93,16 +93,17 @@
 
 
 
-<meta name="description" content="反射机制的实现反射机制：代码示例： 被引用类 package com.zcdog.dogtv.manager.interval;  import com.zcdog.dogtv.entity.RedDotEntity; import com.zcdog.dogtv.model.RedDotModel2; import com.zcdog.dogtv.view.user.RedDotViewAdap">
+<meta name="description" content="什么是递归算法？ 这是个人理解，如有问题，还请多多指教。。。递归就是按照找到一个退出递归的出口，其余的部分一直按照某种规律执行，自己调用自己的方式执行代码。  递归的优势？ 这也是个人理解，如有问题，还请多多指教。。。递归其实就是把一个大问题化成一个小问题，大事化小，小事化了的方式，而且递归与for循环相比的话，他是可以记录中间过程值的，每一次后一步调用都能直接获取前一步的值，如果以后再哪个环节想">
+<meta name="keywords" content="算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="反射机制">
-<meta property="og:url" content="http://yoursite.com/2017/06/19/反射机制的实现/index.html">
+<meta property="og:title" content="用递归实现n的阶乘以及n的求和，还有A的n次方（n可负可正）。">
+<meta property="og:url" content="http://yoursite.com/2017/09/08/用递归实现n的阶乘以及n的求和/index.html">
 <meta property="og:site_name" content="未知账号">
-<meta property="og:description" content="反射机制的实现反射机制：代码示例： 被引用类 package com.zcdog.dogtv.manager.interval;  import com.zcdog.dogtv.entity.RedDotEntity; import com.zcdog.dogtv.model.RedDotModel2; import com.zcdog.dogtv.view.user.RedDotViewAdap">
-<meta property="og:updated_time" content="2017-06-19T08:42:40.236Z">
+<meta property="og:description" content="什么是递归算法？ 这是个人理解，如有问题，还请多多指教。。。递归就是按照找到一个退出递归的出口，其余的部分一直按照某种规律执行，自己调用自己的方式执行代码。  递归的优势？ 这也是个人理解，如有问题，还请多多指教。。。递归其实就是把一个大问题化成一个小问题，大事化小，小事化了的方式，而且递归与for循环相比的话，他是可以记录中间过程值的，每一次后一步调用都能直接获取前一步的值，如果以后再哪个环节想">
+<meta property="og:updated_time" content="2017-09-11T03:19:35.393Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="反射机制">
-<meta name="twitter:description" content="反射机制的实现反射机制：代码示例： 被引用类 package com.zcdog.dogtv.manager.interval;  import com.zcdog.dogtv.entity.RedDotEntity; import com.zcdog.dogtv.model.RedDotModel2; import com.zcdog.dogtv.view.user.RedDotViewAdap">
+<meta name="twitter:title" content="用递归实现n的阶乘以及n的求和，还有A的n次方（n可负可正）。">
+<meta name="twitter:description" content="什么是递归算法？ 这是个人理解，如有问题，还请多多指教。。。递归就是按照找到一个退出递归的出口，其余的部分一直按照某种规律执行，自己调用自己的方式执行代码。  递归的优势？ 这也是个人理解，如有问题，还请多多指教。。。递归其实就是把一个大问题化成一个小问题，大事化小，小事化了的方式，而且递归与for循环相比的话，他是可以记录中间过程值的，每一次后一步调用都能直接获取前一步的值，如果以后再哪个环节想">
 
 
 
@@ -130,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/06/19/反射机制的实现/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/09/08/用递归实现n的阶乘以及n的求和/"/>
 
 
 
 
 
-  <title>反射机制 | 未知账号</title>
+  <title>用递归实现n的阶乘以及n的求和，还有A的n次方（n可负可正）。 | 未知账号</title>
   
 
 
@@ -255,7 +256,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/反射机制的实现/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/08/用递归实现n的阶乘以及n的求和/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HM">
@@ -272,7 +273,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">反射机制</h1>
+          <h1 class="post-title" itemprop="name headline">用递归实现n的阶乘以及n的求和，还有A的n次方（n可负可正）。</h1>
         
 
         <div class="post-meta">
@@ -284,8 +285,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-08T17:59:30+08:00">
+                2017-09-08
               </time>
             
 
@@ -319,186 +320,111 @@
       
 
       
-        <h3 id="反射机制的实现"><a href="#反射机制的实现" class="headerlink" title="反射机制的实现"></a>反射机制的实现</h3><h4 id="反射机制：代码示例："><a href="#反射机制：代码示例：" class="headerlink" title="反射机制：代码示例："></a>反射机制：代码示例：</h4><ul>
-<li><p>被引用类</p>
-<pre><code>package com.zcdog.dogtv.manager.interval;
-
-import com.zcdog.dogtv.entity.RedDotEntity;
-import com.zcdog.dogtv.model.RedDotModel2;
-import com.zcdog.dogtv.view.user.RedDotViewAdapter;
-import com.zcdog.util.info.android.Logger;
-import com.zcdog.zchat.ui.view.ZChatRedDotView;
-
-/**
- * 警告：该类被 ZChat 模块通过反射调用，改动需谨慎
- * &lt;p/&gt;
- * Created by Ivey on 2016/5/21.
- */
-public class RefreshFriendHallRedDotHelper {
-
-    private static final String TAG = &quot;RefreshFriendHallRedDotHelper&quot;;
-
-    public static void refreshVisitorsRedDotStatus(Boolean show) {
-        if (RedDotModel2.redDotCache != null &amp;&amp; RedDotModel2.redDotCache.getMap() != null) {
-            RedDotEntity redDotEntity = RedDotModel2.redDotCache.getMap().get(RedDotModel2.ZCHAT_VISITOR_TYPE);
-            if (redDotEntity != null) {
-                Logger.d(TAG, &quot;更新 最近访客 的红点状态&quot;);
-                if (show) {
-                    redDotEntity.setNumber(0);
-                }
-                redDotEntity.setShow(show);
-                RedDotModel2.saveCache();
-            }
-        }
-    }
-
-    public static void refreshMsgRedDotStatus(Integer number) {
-        if (RedDotModel2.redDotCache != null &amp;&amp; RedDotModel2.redDotCache.getMap() != null) {
-            RedDotEntity redDotEntity = RedDotModel2.redDotCache.getMap().get(RedDotModel2.ZCHAT_MESSAGE_ROOT_TYPE);
-            if (redDotEntity != null) {
-                Logger.d(TAG, &quot;更新 未读消息 的红点状态&quot;);
-                if (number &lt;= 0) {
-                    redDotEntity.setShow(false);
-                } else {
-                    redDotEntity.setNumber(number);
-                    redDotEntity.setShow(true);
-                }
-            }
-        }
-    }
-
-    public static void setRedDotIcon(ZChatRedDotView redDotView) {
-        if (RedDotModel2.redDotCache != null &amp;&amp; RedDotModel2.redDotCache.getMap() != null) {
-            RedDotEntity redDotEntity = RedDotModel2.redDotCache.getMap().get(redDotView.getType());
-            if (redDotEntity != null) {
-                redDotEntity.setRedDotIcon(new RedDotViewAdapter(redDotView));
-            }
-        }
-    }
-
-}
-</code></pre></li>
-<li><p>引用类：</p>
-<pre><code>package com.zcdog.zchat.manager;
-
-import com.zcdog.zchat.ui.view.ZChatRedDotView;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-/**
- * SmartLocker 模块中 RefreshFriendHallRedDotHelper 类的映射
- * &lt;p/&gt;
- * Created by Ivey on 2016/5/21.
- */
-public class ZChatRefreshFriendHallRedDotHelper {
-    private static final String TAG = &quot;ZChatRefreshFriendHallRedDotHelper&quot;;
-
-    private static final String CLASS_NAME = &quot;com.zcdog.dogtv.manager.interval.RefreshFriendHallRedDotHelper&quot;;
-
-    public static void refreshVisitorsRedDotStatus(boolean show) {
-        try {
-            Class RefreshFriendHallRedDotHelper = Class.forName(CLASS_NAME);
-            Method refreshVisitorsRedDotStatus = RefreshFriendHallRedDotHelper.getMethod(&quot;refreshVisitorsRedDotStatus&quot;, Boolean.class);
-            refreshVisitorsRedDotStatus.invoke(null, show);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void refreshMsgRedDotStatus(int number) {
-        try {
-            Class RefreshFriendHallRedDotHelper = Class.forName(CLASS_NAME);
-            Method refreshVisitorsRedDotStatus = RefreshFriendHallRedDotHelper.getMethod(&quot;refreshMsgRedDotStatus&quot;, Integer.class);
-            refreshVisitorsRedDotStatus.invoke(null, number);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void setRedDotIcon(ZChatRedDotView redDotView) {
-        try {
-            Class RefreshFriendHallRedDotHelper = Class.forName(CLASS_NAME);
-            Method refreshVisitorsRedDotStatus = RefreshFriendHallRedDotHelper.getMethod(&quot;setRedDotIcon&quot;, ZChatRedDotView.class);
-            refreshVisitorsRedDotStatus.invoke(null, redDotView);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
-
-}
-</code></pre></li>
+        <h3 id="什么是递归算法？"><a href="#什么是递归算法？" class="headerlink" title="什么是递归算法？"></a>什么是递归算法？</h3><blockquote>
+<p>这是个人理解，如有问题，还请多多指教。。。递归就是按照找到一个退出递归的出口，其余的部分一直按照某种规律执行，自己调用自己的方式执行代码。</p>
+</blockquote>
+<h3 id="递归的优势？"><a href="#递归的优势？" class="headerlink" title="递归的优势？"></a>递归的优势？</h3><blockquote>
+<p>这也是个人理解，如有问题，还请多多指教。。。递归其实就是把一个大问题化成一个小问题，大事化小，小事化了的方式，而且递归与for循环相比的话，他是可以记录中间过程值的，每一次后一步调用都能直接获取前一步的值，如果以后再哪个环节想要使用的话是可以直接使用的，不需要再次进行计算。</p>
+</blockquote>
+<h3 id="用递归实现以上两算法题。"><a href="#用递归实现以上两算法题。" class="headerlink" title="用递归实现以上两算法题。"></a>用递归实现以上两算法题。</h3><ul>
+<li>实现从0-n的加法：<blockquote>
+<p>描述思路：加法很简单啦，前面所有数量的和加上自己即可啦，一般这种情况只有正数；</p>
+</blockquote>
+</li>
 </ul>
-<ul>
-<li><p>自己手动总结如下：</p>
-<pre><code> public class ATest(){
-     private static final TAG = &quot;ATest&quot;;
+<blockquote>
+<p>代码实现：    </p>
+</blockquote>
+<pre><code>static int sum(int n){
+    if (n == 0)
+        return 0;
+    if (n == 1)
+        return 1;
+    return sum(n - 1) + n;
+    // 如果分正负
+    //if(n &gt; 0）{
+    //    return sum(n - 1) + n;
+    //} else{
+    //    return sum(n + 1) + n;
+    //}
 
-     public static void functionOne(Boolean ValueA){
-          //do something
-     }
-
- public static void functionTwo(Integer ValueB){
-          //do something
-     }
 }
-
-public class BTest(){
-     private static String TAG = &quot;BTest&quot;;
-     private static final String CLASS_NAME = &quot;包名.ATest&quot;
-
- public static void functionOne(boolean a){
-      try {
-        Class ATest= Class.forName(CLASS_NAME);
-        Method functionOne= ATest.getMethod(&quot;functionOne&quot;, Boolean.class);
-        functionOne .invoke(null, a);
-    } catch (ClassNotFoundException e) {
-        e.printStackTrace();
-    } catch (NoSuchMethodException e) {
-        e.printStackTrace();
-    } catch (InvocationTargetException e) {
-        e.printStackTrace();
-    } catch (IllegalAccessException e) {
-        e.printStackTrace();
-    }
- }
-</code></pre></li>
+</code></pre><ul>
+<li>实现整数n的阶乘：<blockquote>
+<p>首先描述一下思路，整数的阶乘，那么意味着整数分为正整数和负整数，那么我们需要分两种情况讨论，当n是正数的时候，f(n) = n <em> f(n -1), 但是当n为负数的时候f(n) =  n </em> f(n + 1)；</p>
+</blockquote>
+</li>
 </ul>
-<pre><code> public static void functionTwo(int b){
-          try {
-            Class ATest= Class.forName(CLASS_NAME);
-            Method functionTwo= ATest.getMethod(&quot;functionTwo&quot;, Integer.class);
-            functionTwo .invoke(null, b);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-     }
+<blockquote>
+<p>看看代码实现</p>
+</blockquote>
+<pre><code>static int f(int n){
+    if (n == 0){
+        return 1;
+    } else if (n &gt; 0){
+        return f(n - 1) * n;
+    } else if (n &lt; 0){
+        return f(n + 1) * n;
+    }
+    return -1;
 }
-</code></pre>
+</code></pre><ul>
+<li>实现数字A的n次方（n 可负可正）<blockquote>
+<p>首先描述一下大众思路，在印象里面，A的多少次方就是多少个A相乘啊，那如果n是负数呢？那就是绝对值个A相乘，最后取倒数。</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>下面看看普通实现方式的代码</p>
+</blockquote>
+<pre><code>static double accelarateN(int a, int num){
+    if (a == 0)
+        return 0;
+    if (num &gt;= 0){
+        return bZ(a, num);
+    } else if (num &lt; 0){
+       // num = Math.abs(num);
+       // return 1 / bZ(a, num);
+        return 1 / sZ(a, num);
+    }
+    return -1;
+}
+
+static double bZ(int a, int n){
+    if (n == 0){
+        return 1;
+    }
+    return a * bZ(a, n -1);
+}
+
+static double sZ(int b, int n){
+    if (n == 0)
+        return 1;
+    return b * sZ(b, n + 1);
+}
+</code></pre><blockquote>
+<p>其实看完上面的代码，会发现，这样就可以实现功能了，但是，我们可以想一想，如何更好的实现这个算法，求一个数的整数次方，那么很明显，这里面有个重复的过程，那就是一个数的N次方等于这个数的（N/2）次方的平方，那么代码就可如下写：</p>
+</blockquote>
+<pre><code>static double accPower(int base, int exponent){
+    double result = 1;
+    int n = exponent;
+    exponent = Math.abs(exponent);
+    if (exponent == 0)
+        return 1;
+    if (exponent == 1)
+        return base;
+    result *= accPower(base, exponent &gt;&gt; 1) * accPower(base, exponent &gt;&gt; 1);
+    if ((exponent &amp; 1) == 1){
+        result = base * result;
+    }
+
+    if (n &lt; 0){
+        result = 1 / result;
+    }
+    return result;
+}
+</code></pre><p>怎么样，结果是一样的，但是运算速度快了很多啦。。。每次都以次方的形式递减。。。</p>
+
       
     </div>
 
@@ -525,6 +451,12 @@ public class BTest(){
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+        </div>
+      
 
       
       
@@ -534,8 +466,8 @@ public class BTest(){
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/19/Toast的封装/" rel="next" title="Toast的封装">
-                <i class="fa fa-chevron-left"></i> Toast的封装
+              <a href="/2017/09/08/单链表反转/" rel="next" title="单链表反转">
+                <i class="fa fa-chevron-left"></i> 单链表反转
               </a>
             
           </div>
@@ -544,8 +476,8 @@ public class BTest(){
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/06/29/杂记/" rel="prev" title="杂记">
-                杂记 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/09/08/按照特定的某种方式对一个数组里面的数值排序/" rel="prev" title="按照特定的某种方式对一个数组里面的数值排序">
+                按照特定的某种方式对一个数组里面的数值排序 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -722,7 +654,7 @@ public class BTest(){
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#反射机制的实现"><span class="nav-number">1.</span> <span class="nav-text">反射机制的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#反射机制：代码示例："><span class="nav-number">1.1.</span> <span class="nav-text">反射机制：代码示例：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是递归算法？"><span class="nav-number">1.</span> <span class="nav-text">什么是递归算法？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归的优势？"><span class="nav-number">2.</span> <span class="nav-text">递归的优势？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用递归实现以上两算法题。"><span class="nav-number">3.</span> <span class="nav-text">用递归实现以上两算法题。</span></a></li></ol></div>
             
 
           </div>

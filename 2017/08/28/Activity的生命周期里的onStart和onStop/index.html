@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="Activity的生命周期里的onStart与onResume的区别 onStart函数的相关代码： /**  * Dispatch onStart() to all fragments.  Ensure any created loaders are  * now started.  */ @Override protected void onStart() {     super.onStar">
+<meta name="description" content="Activity的生命周期里的onStart与onResume的区别 onStart函数的相关代码： /**  * Called after {@link #onCreate} &amp;amp;mdash; or after {@link #onRestart} when  * the activity had been stopped, but is now again being displayed">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Activity的生命周期里的onStart和onStop">
 <meta property="og:url" content="http://yoursite.com/2017/08/28/Activity的生命周期里的onStart和onStop/index.html">
 <meta property="og:site_name" content="未知账号">
-<meta property="og:description" content="Activity的生命周期里的onStart与onResume的区别 onStart函数的相关代码： /**  * Dispatch onStart() to all fragments.  Ensure any created loaders are  * now started.  */ @Override protected void onStart() {     super.onStar">
-<meta property="og:updated_time" content="2017-08-29T07:44:57.282Z">
+<meta property="og:description" content="Activity的生命周期里的onStart与onResume的区别 onStart函数的相关代码： /**  * Called after {@link #onCreate} &amp;amp;mdash; or after {@link #onRestart} when  * the activity had been stopped, but is now again being displayed">
+<meta property="og:updated_time" content="2017-08-29T13:53:09.174Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Activity的生命周期里的onStart和onStop">
-<meta name="twitter:description" content="Activity的生命周期里的onStart与onResume的区别 onStart函数的相关代码： /**  * Dispatch onStart() to all fragments.  Ensure any created loaders are  * now started.  */ @Override protected void onStart() {     super.onStar">
+<meta name="twitter:description" content="Activity的生命周期里的onStart与onResume的区别 onStart函数的相关代码： /**  * Called after {@link #onCreate} &amp;amp;mdash; or after {@link #onRestart} when  * the activity had been stopped, but is now again being displayed">
 
 
 
@@ -178,7 +178,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">一个积极奋进的女汉子</p>
+        <p class="site-subtitle">明天的一切都是未知的!</p>
       
   </div>
 
@@ -323,35 +323,142 @@
         <h3 id="Activity的生命周期里的onStart与onResume的区别"><a href="#Activity的生命周期里的onStart与onResume的区别" class="headerlink" title="Activity的生命周期里的onStart与onResume的区别"></a>Activity的生命周期里的onStart与onResume的区别</h3><ul>
 <li><p>onStart函数的相关代码：</p>
 <pre><code>/**
- * Dispatch onStart() to all fragments.  Ensure any created loaders are
- * now started.
+ * Called after {@link #onCreate} &amp;mdash; or after {@link #onRestart} when
+ * the activity had been stopped, but is now again being displayed to the
+ * user.  It will be followed by {@link #onResume}.
+ *
+ * &lt;p&gt;&lt;em&gt;Derived classes must call through to the super class&apos;s
+ * implementation of this method.  If they do not, an exception will be
+ * thrown.&lt;/em&gt;&lt;/p&gt;
+ *
+ * @see #onCreate
+ * @see #onStop
+ * @see #onResume
  */
-@Override
 protected void onStart() {
-    super.onStart();
+    if (DEBUG_LIFECYCLE) Slog.v(TAG, &quot;onStart &quot; + this);
+    mCalled = true;
 
-    mStopped = false;
-    mReallyStopped = false;
-    mHandler.removeMessages(MSG_REALLY_STOPPED);
-
-    if (!mCreated) {
-        mCreated = true;
-        mFragments.dispatchActivityCreated();
+    if (!mLoadersStarted) {
+        mLoadersStarted = true;
+        if (mLoaderManager != null) {
+            mLoaderManager.doStart();
+        } else if (!mCheckedForLoaderManager) {
+            mLoaderManager = getLoaderManager(&quot;(root)&quot;, mLoadersStarted, false);
+        }
+        mCheckedForLoaderManager = true;
     }
 
-    mFragments.noteStateNotSaved();
-    mFragments.execPendingActions();
-
-    mFragments.doLoaderStart();
-
-    // NOTE: HC onStart goes here.
-
-    mFragments.dispatchStart();
-    mFragments.reportLoaderStart();
+    getApplication().dispatchActivityStarted(this);
 }
 </code></pre></li>
+<li><p>onResume函数的相关代码</p>
+<pre><code>/**
+ * Called after {@link #onRestoreInstanceState}, {@link #onRestart}, or
+ * {@link #onPause}, for your activity to start interacting with the user.
+ * This is a good place to begin animations, open exclusive-access devices
+ * (such as the camera), etc.
+ *
+ * &lt;p&gt;Keep in mind that onResume is not the best indicator that your activity
+ * is visible to the user; a system window such as the keyguard may be in
+ * front.  Use {@link #onWindowFocusChanged} to know for certain that your
+ * activity is visible to the user (for example, to resume a game).
+ *
+ * &lt;p&gt;&lt;em&gt;Derived classes must call through to the super class&apos;s
+ * implementation of this method.  If they do not, an exception will be
+ * thrown.&lt;/em&gt;&lt;/p&gt;
+ *
+ * @see #onRestoreInstanceState
+ * @see #onRestart
+ * @see #onPostResume
+ * @see #onPause
+ */
+protected void onResume() {
+    if (DEBUG_LIFECYCLE) Slog.v(TAG, &quot;onResume &quot; + this);
+    getApplication().dispatchActivityResumed(this);
+    mActivityTransitionState.onResume();
+    mCalled = true;
+}
+</code></pre><p>从注释就可以看出来，onResume是执行在onStart函数之后的，onStart函数是执行在onCreate函数之后或者执行了onStop函数之后重新打开界面执行，onResume则是在执行了onStart或者onRestart或者onPause函数之后执行，在里面可以进行很多初始化工作，比如开始动画等等。。。他俩最大的不同，则是onStart是可见但用户不可对界面进行交互性操作的时刻，但是onResume则是不仅可见，也可与界面进行交互，并且界面会作出相应反应。</p>
+</li>
 </ul>
-<h3 id="Activity的生命周期里的onStop与onPause的区别"><a href="#Activity的生命周期里的onStop与onPause的区别" class="headerlink" title="Activity的生命周期里的onStop与onPause的区别"></a>Activity的生命周期里的onStop与onPause的区别</h3><h3 id="onStart和onStop主要是执行什么操作"><a href="#onStart和onStop主要是执行什么操作" class="headerlink" title="onStart和onStop主要是执行什么操作"></a>onStart和onStop主要是执行什么操作</h3>
+<h3 id="Activity的生命周期里的onStop与onPause的区别"><a href="#Activity的生命周期里的onStop与onPause的区别" class="headerlink" title="Activity的生命周期里的onStop与onPause的区别"></a>Activity的生命周期里的onStop与onPause的区别</h3><ul>
+<li><p>onStop函数的相关代码：</p>
+<pre><code>/**
+ * Called when you are no longer visible to the user.  You will next
+ * receive either {@link #onRestart}, {@link #onDestroy}, or nothing,
+ * depending on later user activity.
+ *
+ * &lt;p&gt;Note that this method may never be called, in low memory situations
+ * where the system does not have enough memory to keep your activity&apos;s
+ * process running after its {@link #onPause} method is called.
+ *
+ * &lt;p&gt;&lt;em&gt;Derived classes must call through to the super class&apos;s
+ * implementation of this method.  If they do not, an exception will be
+ * thrown.&lt;/em&gt;&lt;/p&gt;
+ *
+ * @see #onRestart
+ * @see #onResume
+ * @see #onSaveInstanceState
+ * @see #onDestroy
+ */
+protected void onStop() {
+    if (DEBUG_LIFECYCLE) Slog.v(TAG, &quot;onStop &quot; + this);
+    if (mActionBar != null) mActionBar.setShowHideAnimationEnabled(false);
+    mActivityTransitionState.onStop();
+    getApplication().dispatchActivityStopped(this);
+    mTranslucentCallback = null;
+    mCalled = true;
+}
+</code></pre></li>
+<li><p>onPause函数的相关代码：</p>
+<pre><code>/**
+ * Called as part of the activity lifecycle when an activity is going into
+ * the background, but has not (yet) been killed.  The counterpart to
+ * {@link #onResume}.
+ *
+ * &lt;p&gt;When activity B is launched in front of activity A, this callback will
+ * be invoked on A.  B will not be created until A&apos;s {@link #onPause} returns,
+ * so be sure to not do anything lengthy here.
+ *
+ * &lt;p&gt;This callback is mostly used for saving any persistent state the
+ * activity is editing, to present a &quot;edit in place&quot; model to the user and
+ * making sure nothing is lost if there are not enough resources to start
+ * the new activity without first killing this one.  This is also a good
+ * place to do things like stop animations and other things that consume a
+ * noticeable amount of CPU in order to make the switch to the next activity
+ * as fast as possible, or to close resources that are exclusive access
+ * such as the camera.
+ *
+ * &lt;p&gt;In situations where the system needs more memory it may kill paused
+ * processes to reclaim resources.  Because of this, you should be sure
+ * that all of your state is saved by the time you return from
+ * this function.  In general {@link #onSaveInstanceState} is used to save
+ * per-instance state in the activity and this method is used to store
+ * global persistent data (in content providers, files, etc.)
+ *
+ * &lt;p&gt;After receiving this call you will usually receive a following call
+ * to {@link #onStop} (after the next activity has been resumed and
+ * displayed), however in some cases there will be a direct call back to
+ * {@link #onResume} without going through the stopped state.
+ *
+ * &lt;p&gt;&lt;em&gt;Derived classes must call through to the super class&apos;s
+ * implementation of this method.  If they do not, an exception will be
+ * thrown.&lt;/em&gt;&lt;/p&gt;
+ *
+ * @see #onResume
+ * @see #onSaveInstanceState
+ * @see #onStop
+ */
+protected void onPause() {
+    if (DEBUG_LIFECYCLE) Slog.v(TAG, &quot;onPause &quot; + this);
+    getApplication().dispatchActivityPaused(this);
+    mCalled = true;
+    }
+</code></pre><p>同样根据注释可以看出，onStop是在界面不再对用户可见的时候执行，而且在内存不足而导致系统无法保留此进程的情况下，onStop() 可能都不会被执行，但是可以执行一些耗时操作，因为是后台进程，不会对APP运行产生较大的影响；onPause也是在界面不可见的时候执行，但他就像onResume一样，与之对应，是执行动画取消，耗时或者耗费CPU的动作取消的好时机，但是不能够执行过于耗时的操作，因为要保证能快速完好的加载下一个界面。</p>
+</li>
+</ul>
+
       
     </div>
 
@@ -393,8 +500,8 @@ protected void onStart() {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/28/Android的通知栏/" rel="next" title="Android的通知栏">
-                <i class="fa fa-chevron-left"></i> Android的通知栏
+              <a href="/2017/08/28/HV展示不了的bug fix/" rel="next" title="HV相关的ViewSever的基本使用方法">
+                <i class="fa fa-chevron-left"></i> HV相关的ViewSever的基本使用方法
               </a>
             
           </div>
@@ -403,8 +510,8 @@ protected void onStart() {
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/08/29/HV展示不了的bug fix/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/08/29/布局优化/" rel="prev" title="布局优化">
+                布局优化 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -469,7 +576,7 @@ protected void onStart() {
                alt="HM" />
           <p class="site-author-name" itemprop="name">HM</p>
            
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">懂的or不懂的，我都记录在这里</p>
           
         </div>
         <nav class="site-state motion-element">
@@ -477,7 +584,7 @@ protected void onStart() {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -490,7 +597,7 @@ protected void onStart() {
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
@@ -501,6 +608,62 @@ protected void onStart() {
         
 
         <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/weizhizhanghao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/5171573689/profile?rightmod=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="DouBan">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  DouBan
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="ZhiHu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  ZhiHu
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="FriendLink">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  FriendLink
+                </a>
+              </span>
+            
           
         </div>
 
@@ -525,7 +688,7 @@ protected void onStart() {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity的生命周期里的onStart与onResume的区别"><span class="nav-number">1.</span> <span class="nav-text">Activity的生命周期里的onStart与onResume的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity的生命周期里的onStop与onPause的区别"><span class="nav-number">2.</span> <span class="nav-text">Activity的生命周期里的onStop与onPause的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onStart和onStop主要是执行什么操作"><span class="nav-number">3.</span> <span class="nav-text">onStart和onStop主要是执行什么操作</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity的生命周期里的onStart与onResume的区别"><span class="nav-number">1.</span> <span class="nav-text">Activity的生命周期里的onStart与onResume的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity的生命周期里的onStop与onPause的区别"><span class="nav-number">2.</span> <span class="nav-text">Activity的生命周期里的onStop与onPause的区别</span></a></li></ol></div>
             
 
           </div>

@@ -93,12 +93,15 @@
 
 
 
+<meta name="description" content="懂的or不懂的，我都记录在这里">
 <meta property="og:type" content="website">
 <meta property="og:title" content="未知账号">
 <meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="未知账号">
+<meta property="og:description" content="懂的or不懂的，我都记录在这里">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="未知账号">
+<meta name="twitter:description" content="懂的or不懂的，我都记录在这里">
 
 
 
@@ -175,7 +178,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">一个积极奋进的女汉子</p>
+        <p class="site-subtitle">明天的一切都是未知的!</p>
       
   </div>
 
@@ -253,7 +256,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/仿雅虎天气的滚动模糊防止滑动留白/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/19/BAT面试/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HM">
@@ -272,7 +275,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/06/19/仿雅虎天气的滚动模糊防止滑动留白/" itemprop="url">仿雅虎天气的滚动模糊防止滑动留白</a></h1>
+                <a class="post-title-link" href="/2017/07/19/BAT面试/" itemprop="url">经验之谈</a></h1>
         
 
         <div class="post-meta">
@@ -284,8 +287,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-19T16:07:12+08:00">
+                2017-07-19
               </time>
             
 
@@ -321,1298 +324,117 @@
       
         
           
-            <ul>
-<li><p>仿雅虎天气的滚动模糊防止滑动留白的代码</p>
-<pre><code>void setImageHeight(ImageView imageView, Context context){
-
-    WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-
-    Display display = windowManager.getDefaultDisplay();
-    Point point = new Point();
-    display.getSize(point);
-
-    int height = point.y;
-    ViewGroup.LayoutParams params = imageView.getLayoutParams();
-    params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-    params.height = height + 100;
-
-    imageView.requestLayout();
-}
-</code></pre></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/SnackBar的使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/SnackBar的使用/" itemprop="url">Snackbar的使用方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="Snackbar的使用方法"><a href="#Snackbar的使用方法" class="headerlink" title="Snackbar的使用方法"></a>Snackbar的使用方法</h4><pre><code>Snackbar.make(view, &quot;data deleted&quot;,
-               Snackbar.LENGTH_LONG)
-               .setAction(&quot;Undo&quot;,
-               new View.OnclickListener(){
-               @override
-               public void onclick(View v){
-                   // do something
-               }
-          }).show();
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Toast的封装/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/Toast的封装/" itemprop="url">Toast的封装</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="Toast的封装"><a href="#Toast的封装" class="headerlink" title="Toast的封装"></a>Toast的封装</h4><pre><code>public class Util {
-
-private static Toast toast;
-public static void showToast(Context context, String content){
-          if(toast == null){
-                    toast = Toast.makeText(context,content,Toast.LENGTH_SHORT);
-               } else {
-                toast.setText(content );
-               }
-           toast.show();
-     }
-}
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/监听函数优化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/监听函数优化/" itemprop="url">监听新方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><p>Android 中多个按钮同时监听的除实现onClickListener方法的另一个方法：<br>用一个工具类，里面主要实现该方法，如下：</p>
-<pre><code>public static void setClicks(final View.OnClickListener listener, final View... views) {
-    for (View v : views) {
-        v.setOnClickListener(listener);
-    }
-}
-</code></pre></li>
-<li><p>在具体的监听方法里面，我们这样实现：（后面的参数就是各个被监听的对象）</p>
-<pre><code>ViewUtil.setClicks(this, mVAvatar, mVVipTag, mVGrade, mVDiamond, mVDiamondTag,
-    mVBill, mVOrder, mVMyVisitors, mVMyGallery, mVMyGift, mVGiftExchange);
-</code></pre></li>
-<li><p>在监听事件中，我们如下实现</p>
-<pre><code>@Override
-public void onClick(View v) {
-    Activity activity = getActivity();
-    if (v == mVAvatar) {
-        Intent personalInfoIntent = new Intent(activity, PersonalInfoActivity.class);
-        activity.startActivity(personalInfoIntent);
-    } else if (v == mVVipTag) {
-        String url = ServiceUrlConstants.URL.getVipIntroductionUrl();
-        Map&lt;String, String&gt; queryParameters = new LinkedHashMap&lt;&gt;();
-        queryParameters.put(UrlConstant.USER_ID, UserSecretInfoUtil.getUserId());
-        queryParameters.put(UrlConstant.DEVICE_ID, DeviceInfo.getDeviceId(BaseApplication.getContext()));
-        url = UrlUtils.splitJoint(url, queryParameters);
-        Bundle bundle = new Bundle();
-        bundle.putString(RefreshWebViewActivity.WEB_VIEW_BUNDLE_TITLE,           BaseApplication.getContext().getString(R.string.vip_introduction));
-        bundle.putString(RefreshWebViewActivity.WEB_VIEW_BUNDLE_LOAD_URL, url);
-        Intent intent = new Intent(activity, RefreshWebViewActivity.class);
-        intent.putExtra(RefreshWebViewActivity.WEBVIEW_BUNDLE_NAME, bundle);
-        activity.startActivity(intent);
-    } else if (v == mVGrade) {
-        Intent gradeIntent = new Intent(activity, GradeActivity.class);
-        activity.startActivity(gradeIntent);
-    }
-}
-</code></pre></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Volley/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/Volley/" itemprop="url">Volley</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Volley-相关的使用方法："><a href="#Volley-相关的使用方法：" class="headerlink" title="Volley 相关的使用方法："></a>Volley 相关的使用方法：</h3><blockquote>
-<p>首先创建一个AppController 类</p>
-<p>再创建一个图片缓存的LruBitmapCache类:</p>
-</blockquote>
-<ol>
-<li><p>创建一个AppController 类</p>
-<p>   public class AppController extends Application{</p>
-<pre><code>public static final String TAG = AppController.class.getSimpleName();
-
-private RequestQueue mRequestQueue;
-private ImageLoader mImageLoader;
-
-private static AppController mInstance;
-
-@Override
-public void onCreat(){
-    super.onCreat();
-    mInstance = this;
-}
-
-public static synchroinzed AppController getInstance(){
-    return mInstance;
-}
-
-public RequestQueue getRequestQueue(){
-    if(mInstance == null){
-        mRequestQueue = Volley.newRequestQueue(getApplicationContext());
-    }
-    return mRequestQueue;
-}
-
-public ImageLoader getImageLoader(){
-    getRequestQueue();
-
-    if(mImageLoader == null){
-        mImageLoader = new ImageLoader(this.mRequestQueue, new LruBitmapCache());
-    }
-    return this.mImageLoader;
-}
-
-public &lt;T&gt; void addToRequestQueue(Request&lt;T&gt; req, String tag){
-    req.setTag(TextUtil.isEmpty(tag) ? TAG : tag);
-    getRequestQueue().add(req);
-}
-
-public void cancelPendingRequests(Object tag){
-    if(mRequestQueue != null){
-        mRequestQueue.cancelAll(tag);
-    }
-}
-</code></pre><p>   }</p>
+            <hr>
+<h2 id="android-面试答案："><a href="#android-面试答案：" class="headerlink" title="android 面试答案："></a>android 面试答案：</h2><h3 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h3><p><strong>1.ANR 具体产生的类型有哪些，具体说下其产生的最大超时时间。</strong></p>
+<blockquote>
+<ul>
+<li><p>KeyDispatchTimeout(5 seconds) –主要类型：<br>按键或触摸事件在特定时间内无响应</p>
 </li>
-<li><p>创建一个图片缓存的LruBitmapCache类</p>
-<pre><code>public class LruBitmapCache extends LruCache&lt;String, Bitmap&gt; implement ImageCache{
-    public static int getDefaultLruCacheSize(){
-        final int maxMemory = (int) (Runtime.getRuntime().maxMemory / 1034);
-        final int cacheSize = maxMemory / 8;
-
-        return cacheSize;
-    }
-
-    public LruBitmapCache(){
-        this(getDefaultLruCacheSize());
-    }
-
-    public LruBitmapCache(int sizeInkiloBytes){
-        super(sizeInkiloBytes);
-    }
-
-    @Override
-    protected int sizeOf(String key, Bitmap value){
-        return value.getRowBytes() * value.getHeight() / 1024;
-    }
-
-    @Override
-    public Bitmap getBitmap(String url){
-        return get(url);
-    }
-
-    @Override
-    public void putBitmap(String url, Bitmap bitmap){
-        put(url, bitmap);
-    }
-}
-</code></pre></li>
-<li><p>各类函数对以上两个方法的调用来获取所需的网络数据</p>
-<pre><code>public void JsonFun(){
-
-    String tag_json_obj = &quot;json_obj_req&quot;;
-    String url = &quot;http://api.androidhive.info/volley/person_object.json&quot;;
-
-    JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.GET, url, null,
-                    new Response.Listener&lt;JSONObject&gt;(){
-
-                        @Override
-                        public void onResponse(JSONObject reponse){
-                            Log.d(TAG, reponse.toString());
-                        }
-                    }, new Response.ErrorListener(){
-
-                        @Override
-                        public void onErrorResponse(VolleyError error){
-                            VolleyLog.d(TAG, &quot;Error:&quot; + error.getMessage());
-                        }
-                    });
-
-    AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
-
-}
-</code></pre></li>
-</ol>
-<pre><code>public void StringFun(){
-    String tag_string_req = &quot;string_req&quot;;
-    String url = &quot;&quot;;
-
-    ProgressDialog pDialog = new ProgressDialog(this);
-    pDialog.setMessage(&quot;Loading...&quot;);
-    pDialog.show();
-
-    StringRequest strReq = new StringRequest(Method.GET,
-                url, new Response.Listener&lt;String&gt;(){
-                    Log.d(TAG, reponse.toString());
-                    pDialog.hide();
-                }, new Response.ErrorListener(){
-
-                    @Override
-                    public void onErrorResponse(VolleyError error){
-                        VolleyLog.d(TAG, &quot;Error:&quot; + error.getMessage);
-                        pDialog.hide();
-                    }
-                });
-    AppController.getInstance.addToRequestQueue(strReq, tag_string_req);
-}
-</code></pre><blockquote>
-<p>Post请求：</p>
-</blockquote>
-<pre><code>public void PostFun(){
-    String tag_json_obj = &quot;json_obj_req&quot;;
-
-    String url = &quot;&quot;;
-    ProgressDialog pDialog = new ProgressDialog(this);
-    pDialog.setMessage(&quot;Loading...&quot;);
-    pDialog.show();
-
-    JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.POST,
-                url, null,
-                new Response.Listener&lt;JSONObject&gt;(){
-
-                @Override
-                public void onResponse(JSONObject reponse){
-                    Log.d(TAG, reponse.toString());
-                    pDialog.hide();
-                }
-            }, new Response.ErrorListener(){
-                @Override
-                public void onErrorResponse(VolleyError error){
-                    VolleyLog.d(TAG, &quot;Error:&quot; + error.getMessage());
-                    pDialog.hide();
-                }
-            }){
-        @Override
-        protected Map&lt;String, String&gt; getParams(){
-            Map&lt;String, String&gt; params = new HashMap&lt;String, String&gt;();
-            params.put(&quot;name&quot;, &quot;Androidhive&quot;);
-            params.put(&quot;email&quot;, &quot;abc@androidhive.info&quot;);
-            params.put(&quot;password&quot;, &quot;password123&quot;);
-
-            return params;
-        }
-
-    };
-
-    AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
-}
-</code></pre><blockquote>
-<p>请求图片的函数：</p>
-</blockquote>
-<pre><code>public void setImageFun(){
-    ImageLoader imgLoader = AppController.getInstance().getImageLoader();
-
-    //复杂写法
-    imgLoader.get(Const.URL_IMAGE, new ImageListener(){
-        @Override
-        public void onErrorResponse(VolleyError error){
-            Log.e(TAG, &quot;Image Load Error:&quot; + error.getMessage());
-        }
-
-        @Override
-        public void onResponse(ImageContainer reponse, boolean arg1){
-            if(reponse.getBitmap() != null){
-                //load image into imageview
-                imageview.setImageBitemap(reponse.getBitmap());
-            }
-        }
-    })；
-
-    //简便写法
-    imgLoader.get(Const.URL_IMAGE, ImageLoader.getImageListener(imageview, imageView, R.drawable.ico_loading, R.drawable.ico_error));
-}
-</code></pre><blockquote>
-<p>关于Cache:</p>
-</blockquote>
-<pre><code>public void volleyCacheFun（）{
-    Cache cache = AppController.getInstance().getRequestQueue().getCache();
-    Entry entry = cache.get(url);
-
-    if(entry != null){
-        try{
-            String data = new String(entry.data, &quot;UTF-8&quot;);
-        }catch(UnsupportedEncodingException e){
-            e.printStackTrace();
-        }
-    } else {
-        // Cached response doesn&apos;t exists. Make network call here
-    }
-}
-
-//刷新页面
-App.getInstance().getRequestQueue().getCache().invalidate(u, true);
-
-//关闭cache
-//String request
-StringRequest stringReq = new StringRequest(...);
-
-//disable cache
-stringReq.setShouldCache(false);
-
-//删除某个URL的Cache
-AppController.getInstance().getRequestQueue().getCache().remove(url);
-
-//删除所有的cache
-AppController.getInstance().getRequestQueue().getCache().clear();
-
-//取消请求
-String tag_json_arry = &quot;json_req&quot;;
-AppController.getInstance().getRequestQueue().cancelAll(&quot;feed_request&quot;);
-</code></pre><blockquote>
-<p>设置请求的优先级：</p>
-</blockquote>
-<pre><code>public void requestPriorityFun(){
-    private Priority priority = PostFun.HIGH;
-
-    StringRequest strReq = new StringRequest(Method.GET,
-                Const.URL_STRING_REQ, new Response.Listener&lt;String&gt;(){
-
-                    @Override
-                    public void onResponse(String reponse){
-                        Log.d(TAG, reponse.toString());
-                        msgResponse.setText(reponse,toString());
-                        hideProgressDialog();
-                    }
-                }, new Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error){
-                        VolleyLog.d(TAG, &quot;Error:&quot; + error.getMessage());
-                        hideProgressDialog();
-                    }
-                }){
-            @Override
-            public Priority getPriority(){
-                return priority;
-            }
-        };
-}
-</code></pre><blockquote>
-<p>添加请求头部信息：</p>
-</blockquote>
-<pre><code>public void addHeadFun(){
-    String tag_json_obj = &quot;json_obj_req&quot;;
-    String url = &quot;&quot;;
-    ProgressDialog pDialog = new ProgressDialog(this);
-    pDialog.setMessage(&quot;Loading&quot;);
-    pDialog.show();
-    JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.POST, url, null, new Response.Listener&lt;JSONObject&gt;(){
-        @Override
-        public void onResponse(JSONObject reponse){
-            Log.d(TAG, reponse.toString());
-            pDialog.hide();
-        }
-    }, new Response.ErrorListener(){
-        @Override
-        public void onErrorResponse(VolleyError error){
-            VolleyLog.d(TAG, &quot;Error:&quot; + error.getMessage());
-            pDialog.hide();
-        }
-    }){
-        @Override
-        public Map&lt;String, String&gt; getHeaders() throws AuthFailureError{
-            HashMap&lt;String, String&gt; headers = new HashMap&lt;String, String&gt;();
-            headers.put(&quot;Content-Type&quot;, &quot;application/json&quot;);
-            headers.put(&quot;apiKey&quot;, &quot;********&quot;);
-            return headers;
-        }
-    };
-    AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
-}
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Fragment数据保存/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/Fragment数据保存/" itemprop="url">Fragment数据保存</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Fragment-数据保存"><a href="#Fragment-数据保存" class="headerlink" title="Fragment 数据保存"></a>Fragment 数据保存</h3><blockquote>
-<p>采用 Fragment.setArguments(Bundle bundle) 方式来保存原有数据不丢失。</p>
-</blockquote>
-<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><ul>
-<li><p>FragmentA中的方法</p>
-<pre><code>public static void setArguments(Fragment fragment, Serializable serializable, String describle, int index){
-     Bundle bundle = new Bundle();
-     bundle.putSerializable(BUNDLE_SERIALIZABLE, serializable);
-     bundle.putString(BUNDLE_DESCRIBLR, describle);
-     bundle.putInt(BUNDLE_INDEX, index);
-     fragment.setArguments(bundle);
-}
-</code></pre></li>
-<li><p>在ActivityB 中调用：</p>
-<pre><code>FragmentA.setArguments(fragment, serializable, &quot;name&quot;, 10);
-</code></pre></li>
+<li><p>BroadcastTimeout(10 seconds)：<br>BroadcastReceiver在特定时间内无法处理完成</p>
+</li>
+<li><p>ServiceTimeout(20 seconds) –小概率类型：<br>Service在特定的时间内无法处理完成</p>
+</li>
 </ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/ImageLoader/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/ImageLoader/" itemprop="url">ImageLoader</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="ImageLoader相关的内容："><a href="#ImageLoader相关的内容：" class="headerlink" title="ImageLoader相关的内容："></a>ImageLoader相关的内容：</h3><ul>
-<li><p>基本格式</p>
-<pre><code>public class MyAppliction extends Application {
-
-    @Override
-    public void onCreate() {
-
-        super.onCreate();
-
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
-        ....
-        .build();
-
-        ImageLoader.getInstance().init(config);
-
-    }
-}
-</code></pre></li>
-<li><p>没有把图片缓存在sd卡中的实现方式</p>
-<pre><code>public class MyAppliction extends Application {
-
-    @Override
-    public void onCreate() {
-
-    super.onCreate();
-
-    //对config 的定义与实现
-    ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
-                                .threadProirity(Thread.NORM_PROIRITY - 2)
-                                .denyCacheImageMultipleSizeInMemory()
-                                .discCacheFileNameGenerator(new Md5FileNameGenerator())
-                                .tasksProcessingOrder(QueueProcessingType.LIFO)
-                                .enableLogging()
-                                .build();
-    ImageLoader.getInstance().init(config);
-
-    }
-}
-</code></pre></li>
-</ul>
+</blockquote>
+<p><strong>2.多线程多点下载的过程</strong></p>
+<p><strong>3.http协议的理解和用法</strong></p>
+<blockquote>
 <ul>
-<li><p>将图片缓存在SD卡中的实现方式</p>
-<pre><code>public class MyAppliction extends Application {
-
-    @Override
-    public void onCreate() {
-
-    super.onCreate();
-
-    //对config 的定义与实现
-    DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-            .cacheInMemory()
-            .cacheOnDisc()
-            .build();
-    ImageLoaderConfiguration config2 = new ImageLoaderConfiguration.Builder(context)
-            .defaultDisplayImageOptions(defaultOptions)
-            .threadProirity(Thread.NORM_PROIRITY - 2)
-            .denyCacheImageMultipleSizeInMemory()
-            .discCacheFileNameGenerator(new Md5FileNameGenerator())
-            .tasksProcessingOrder(QueueProcessingType.LIFO)
-            .enableLogging()//Not necessary in common // 1.8.6包，把这句话删除
-            .build();
-    ImageLoader.getInstance().init(config2);
-    }
-}   
-</code></pre></li>
-</ul>
+<li><p>HTTP是一个基于请求与响应模式的、无状态的、应用层的协议，属于应用层的面向对象的协议，常基于TCP的连接方式</p>
+</li>
+<li><p>具备以下特点</p>
 <ul>
-<li><p>图片加载时候，添加监听和加载进度条的代码</p>
-<pre><code>imageLoader.displayImage(imageUrl, imageView, options, new ImageLoadingListener(){
-
-    @Override
-    public void onLoadingStarted(){
-
-    }
-
-    @Override
-    public void onLoadingFailed(){
-
-    }
-
-    @Override
-    public void onLoadingComplted(){
-
-    }
-
-    @Override
-    public void onLoadingCancelled(){
-
-    }//如果不需要加载进度条的话，后面的就可以直接不用写
-    , new ImageLoadingProgressListener(){
-        @Override
-        public void onProgressUpdate(String imageUrl, View view, int current, int total){
-            //在这里更新 ProgressBar 的进度信息
-        }
-    }
-})
-</code></pre></li>
+<li>1.支持客户/服务器模式。</li>
+<li>2.简单快速：客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有GET、HEAD、POST。每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。</li>
+<li>3.灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。</li>
+<li>4.无连接：无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。</li>
+<li>5.无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。</li>
 </ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/NewIntent_method/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HM">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="未知账号">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/19/NewIntent_method/" itemprop="url">Intent 新方式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Intent-新方式"><a href="#Intent-新方式" class="headerlink" title="Intent 新方式"></a>Intent 新方式</h3><blockquote>
-<p>可以避免在传值的时候如果前后命名不统一出现的问题：</p>
+</li>
+<li><p>URL格式以及对应的含义</p>
+<ul>
+<li>格式 <a href="http://host[&quot;:&quot;port][abs_path" target="_blank" rel="external">http://host[&quot;:&quot;port][abs_path</a>]</li>
+<li>http表示要通过HTTP协议来定位网络资源；host表示合法的Internet主机域名或者IP地址；port指定一个端口号，为空则使用缺省端口80；abs_path指定请求资源的URI；如果URL中没有给出abs_path，那么当它作为请求URI时，必须以“/”的形式给出，通常这个工作浏览器自动帮我们完成。</li>
+</ul>
+</li>
+<li><p>http 请求</p>
+<ul>
+<li>http请求由三部分组成，分别是：请求行、消息报头、请求正文</li>
+</ul>
+</li>
+<li><p>http 响应</p>
+<ul>
+<li>HTTP响应也是由三个部分组成，分别是：状态行、消息报头、响应正文</li>
+</ul>
+</li>
+<li>利用telnet观察http协议的通讯过程<ul>
+<li>实验目的及原理<ul>
+<li>利用MS的telnet工具，通过手动输入http请求信息的方式，向服务器发出请求，服务器接收、解释和接受请求后，会返回一个响应，该响应会在telnet窗口上显示出来，从而从感性上加深对http协议的通讯过程的认识。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>http协议的安全<ul>
+<li>HTTP本身并不提供安全，然而通过在传输层和应用层中使用安全套接层（SSL）可以使HTTP运行在安全的环境下，即HTTPS，HTTPS可以提供保密性，客户和服务器鉴别以及数据的完整性。</li>
+<li>SSL的设计时为了给应用层生成的数据提供安全以及压缩服务，一般来说SSL能接收来自任何应用层协议的数据，但最多情况下这个应用层的协议就是HTTP，SSL对应用层传来的数据提供多种服务：<ul>
+<li>分片：SSL把数据划分为长度小于或者等于2的14次字节的数据分片</li>
+<li>压缩：数据分片通过使用一种由客户端和服务器协商好的无损压缩方式进行压缩，这个服务是可选的。</li>
+<li>报文完整性：为了保护数据的完整性，SSL使用密钥散列函数来创建MAC。</li>
+<li>保密：为了提供保密性，原始的数据和MAC一起用对称密钥加密技术来加密。</li>
+<li>组帧：先在被加密的有效载荷上添加一个首部，然后再把这个恶有效载荷传递给可靠的运输层协议。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </blockquote>
-<pre><code>Class A extends Activity(){
-
-        public static Intent newIntent(Context context,String url,String title) {
-            Map&lt;String,String&gt; queryParameters=new LinkedHashMap&lt;&gt;();
-            queryParameters.put(UrlConstant.USER_ID,&quot;&quot;);
-            queryParameters.put(UrlConstant.DEVICE_ID, &quot;&quot;);
-            url= UrlUtils.splitJoint(url,queryParameters);
-            Bundle bundle=new Bundle();
-            bundle.putString(A.WEB_VIEW_BUNDLE_TITLE,title);
-            bundle.putString(A.WEB_VIEW_BUNDLE_LOAD_URL, url);
-            Intent intent=new Intent(context, A.class);
-            intent.putExtra(A.WEBVIEW_BUNDLE_NAME,bundle);
-            return intent;
-        }
+<p><strong>4.安卓如何实现多线程并解决线程并发问题</strong></p>
+<blockquote>
+<p> 继承Thread类，重写run函数方法：</p>
+</blockquote>
+<pre><code>class xx extends Thread{
+    public void run(){
+        Thread.sleep(1000);    //线程休眠1000毫秒，sleep使线程进入Block状态，并释放资源
     }
+}
+xx.start();    //启动线程，run函数运行
+</code></pre><blockquote>
+<p>实现Runnable接口，重写run函数方法：</p>
+</blockquote>
+<pre><code>Runnable run =new Runnable() {
+    @Override
+    public void run() {
 
-
-    Class B extends Activity{
-    String incomeRuleUrl = ServiceUrlConstants.URL.getIncomeRuleUrl();
-        startActivity(A.newIntent(this, incomeRuleUrl, &quot;收益规则&quot;));
     }
-</code></pre>
+}
+</code></pre><blockquote>
+<p>实现Callable接口，重写call函数方法：</p>
+</blockquote>
+<pre><code>Callable call =new Callable() {
+    @Override
+    public Object call() throws Exception {
+        return null;
+    }
+}
+</code></pre><blockquote>
+<ul>
+<li>AsyncTask</li>
+<li>Handler + Looper</li>
+<li>ThreadPool</li>
+<li>同步（Synchronized），易变(volatile)，内存模型</li>
+</ul>
+</blockquote>
+<p><strong>5.你知道的数据结构有哪些，说下具体实现机制</strong></p>
+<blockquote>
+<ul>
+<li>Map</li>
+<li>List</li>
+<li>栈/队列</li>
+<li>树</li>
+<li>图</li>
+</ul>
+</blockquote>
+
           
         
       
@@ -1655,7 +477,7 @@ AppController.getInstance().getRequestQueue().cancelAll(&quot;feed_request&quot;
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/OkHttp/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/19/360面试题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HM">
@@ -1674,7 +496,7 @@ AppController.getInstance().getRequestQueue().cancelAll(&quot;feed_request&quot;
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/06/19/OkHttp/" itemprop="url">OKHttp</a></h1>
+                <a class="post-title-link" href="/2017/07/19/360面试题/" itemprop="url">360面试题</a></h1>
         
 
         <div class="post-meta">
@@ -1686,8 +508,8 @@ AppController.getInstance().getRequestQueue().cancelAll(&quot;feed_request&quot;
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
-                2017-06-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-19T16:07:12+08:00">
+                2017-07-19
               </time>
             
 
@@ -1723,45 +545,154 @@ AppController.getInstance().getRequestQueue().cancelAll(&quot;feed_request&quot;
       
         
           
-            <ul>
-<li><p>OKHttp 的同步get</p>
-<pre><code>private final OkHttpClient client = new OkHttpClient();
-public void execute() throw Exception{
-    Request request = new Request.Builder()
-            .url(&quot;http://publicobject.com/helloworld.txt&quot;)
-            .build();
+            <hr>
+<h2 id="360面试题"><a href="#360面试题" class="headerlink" title="360面试题"></a>360面试题</h2><blockquote>
+<ul>
+<li>post 和 get 的区别？</li>
+<li>多线程如何进行数据交互？</li>
+<li>多进程如何进行数据交互？</li>
+<li>如何实现多线程？</li>
+<li>线程和进程的区别？</li>
+<li>http 和 https的区别？https是如何在http上建成的？</li>
+<li>udp 和 tcp 的区别？</li>
+<li>http属于网络传输协议的哪一层？</li>
+<li>ThreadHandler 是什么？</li>
+<li>单例模式怎么实现？builder 模式的优势？</li>
+<li>MVC， MVP， MVVM的区别？</li>
+<li>ImageLoader的实现原理，和Glide比较各自的优缺点？</li>
+<li>View的绘制</li>
+<li>如何实现一个自定义的View？</li>
+<li>实现快排</li>
+<li>native 和 js 如何进行数据交互？</li>
+<li>热修复技术用的是什么？</li>
+<li>GitHub博客的搭建过程？</li>
+<li>弹幕问题是如何修复的？</li>
+<li>内存泄漏可能发生的情况以及发生后如何定位？</li>
+<li>模拟一个View的点击事件获取网络数据并展示的过程</li>
+<li>用过哪些开源框架？百度SDK如何接入自己的项目的？</li>
+<li>在项目中充当的角色？干了些什么事？</li>
+<li>service 和 activity是否在同一个进程中？如何新建一个进程？</li>
+<li>四大组件有哪些？</li>
+<li>聊天如何实现的？用的第三方框架还是自己实现的？</li>
+<li>GreenDao 和 Sqlite </li>
+</ul>
+</blockquote>
 
-    Response response = client.newCall(request).execute();
-    if(response.isSuccessful()){
-        //do something
-    }
-}
-</code></pre></li>
-<li><p>OKHttp 的异步get</p>
-<pre><code>private final OkHttpClient client = new OkHttpClient();
-public void enqueue(){
-    Request request = new Request.Builder()
-            .url()
-            .builder();
+          
+        
+      
+    </div>
 
-    client.newCall(request).enqueue(new Callback(){
+    <div>
+      
+    </div>
 
-        @Override
-        public void onFailure(){
-            //do  something
-        }
+    <div>
+      
+    </div>
 
-        @Override
-        public void onResponse(Response response) throw IOException{
+    <div>
+      
+    </div>
 
-            if(response.isSuccessful()){
-                //do something
-            }
-        }
+    <footer class="post-footer">
+      
 
-    });
-}
-</code></pre></li>
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/29/杂记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/29/杂记/" itemprop="url">杂记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-29T16:07:12+08:00">
+                2017-06-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="确定项目中是否有内存泄漏"><a href="#确定项目中是否有内存泄漏" class="headerlink" title="确定项目中是否有内存泄漏"></a>确定项目中是否有内存泄漏</h3><blockquote>
+<p>Android studio 查看：Memory Monitor<br>命令行模式：adb shell dumpays meminfo 包名 -d</p>
+</blockquote>
+<ul>
+<li>ddd</li>
 </ul>
 
           
@@ -2087,6 +1018,989 @@ public class BTest(){
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Toast的封装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/Toast的封装/" itemprop="url">Toast的封装</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Toast的封装"><a href="#Toast的封装" class="headerlink" title="Toast的封装"></a>Toast的封装</h4><pre><code>public class Util {
+
+private static Toast toast;
+public static void showToast(Context context, String content){
+          if(toast == null){
+                    toast = Toast.makeText(context,content,Toast.LENGTH_SHORT);
+               } else {
+                toast.setText(content );
+               }
+           toast.show();
+     }
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/OkHttp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/OkHttp/" itemprop="url">OKHttp</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>OKHttp 的同步get</p>
+<pre><code>private final OkHttpClient client = new OkHttpClient();
+public void execute() throw Exception{
+    Request request = new Request.Builder()
+            .url(&quot;http://publicobject.com/helloworld.txt&quot;)
+            .build();
+
+    Response response = client.newCall(request).execute();
+    if(response.isSuccessful()){
+        //do something
+    }
+}
+</code></pre></li>
+<li><p>OKHttp 的异步get</p>
+<pre><code>private final OkHttpClient client = new OkHttpClient();
+public void enqueue(){
+    Request request = new Request.Builder()
+            .url()
+            .builder();
+
+    client.newCall(request).enqueue(new Callback(){
+
+        @Override
+        public void onFailure(){
+            //do  something
+        }
+
+        @Override
+        public void onResponse(Response response) throw IOException{
+
+            if(response.isSuccessful()){
+                //do something
+            }
+        }
+
+    });
+}
+</code></pre></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Fragment数据保存/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/Fragment数据保存/" itemprop="url">Fragment数据保存</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Fragment-数据保存"><a href="#Fragment-数据保存" class="headerlink" title="Fragment 数据保存"></a>Fragment 数据保存</h3><blockquote>
+<p>采用 Fragment.setArguments(Bundle bundle) 方式来保存原有数据不丢失。</p>
+</blockquote>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><ul>
+<li><p>FragmentA中的方法</p>
+<pre><code>public static void setArguments(Fragment fragment, Serializable serializable, String describle, int index){
+     Bundle bundle = new Bundle();
+     bundle.putSerializable(BUNDLE_SERIALIZABLE, serializable);
+     bundle.putString(BUNDLE_DESCRIBLR, describle);
+     bundle.putInt(BUNDLE_INDEX, index);
+     fragment.setArguments(bundle);
+}
+</code></pre></li>
+<li><p>在ActivityB 中调用：</p>
+<pre><code>FragmentA.setArguments(fragment, serializable, &quot;name&quot;, 10);
+</code></pre></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/代码小结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/代码小结/" itemprop="url">代码小结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>过滤器可以设置优先级：</p>
+<pre><code>IntentFilter filter = new IntentFilter();
+filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+</code></pre></li>
+<li><p>获取随机函数</p>
+<pre><code>private static int getRandom(int sumWeight) {
+    return (int) Math.round(Math.random() * sumWeight);
+}
+</code></pre></li>
+<li><p>Bundle 的传值使用方法：</p>
+<pre><code>Bundle bundle = new Bundle();
+bundle.putString(&quot;a&quot;, &quot;sub&quot;);
+bundle.putString(&quot;b&quot;, &quot;let&quot;);
+
+Intent intent = new Intent(this, activityA.class);
+intent.putExtra(&quot;all&quot;, bundle);
+startActivity(intent);
+</code></pre></li>
+<li><p>代码设置屏幕竖屏：</p>
+<pre><code>setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+</code></pre></li>
+<li><p>设置延时的handler：</p>
+<pre><code>handler.postDelayed(new Runnable() {
+    @Override
+    public void run() {
+        DaemonServiceManager.startDaemonService(LauncherActivity.this);
+        startMainActivity(true);
+        handler.sendEmptyMessageDelayed(FINISH_WHAT, FINISH_INTERVAL_TIME);
+    }
+}, intervalTime);
+</code></pre></li>
+<li><p>在Android里面</p>
+<pre><code>view = new ImageView(context);
+view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+view.setBackgroundResource(R.drawerable.**);
+</code></pre></li>
+</ul>
+<blockquote>
+<p>中，资源文件只能是图片等资源文件，布局文件是不能这样写的，如果要嵌入布局，如下：</p>
+</blockquote>
+<pre><code>view =  View.inflate(Context context, R.layout.**, null);
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/ImageLoader/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/ImageLoader/" itemprop="url">ImageLoader</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="ImageLoader相关的内容："><a href="#ImageLoader相关的内容：" class="headerlink" title="ImageLoader相关的内容："></a>ImageLoader相关的内容：</h3><ul>
+<li><p>基本格式</p>
+<pre><code>public class MyAppliction extends Application {
+
+    @Override
+    public void onCreate() {
+
+        super.onCreate();
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+        ....
+        .build();
+
+        ImageLoader.getInstance().init(config);
+
+    }
+}
+</code></pre></li>
+<li><p>没有把图片缓存在sd卡中的实现方式</p>
+<pre><code>public class MyAppliction extends Application {
+
+    @Override
+    public void onCreate() {
+
+    super.onCreate();
+
+    //对config 的定义与实现
+    ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
+                                .threadProirity(Thread.NORM_PROIRITY - 2)
+                                .denyCacheImageMultipleSizeInMemory()
+                                .discCacheFileNameGenerator(new Md5FileNameGenerator())
+                                .tasksProcessingOrder(QueueProcessingType.LIFO)
+                                .enableLogging()
+                                .build();
+    ImageLoader.getInstance().init(config);
+
+    }
+}
+</code></pre></li>
+</ul>
+<ul>
+<li><p>将图片缓存在SD卡中的实现方式</p>
+<pre><code>public class MyAppliction extends Application {
+
+    @Override
+    public void onCreate() {
+
+    super.onCreate();
+
+    //对config 的定义与实现
+    DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+            .cacheInMemory()
+            .cacheOnDisc()
+            .build();
+    ImageLoaderConfiguration config2 = new ImageLoaderConfiguration.Builder(context)
+            .defaultDisplayImageOptions(defaultOptions)
+            .threadProirity(Thread.NORM_PROIRITY - 2)
+            .denyCacheImageMultipleSizeInMemory()
+            .discCacheFileNameGenerator(new Md5FileNameGenerator())
+            .tasksProcessingOrder(QueueProcessingType.LIFO)
+            .enableLogging()//Not necessary in common // 1.8.6包，把这句话删除
+            .build();
+    ImageLoader.getInstance().init(config2);
+    }
+}   
+</code></pre></li>
+</ul>
+<ul>
+<li><p>图片加载时候，添加监听和加载进度条的代码</p>
+<pre><code>imageLoader.displayImage(imageUrl, imageView, options, new ImageLoadingListener(){
+
+    @Override
+    public void onLoadingStarted(){
+
+    }
+
+    @Override
+    public void onLoadingFailed(){
+
+    }
+
+    @Override
+    public void onLoadingComplted(){
+
+    }
+
+    @Override
+    public void onLoadingCancelled(){
+
+    }//如果不需要加载进度条的话，后面的就可以直接不用写
+    , new ImageLoadingProgressListener(){
+        @Override
+        public void onProgressUpdate(String imageUrl, View view, int current, int total){
+            //在这里更新 ProgressBar 的进度信息
+        }
+    }
+})
+</code></pre></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/RecycleView的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/RecycleView的使用/" itemprop="url">recycleView的使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>recycleView常用的几种样式布局：</li>
+</ul>
+<pre><code>* LinearLayoutManager 线性布局管理器      （ListView效果）
+* GridLayoutManager    网格布局管理器    （GridView效果）
+* StaggeredGridLayoutManager  瀑布流管理器
+</code></pre><ul>
+<li>关于recycleview 的使用方法</li>
+</ul>
+<blockquote>
+<p>首先自定义一个recycleViewAdapter 如下：</p>
+</blockquote>
+<pre><code>package com.example.think.adapter;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.example.think.myapplication.R;
+
+import java.util.ArrayList;
+
+/**
+* Created by HuangMei on 2016/8/3.
+*/
+public class RecycleViewAdapter extends RecyclerView.Adapter&lt;RecycleViewAdapter.ViewHolder&gt;{
+
+    Context context;
+    ArrayList&lt;String&gt; arrayList = new ArrayList&lt;&gt;();
+
+    public RecycleViewAdapter(Context context, ArrayList&lt;String&gt; arrayList) {
+        this.context = context;
+        this.arrayList = arrayList;
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = View.inflate(context, R.layout.recycler_item, null);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.textView.setText(arrayList.get(position));
+
+        //以下几行是为瀑布流设置高度使用的（备注：如果不是瀑布流的时候不需要添加）
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,100+(int) (Math.random() * 50));
+        holder.imageView.setLayoutParams(lp);
+    }
+
+    @Override
+    public int getItemCount() {
+        return arrayList.size();
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder{
+        TextView textView;
+        ImageView imageView;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+
+            textView = (TextView) itemView.findViewById(R.id.textView);
+            imageView = (ImageView) itemView.findViewById(R.id.imageView);
+        }
+    }
+}
+</code></pre><blockquote>
+<p>然后在自己的活动里面调用自己的自定义适配器</p>
+</blockquote>
+<pre><code>public class MainActivity extends Activity {
+
+    ArrayList&lt;String&gt; arrayList = new ArrayList&lt;&gt;();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        RecyclerView recylcer = (RecyclerView) findViewById(R.id.recyclerView);
+
+        //ListView效果的 LinearLayoutManager
+//        LinearLayoutManager mgr = new LinearLayoutManager(this); //备注：listview样式和九宫格样式公用
+//        //VERTICAL纵向，类似ListView，HORIZONTA 横向，类似Gallery 
+//        mgr.setOrientation(LinearLayoutManager.HORIZONTAL);//备注：也可以是VERTICAL
+
+        //GridLayout 3列
+//        GridLayoutManager mgr=new GridLayoutManager(this,3);
+
+        StaggeredGridLayoutManager mgr = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+
+        recylcer.setLayoutManager(mgr);
+        //设置适配器
+        recylcer.setAdapter(new RecycleViewAdapter(this, setData(10)));
+    }
+
+    ArrayList&lt;String&gt; setData(int n){
+        for(int i = 0; i &lt; n; i ++){
+            arrayList.add(i + &quot;&quot; + i + &quot;&quot; + i + &quot;&quot; + i + &quot;&quot; + i);
+        }
+        return arrayList;
+    }
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -2128,7 +2042,7 @@ public class BTest(){
                alt="HM" />
           <p class="site-author-name" itemprop="name">HM</p>
            
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">懂的or不懂的，我都记录在这里</p>
           
         </div>
         <nav class="site-state motion-element">
@@ -2136,7 +2050,7 @@ public class BTest(){
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2149,7 +2063,7 @@ public class BTest(){
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
@@ -2160,6 +2074,62 @@ public class BTest(){
         
 
         <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/weizhizhanghao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/5171573689/profile?rightmod=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="DouBan">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  DouBan
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="ZhiHu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  ZhiHu
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="FriendLink">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  FriendLink
+                </a>
+              </span>
+            
           
         </div>
 

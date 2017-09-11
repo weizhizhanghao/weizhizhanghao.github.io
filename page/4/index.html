@@ -93,12 +93,15 @@
 
 
 
+<meta name="description" content="懂的or不懂的，我都记录在这里">
 <meta property="og:type" content="website">
 <meta property="og:title" content="未知账号">
 <meta property="og:url" content="http://yoursite.com/page/4/index.html">
 <meta property="og:site_name" content="未知账号">
+<meta property="og:description" content="懂的or不懂的，我都记录在这里">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="未知账号">
+<meta name="twitter:description" content="懂的or不懂的，我都记录在这里">
 
 
 
@@ -175,7 +178,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">一个积极奋进的女汉子</p>
+        <p class="site-subtitle">明天的一切都是未知的!</p>
       
   </div>
 
@@ -253,7 +256,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/代码小结/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/监听函数优化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HM">
@@ -272,7 +275,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/06/19/代码小结/" itemprop="url">代码小结</a></h1>
+                <a class="post-title-link" href="/2017/06/19/监听函数优化/" itemprop="url">监听新方法</a></h1>
         
 
         <div class="post-meta">
@@ -322,48 +325,701 @@
         
           
             <ul>
-<li><p>过滤器可以设置优先级：</p>
-<pre><code>IntentFilter filter = new IntentFilter();
-filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
-</code></pre></li>
-<li><p>获取随机函数</p>
-<pre><code>private static int getRandom(int sumWeight) {
-    return (int) Math.round(Math.random() * sumWeight);
+<li><p>Android 中多个按钮同时监听的除实现onClickListener方法的另一个方法：<br>用一个工具类，里面主要实现该方法，如下：</p>
+<pre><code>public static void setClicks(final View.OnClickListener listener, final View... views) {
+    for (View v : views) {
+        v.setOnClickListener(listener);
+    }
 }
 </code></pre></li>
-<li><p>Bundle 的传值使用方法：</p>
-<pre><code>Bundle bundle = new Bundle();
-bundle.putString(&quot;a&quot;, &quot;sub&quot;);
-bundle.putString(&quot;b&quot;, &quot;let&quot;);
-
-Intent intent = new Intent(this, activityA.class);
-intent.putExtra(&quot;all&quot;, bundle);
-startActivity(intent);
+<li><p>在具体的监听方法里面，我们这样实现：（后面的参数就是各个被监听的对象）</p>
+<pre><code>ViewUtil.setClicks(this, mVAvatar, mVVipTag, mVGrade, mVDiamond, mVDiamondTag,
+    mVBill, mVOrder, mVMyVisitors, mVMyGallery, mVMyGift, mVGiftExchange);
 </code></pre></li>
-<li><p>代码设置屏幕竖屏：</p>
-<pre><code>setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-</code></pre></li>
-<li><p>设置延时的handler：</p>
-<pre><code>handler.postDelayed(new Runnable() {
-    @Override
-    public void run() {
-        DaemonServiceManager.startDaemonService(LauncherActivity.this);
-        startMainActivity(true);
-        handler.sendEmptyMessageDelayed(FINISH_WHAT, FINISH_INTERVAL_TIME);
+<li><p>在监听事件中，我们如下实现</p>
+<pre><code>@Override
+public void onClick(View v) {
+    Activity activity = getActivity();
+    if (v == mVAvatar) {
+        Intent personalInfoIntent = new Intent(activity, PersonalInfoActivity.class);
+        activity.startActivity(personalInfoIntent);
+    } else if (v == mVVipTag) {
+        String url = ServiceUrlConstants.URL.getVipIntroductionUrl();
+        Map&lt;String, String&gt; queryParameters = new LinkedHashMap&lt;&gt;();
+        queryParameters.put(UrlConstant.USER_ID, UserSecretInfoUtil.getUserId());
+        queryParameters.put(UrlConstant.DEVICE_ID, DeviceInfo.getDeviceId(BaseApplication.getContext()));
+        url = UrlUtils.splitJoint(url, queryParameters);
+        Bundle bundle = new Bundle();
+        bundle.putString(RefreshWebViewActivity.WEB_VIEW_BUNDLE_TITLE,           BaseApplication.getContext().getString(R.string.vip_introduction));
+        bundle.putString(RefreshWebViewActivity.WEB_VIEW_BUNDLE_LOAD_URL, url);
+        Intent intent = new Intent(activity, RefreshWebViewActivity.class);
+        intent.putExtra(RefreshWebViewActivity.WEBVIEW_BUNDLE_NAME, bundle);
+        activity.startActivity(intent);
+    } else if (v == mVGrade) {
+        Intent gradeIntent = new Intent(activity, GradeActivity.class);
+        activity.startActivity(gradeIntent);
     }
-}, intervalTime);
-</code></pre></li>
-<li><p>在Android里面</p>
-<pre><code>view = new ImageView(context);
-view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-view.setBackgroundResource(R.drawerable.**);
+}
 </code></pre></li>
 </ul>
-<blockquote>
-<p>中，资源文件只能是图片等资源文件，布局文件是不能这样写的，如果要嵌入布局，如下：</p>
-</blockquote>
-<pre><code>view =  View.inflate(Context context, R.layout.**, null);
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/SnackBar的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/SnackBar的使用/" itemprop="url">Snackbar的使用方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Snackbar的使用方法"><a href="#Snackbar的使用方法" class="headerlink" title="Snackbar的使用方法"></a>Snackbar的使用方法</h4><pre><code>Snackbar.make(view, &quot;data deleted&quot;,
+               Snackbar.LENGTH_LONG)
+               .setAction(&quot;Undo&quot;,
+               new View.OnclickListener(){
+               @override
+               public void onclick(View v){
+                   // do something
+               }
+          }).show();
 </code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Volley/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/Volley/" itemprop="url">Volley</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Volley-相关的使用方法："><a href="#Volley-相关的使用方法：" class="headerlink" title="Volley 相关的使用方法："></a>Volley 相关的使用方法：</h3><blockquote>
+<p>首先创建一个AppController 类</p>
+<p>再创建一个图片缓存的LruBitmapCache类:</p>
+</blockquote>
+<ol>
+<li><p>创建一个AppController 类</p>
+<p>   public class AppController extends Application{</p>
+<pre><code>public static final String TAG = AppController.class.getSimpleName();
+
+private RequestQueue mRequestQueue;
+private ImageLoader mImageLoader;
+
+private static AppController mInstance;
+
+@Override
+public void onCreat(){
+    super.onCreat();
+    mInstance = this;
+}
+
+public static synchroinzed AppController getInstance(){
+    return mInstance;
+}
+
+public RequestQueue getRequestQueue(){
+    if(mInstance == null){
+        mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+    }
+    return mRequestQueue;
+}
+
+public ImageLoader getImageLoader(){
+    getRequestQueue();
+
+    if(mImageLoader == null){
+        mImageLoader = new ImageLoader(this.mRequestQueue, new LruBitmapCache());
+    }
+    return this.mImageLoader;
+}
+
+public &lt;T&gt; void addToRequestQueue(Request&lt;T&gt; req, String tag){
+    req.setTag(TextUtil.isEmpty(tag) ? TAG : tag);
+    getRequestQueue().add(req);
+}
+
+public void cancelPendingRequests(Object tag){
+    if(mRequestQueue != null){
+        mRequestQueue.cancelAll(tag);
+    }
+}
+</code></pre><p>   }</p>
+</li>
+<li><p>创建一个图片缓存的LruBitmapCache类</p>
+<pre><code>public class LruBitmapCache extends LruCache&lt;String, Bitmap&gt; implement ImageCache{
+    public static int getDefaultLruCacheSize(){
+        final int maxMemory = (int) (Runtime.getRuntime().maxMemory / 1034);
+        final int cacheSize = maxMemory / 8;
+
+        return cacheSize;
+    }
+
+    public LruBitmapCache(){
+        this(getDefaultLruCacheSize());
+    }
+
+    public LruBitmapCache(int sizeInkiloBytes){
+        super(sizeInkiloBytes);
+    }
+
+    @Override
+    protected int sizeOf(String key, Bitmap value){
+        return value.getRowBytes() * value.getHeight() / 1024;
+    }
+
+    @Override
+    public Bitmap getBitmap(String url){
+        return get(url);
+    }
+
+    @Override
+    public void putBitmap(String url, Bitmap bitmap){
+        put(url, bitmap);
+    }
+}
+</code></pre></li>
+<li><p>各类函数对以上两个方法的调用来获取所需的网络数据</p>
+<pre><code>public void JsonFun(){
+
+    String tag_json_obj = &quot;json_obj_req&quot;;
+    String url = &quot;http://api.androidhive.info/volley/person_object.json&quot;;
+
+    JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.GET, url, null,
+                    new Response.Listener&lt;JSONObject&gt;(){
+
+                        @Override
+                        public void onResponse(JSONObject reponse){
+                            Log.d(TAG, reponse.toString());
+                        }
+                    }, new Response.ErrorListener(){
+
+                        @Override
+                        public void onErrorResponse(VolleyError error){
+                            VolleyLog.d(TAG, &quot;Error:&quot; + error.getMessage());
+                        }
+                    });
+
+    AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+
+}
+</code></pre></li>
+</ol>
+<pre><code>public void StringFun(){
+    String tag_string_req = &quot;string_req&quot;;
+    String url = &quot;&quot;;
+
+    ProgressDialog pDialog = new ProgressDialog(this);
+    pDialog.setMessage(&quot;Loading...&quot;);
+    pDialog.show();
+
+    StringRequest strReq = new StringRequest(Method.GET,
+                url, new Response.Listener&lt;String&gt;(){
+                    Log.d(TAG, reponse.toString());
+                    pDialog.hide();
+                }, new Response.ErrorListener(){
+
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        VolleyLog.d(TAG, &quot;Error:&quot; + error.getMessage);
+                        pDialog.hide();
+                    }
+                });
+    AppController.getInstance.addToRequestQueue(strReq, tag_string_req);
+}
+</code></pre><blockquote>
+<p>Post请求：</p>
+</blockquote>
+<pre><code>public void PostFun(){
+    String tag_json_obj = &quot;json_obj_req&quot;;
+
+    String url = &quot;&quot;;
+    ProgressDialog pDialog = new ProgressDialog(this);
+    pDialog.setMessage(&quot;Loading...&quot;);
+    pDialog.show();
+
+    JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.POST,
+                url, null,
+                new Response.Listener&lt;JSONObject&gt;(){
+
+                @Override
+                public void onResponse(JSONObject reponse){
+                    Log.d(TAG, reponse.toString());
+                    pDialog.hide();
+                }
+            }, new Response.ErrorListener(){
+                @Override
+                public void onErrorResponse(VolleyError error){
+                    VolleyLog.d(TAG, &quot;Error:&quot; + error.getMessage());
+                    pDialog.hide();
+                }
+            }){
+        @Override
+        protected Map&lt;String, String&gt; getParams(){
+            Map&lt;String, String&gt; params = new HashMap&lt;String, String&gt;();
+            params.put(&quot;name&quot;, &quot;Androidhive&quot;);
+            params.put(&quot;email&quot;, &quot;abc@androidhive.info&quot;);
+            params.put(&quot;password&quot;, &quot;password123&quot;);
+
+            return params;
+        }
+
+    };
+
+    AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+}
+</code></pre><blockquote>
+<p>请求图片的函数：</p>
+</blockquote>
+<pre><code>public void setImageFun(){
+    ImageLoader imgLoader = AppController.getInstance().getImageLoader();
+
+    //复杂写法
+    imgLoader.get(Const.URL_IMAGE, new ImageListener(){
+        @Override
+        public void onErrorResponse(VolleyError error){
+            Log.e(TAG, &quot;Image Load Error:&quot; + error.getMessage());
+        }
+
+        @Override
+        public void onResponse(ImageContainer reponse, boolean arg1){
+            if(reponse.getBitmap() != null){
+                //load image into imageview
+                imageview.setImageBitemap(reponse.getBitmap());
+            }
+        }
+    })；
+
+    //简便写法
+    imgLoader.get(Const.URL_IMAGE, ImageLoader.getImageListener(imageview, imageView, R.drawable.ico_loading, R.drawable.ico_error));
+}
+</code></pre><blockquote>
+<p>关于Cache:</p>
+</blockquote>
+<pre><code>public void volleyCacheFun（）{
+    Cache cache = AppController.getInstance().getRequestQueue().getCache();
+    Entry entry = cache.get(url);
+
+    if(entry != null){
+        try{
+            String data = new String(entry.data, &quot;UTF-8&quot;);
+        }catch(UnsupportedEncodingException e){
+            e.printStackTrace();
+        }
+    } else {
+        // Cached response doesn&apos;t exists. Make network call here
+    }
+}
+
+//刷新页面
+App.getInstance().getRequestQueue().getCache().invalidate(u, true);
+
+//关闭cache
+//String request
+StringRequest stringReq = new StringRequest(...);
+
+//disable cache
+stringReq.setShouldCache(false);
+
+//删除某个URL的Cache
+AppController.getInstance().getRequestQueue().getCache().remove(url);
+
+//删除所有的cache
+AppController.getInstance().getRequestQueue().getCache().clear();
+
+//取消请求
+String tag_json_arry = &quot;json_req&quot;;
+AppController.getInstance().getRequestQueue().cancelAll(&quot;feed_request&quot;);
+</code></pre><blockquote>
+<p>设置请求的优先级：</p>
+</blockquote>
+<pre><code>public void requestPriorityFun(){
+    private Priority priority = PostFun.HIGH;
+
+    StringRequest strReq = new StringRequest(Method.GET,
+                Const.URL_STRING_REQ, new Response.Listener&lt;String&gt;(){
+
+                    @Override
+                    public void onResponse(String reponse){
+                        Log.d(TAG, reponse.toString());
+                        msgResponse.setText(reponse,toString());
+                        hideProgressDialog();
+                    }
+                }, new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        VolleyLog.d(TAG, &quot;Error:&quot; + error.getMessage());
+                        hideProgressDialog();
+                    }
+                }){
+            @Override
+            public Priority getPriority(){
+                return priority;
+            }
+        };
+}
+</code></pre><blockquote>
+<p>添加请求头部信息：</p>
+</blockquote>
+<pre><code>public void addHeadFun(){
+    String tag_json_obj = &quot;json_obj_req&quot;;
+    String url = &quot;&quot;;
+    ProgressDialog pDialog = new ProgressDialog(this);
+    pDialog.setMessage(&quot;Loading&quot;);
+    pDialog.show();
+    JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.POST, url, null, new Response.Listener&lt;JSONObject&gt;(){
+        @Override
+        public void onResponse(JSONObject reponse){
+            Log.d(TAG, reponse.toString());
+            pDialog.hide();
+        }
+    }, new Response.ErrorListener(){
+        @Override
+        public void onErrorResponse(VolleyError error){
+            VolleyLog.d(TAG, &quot;Error:&quot; + error.getMessage());
+            pDialog.hide();
+        }
+    }){
+        @Override
+        public Map&lt;String, String&gt; getHeaders() throws AuthFailureError{
+            HashMap&lt;String, String&gt; headers = new HashMap&lt;String, String&gt;();
+            headers.put(&quot;Content-Type&quot;, &quot;application/json&quot;);
+            headers.put(&quot;apiKey&quot;, &quot;********&quot;);
+            return headers;
+        }
+    };
+    AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/仿雅虎天气的滚动模糊防止滑动留白/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HM">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="未知账号">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/19/仿雅虎天气的滚动模糊防止滑动留白/" itemprop="url">仿雅虎天气的滚动模糊防止滑动留白</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T16:07:12+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>仿雅虎天气的滚动模糊防止滑动留白的代码</p>
+<pre><code>void setImageHeight(ImageView imageView, Context context){
+
+    WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+
+    Display display = windowManager.getDefaultDisplay();
+    Point point = new Point();
+    display.getSize(point);
+
+    int height = point.y;
+    ViewGroup.LayoutParams params = imageView.getLayoutParams();
+    params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+    params.height = height + 100;
+
+    imageView.requestLayout();
+}
+</code></pre></li>
+</ul>
+
           
         
       
@@ -669,7 +1325,7 @@ view.setBackgroundResource(R.drawerable.**);
                alt="HM" />
           <p class="site-author-name" itemprop="name">HM</p>
            
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">懂的or不懂的，我都记录在这里</p>
           
         </div>
         <nav class="site-state motion-element">
@@ -677,7 +1333,7 @@ view.setBackgroundResource(R.drawerable.**);
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -690,7 +1346,7 @@ view.setBackgroundResource(R.drawerable.**);
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
@@ -701,6 +1357,62 @@ view.setBackgroundResource(R.drawerable.**);
         
 
         <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/weizhizhanghao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/5171573689/profile?rightmod=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="DouBan">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  DouBan
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="ZhiHu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  ZhiHu
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="FriendLink">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  FriendLink
+                </a>
+              </span>
+            
           
         </div>
 
